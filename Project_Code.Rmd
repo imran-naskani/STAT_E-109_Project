@@ -28,6 +28,8 @@ library(ggplot2)
 
 data <- read.csv('SDOH_Quality.csv')
 
+count_initial <- nrow(data)
+
 str(data)
 
 ```
