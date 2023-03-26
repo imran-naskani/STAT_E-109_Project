@@ -49,7 +49,8 @@ data <- data %>% filter(median_age != "#N/A")
 
 (count_cah_acutre_zipNA <- nrow(data))
 
-
+datana <- data %>% filter(!is.na(hosp_overall_rating ))
+str(datana)
 ```
 
 
@@ -86,9 +87,17 @@ data$PSI_14 <- as.integer(data$PSI_14)
 data$PSI_15 <- as.integer(data$PSI_15)
 data$PSI_90 <- as.integer(data$PSI_90)
 
+#Switch chr variables to factor
+data$city <- as.factor(data$city)
+data$state <- as.factor(data$state)
+data$hospital_type <- as.factor(data$hospital_type)
+data$hospital_ownership <- as.factor(data$hospital_ownership)
+data$census_region <- as.factor(data$census_region)
+data$census_division <- as.factor(data$census_division)
+
 #check to make sure all are now integers
 str(data)
-
+View(data)
 ```
 
 ## Initial EDA - Overall Star Rating 
