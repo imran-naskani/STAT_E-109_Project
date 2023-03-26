@@ -100,5 +100,15 @@ hist(data$hosp_overall_rating)
 ```
 
 
+```{r}
+
+#One more small change
+
+hist(data$hosp_overall_rating)
+
+
+```
+
+
 
 
