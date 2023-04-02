@@ -1,0 +1,149 @@
+---
+title: "STAT_E-109_Project"
+author: "Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover"
+output: html_document
+date: "2023-03-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Intitial package installation and data loading
+
+```{r, packages}
+
+#Install packages/libraries
+
+library(dplyr)
+library(ggplot2)
+library(psych)
+library(gridExtra)
+
+
+```
+
+```{r, load}
+
+#Load in csv data for project
+
+data <- read.csv('SDOH_Quality.csv')
+
+#count_initial <- nrow(data)
+
+#str(data)
+
+```
+
+```{r}
+
+
+#Switch to numeric variables fo censuse/SDOH measures
+
+data$median_age <- as.numeric(data$median_age)
+data$per_white_non_hisp <- as.numeric(data$per_white_non_hisp)
+data$med_inc_15plus_12mo <- as.numeric(data$med_inc_15plus_12mo)
+data$per_below_poverty <- as.numeric(data$per_below_poverty)
+data$per_college_grad_deg_25_plus <- as.numeric(data$per_college_grad_deg_25_plus)
+          
+#Switch to numeric variables for quality measures
+data$COMP_HIP_KNEE <- as.numeric(data$COMP_HIP_KNEE)
+data$MORT_30_AMI <- as.numeric(data$MORT_30_AMI)
+data$MORT_30_CABG <- as.numeric(data$MORT_30_CABG)
+data$MORT_30_COPD <- as.numeric(data$MORT_30_COPD)
+data$MORT_30_HF <- as.numeric(data$MORT_30_HF)
+data$MORT_30_PN <- as.numeric(data$MORT_30_PN)
+data$MORT_30_STK <- as.numeric(data$MORT_30_STK)
+data$PSI_03 <- as.numeric(data$PSI_03)
+data$PSI_04 <- as.numeric(data$PSI_04)
+data$PSI_06 <- as.numeric(data$PSI_06)
+data$PSI_08 <- as.numeric(data$PSI_08)
+data$PSI_09 <- as.numeric(data$PSI_09)
+data$PSI_10 <- as.numeric(data$PSI_10)
+data$PSI_12 <- as.numeric(data$PSI_12)
+data$PSI_11 <- as.numeric(data$PSI_11)
+data$PSI_13 <- as.numeric(data$PSI_13)
+data$PSI_11 <- as.numeric(data$PSI_11)
+data$PSI_14 <- as.numeric(data$PSI_14)
+data$PSI_15 <- as.numeric(data$PSI_15)
+data$PSI_90 <- as.numeric(data$PSI_90)
+
+#Switch chr variables to factor
+data$city <- as.factor(data$city)
+data$state <- as.factor(data$state)
+data$hospital_type <- as.factor(data$hospital_type)
+data$hospital_ownership <- as.factor(data$hospital_ownership)
+data$census_region <- as.factor(data$census_region)
+data$census_division <- as.factor(data$census_division)
+
+#check to make sure all are now integers
+#str(data)
+#View(data)
+```
+
+```{r}
+
+
+##Overall Star Ratings by Census Region/Division- Note regional disparities in healthcare, especially within the south. Overall Star Ratings by State  
+
+
+data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(census_region) %>%  
+summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
+
+
+data %>%  filter(!is.na(hosp_overall_rating)) %>%  group_by(census_region) %>%   
+  ggplot(aes(x = census_region, y = hosp_overall_rating ,fill = census_region )) +
+  geom_col(show.legend = F) 
+
+## south 
+
+data %>% filter(!is.na(hosp_overall_rating) & census_region == 'South') %>%  group_by(state) %>%  
+summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
+
+
+data %>%  filter(!is.na(hosp_overall_rating) & census_region == 'South') %>%  group_by(state) %>%   
+  ggplot(aes(x = state, y = hosp_overall_rating, fill = census_region)) +
+  geom_col(show.legend = F) 
+  
+## west
+
+data %>% filter(!is.na(hosp_overall_rating) & census_region == 'West') %>%  group_by(state) %>%  
+summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
+
+
+data %>%  filter(!is.na(hosp_overall_rating) & census_region == 'West') %>%  group_by(state) %>%   
+  ggplot(aes(x = state, y = hosp_overall_rating, fill = census_region)) +
+  geom_col(show.legend = F) 
+
+
+
+##concentrating on south region.  as most data is available
+
+data %>% filter(!is.na(per_below_poverty) & census_region == 'South') %>%  group_by(state) %>%  
+summarise(AVG  = mean(per_below_poverty), SD = sd(per_below_poverty), Median = median(per_below_poverty), COUNT= n()) %>% arrange(desc(AVG)) 
+
+data %>%  filter(!is.na(per_below_poverty) & census_region == 'South') %>%  group_by(state) %>%   
+  ggplot(aes(x = state, y = per_below_poverty, fill = census_region)) +
+  geom_col(show.legend = F) 
+
+
+## comparison of below poverty line  region  and hospital overall ratings.  Tx 
+
+data %>%  filter(!is.na(hosp_overall_rating < 4) & state == 'TX' & hospital_type =='Acute Care Hospitals' & county == 'HARRIS') %>%  group_by(city) %>% 
+summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
+
+data %>%  filter(!is.na(hosp_overall_rating < 4) & state == 'TX' & hospital_type =='Acute Care Hospitals' & county == 'HARRIS') %>%  group_by(city) %>%   
+  ggplot(aes(x = hosp_overall_rating , y = per_below_poverty, fill=hosp_overall_rating)) +
+  geom_col(show.legend = F) +
+  ggtitle('Acute Care Hospitals Below Poverty Line in Tx Harris County') 
+
+
+## Notes; need to show differential between to top most states in south  TX, LA in combination with per below poverty line,  show death rate, in acute hospitals accross two regions.
+
+
+
+
+
+
+
+```
