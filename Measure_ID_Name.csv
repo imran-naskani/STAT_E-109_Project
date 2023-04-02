@@ -1,0 +1,20 @@
+﻿Measure ID,Measure Name
+COMP_HIP_KNEE,Rate of complications for hip/knee replacement patients
+MORT_30_AMI,Death rate for heart attack patients
+MORT_30_CABG,Death rate for CABG surgery patients
+MORT_30_COPD,Death rate for COPD patients
+MORT_30_HF,Death rate for heart failure patients
+MORT_30_PN,Death rate for pneumonia patients
+MORT_30_STK,Death rate for stroke patients
+PSI_03,Pressure ulcer rate
+PSI_04,Death rate among surgical inpatients with serious treatable complications
+PSI_06,Iatrogenic pneumothorax rate
+PSI_08,In-hospital fall with hip fracture rate
+PSI_09,Postoperative hemorrhage or hematoma rate
+PSI_10,Postoperative acute kidney injury requiring dialysis rate
+PSI_11,Postoperative respiratory failure rate
+PSI_12,Perioperative pulmonary embolism or deep vein thrombosis rate
+PSI_13,Postoperative sepsis rate
+PSI_14,Postoperative wound dehiscence rate
+PSI_15,Abdominopelvic accidental puncture or laceration rate
+PSI_90,CMS Medicare PSI 90: Patient safety and adverse events composite
