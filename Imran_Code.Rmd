@@ -1,29 +1,165 @@
 ---
-title: "Imran"
+title: "STAT_E-109_Project"
+author: "Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover"
 output: html_document
-date: "2023-03-26"
+date: "2023-03-22"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Intitial package installation and data loading
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r, packages}
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#Install packages/libraries
 
-```{r cars}
-summary(cars)
+library(dplyr)
+library(ggplot2)
+library(psych)
+library(gridExtra)
+
+
 ```
 
-## Including Plots
+```{r, load}
 
-You can also embed plots, for example:
+#Load in csv data for project
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+data <- read.csv('SDOH_Quality.csv')
+
+#count_initial <- nrow(data)
+
+#str(data)
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+
+
+#Switch to numeric variables fo censuse/SDOH measures
+
+data$median_age <- as.numeric(data$median_age)
+data$per_white_non_hisp <- as.numeric(data$per_white_non_hisp)
+data$med_inc_15plus_12mo <- as.numeric(data$med_inc_15plus_12mo)
+data$per_below_poverty <- as.numeric(data$per_below_poverty)
+data$per_college_grad_deg_25_plus <- as.numeric(data$per_college_grad_deg_25_plus)
+          
+#Switch to numeric variables for quality measures
+data$COMP_HIP_KNEE <- as.numeric(data$COMP_HIP_KNEE)
+data$MORT_30_AMI <- as.numeric(data$MORT_30_AMI)
+data$MORT_30_CABG <- as.numeric(data$MORT_30_CABG)
+data$MORT_30_COPD <- as.numeric(data$MORT_30_COPD)
+data$MORT_30_HF <- as.numeric(data$MORT_30_HF)
+data$MORT_30_PN <- as.numeric(data$MORT_30_PN)
+data$MORT_30_STK <- as.numeric(data$MORT_30_STK)
+data$PSI_03 <- as.numeric(data$PSI_03)
+data$PSI_04 <- as.numeric(data$PSI_04)
+data$PSI_06 <- as.numeric(data$PSI_06)
+data$PSI_08 <- as.numeric(data$PSI_08)
+data$PSI_09 <- as.numeric(data$PSI_09)
+data$PSI_10 <- as.numeric(data$PSI_10)
+data$PSI_12 <- as.numeric(data$PSI_12)
+data$PSI_11 <- as.numeric(data$PSI_11)
+data$PSI_13 <- as.numeric(data$PSI_13)
+data$PSI_11 <- as.numeric(data$PSI_11)
+data$PSI_14 <- as.numeric(data$PSI_14)
+data$PSI_15 <- as.numeric(data$PSI_15)
+data$PSI_90 <- as.numeric(data$PSI_90)
+
+#Switch chr variables to factor
+data$city <- as.factor(data$city)
+data$state <- as.factor(data$state)
+data$hospital_type <- as.factor(data$hospital_type)
+data$hospital_ownership <- as.factor(data$hospital_ownership)
+data$census_region <- as.factor(data$census_region)
+data$census_division <- as.factor(data$census_division)
+
+#check to make sure all are now integers
+#str(data)
+#View(data)
+```
+
+```{r}
+
+#EDA on Star Rating v/s Hospital Types and Ownership
+
+#------- Summarising Avg, SD and Median per Hospital Type -------------
+data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(hospital_type) %>%  
+summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT = n()) %>% arrange(desc(AVG))
+
+#------- Box plot: Median per Hospital Type -------------
+data %>% filter(!is.na(hosp_overall_rating)) %>%  
+  ggplot(aes(x = hospital_type, y = hosp_overall_rating, fill = hospital_type )) + geom_boxplot(show.legend = F)
+
+#------- Summarising Avg, SD and Median per Hospital Type & Ownership ----------
+avg.hosp.own <- 
+data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(hospital_type, hospital_ownership) %>% 
+summarize(AVG  = round(mean(hosp_overall_rating),2), SD = round(sd(hosp_overall_rating),2), Median = median(hosp_overall_rating), COUNT = n(), .groups = 'drop') %>% arrange(desc(hospital_type))
+
+#------- Barplots: Avg and Count per Hospital Type & Ownership ----------
+plot.avg1 <- avg.hosp.own %>% ggplot(aes(x = hospital_ownership, y = AVG, fill = hospital_ownership)) + 
+  geom_col(show.legend = F) +
+  facet_wrap(~hospital_type) +
+  coord_flip()
+
+plot.cnt1 <- avg.hosp.own %>% ggplot(aes(x = hospital_ownership, y = COUNT, fill = hospital_ownership)) + 
+  geom_col(show.legend = F) + 
+  facet_wrap(~hospital_type) +
+  coord_flip() 
+
+grid.arrange(plot.avg1, plot.cnt1, ncol=1)
+grid.avg.hosp.own <- arrangeGrob(plot.avg1, plot.cnt1, ncol=1) 
+
+#------- Star Rating Distribution per Hospital Type -------------
+data %>% filter(!is.na(hosp_overall_rating)) %>%  
+  ggplot(aes(x = hosp_overall_rating, fill = hospital_type)) + 
+  geom_histogram(alpha = 0.5, color = "black") +
+  facet_wrap(~hospital_type) + 
+  ggtitle("Hospital Star Rating", 'Hospital Type') + 
+  theme_bw()
+
+##------- Boxplot: Star Rating vs Social Indicators -------------
+
+#------- Boxplot: Star Rating vs Median Age -------------
+social.ind1 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = median_age, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type)
+
+#------- Boxplot: Star Rating vs Percentage White Population -------------
+social.ind2 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_white_non_hisp, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('White Population %') + xlab("Hospital Overall Rating")
+
+grid.arrange(social.ind1, social.ind2, ncol=1)
+grid.social.ind1 <- arrangeGrob(social.ind1, social.ind2, ncol=1) 
+
+#------- Boxplot: Star Rating vs Population Below Poverty -------------
+social.ind3 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_below_poverty, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('Population Below Poverty %') + xlab("Hospital Overall Rating")
+
+#------- Boxplot: Star Rating vs per_college_grad_deg_25_plus -------------
+social.ind4 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_college_grad_deg_25_plus, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('College Grad 25 years plus %') + xlab("Hospital Overall Rating")
+
+#------- Boxplot: Star Rating vs med_inc_15plus_12mo -------------
+social.ind5 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = med_inc_15plus_12mo, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('Median Income > 15k %') + xlab("Hospital Overall Rating")
+
+grid.arrange(social.ind3, social.ind4, social.ind5, ncol=2)
+grid.social.ind2 <- arrangeGrob(social.ind3, social.ind4, social.ind5, ncol=2) 
+
+
+#pairs.panels(data[, 8:18])
+
+
+
+```
