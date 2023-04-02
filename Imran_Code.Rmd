@@ -157,9 +157,9 @@ ylab('Median Income > 15k %') + xlab("Hospital Overall Rating")
 grid.arrange(social.ind3, social.ind4, social.ind5, ncol=2)
 grid.social.ind2 <- arrangeGrob(social.ind3, social.ind4, social.ind5, ncol=2) 
 
-
-#pairs.panels(data[, 8:18])
-
-
+#------- Correlation: Star Rating vs Social Indicators  -------------
+cor.data <- data %>% filter(!is.na(hosp_overall_rating)) %>% select(10,13:17) 
+cor.data <- cor.data[complete.cases(cor.data),] 
+pairs.panels(cor.data)
 
 ```
