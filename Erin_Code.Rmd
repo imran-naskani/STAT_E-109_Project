@@ -1,0 +1,407 @@
+---
+title: "STAT_E-109_Project"
+author: "Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover"
+date: "2023-03-22"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Intitial package installation and data loading
+
+
+```{r, packages}
+
+#Install packages/libraries
+
+library(dplyr)
+library(ggplot2)
+
+```
+
+
+```{r, load}
+
+#Load in csv data for project
+
+data <- read.csv('SDOH_Quality.csv')
+
+count_initial <- nrow(data)
+
+str(data)
+
+```
+```{r}
+#Filter to only acute care and critical access facilities
+
+data <- data %>% filter(hospital_type == 'Acute Care Hospitals' |  hospital_type == 'Critical Access Hospitals') 
+
+(count_cah_acutre <- nrow(data))
+
+```
+```{r}
+
+# Drop facilities where zip code census demographic data is not available
+
+data <- data %>% filter(median_age != "#N/A") 
+
+(count_cah_acutre_zipNA <- nrow(data))
+
+datana <- data %>% filter(!is.na(hosp_overall_rating ))
+str(datana)
+```
+
+
+
+```{r}
+
+#Switch to numeric variables fo censuse/SDOH measures
+
+data$median_age <- as.numeric(data$median_age)
+data$per_white_non_hisp <- as.numeric(data$per_white_non_hisp)
+data$med_inc_15plus_12mo <- as.numeric(data$med_inc_15plus_12mo)
+data$per_below_poverty <- as.numeric(data$per_below_poverty)
+data$per_college_grad_deg_25_plus <- as.numeric(data$per_college_grad_deg_25_plus)
+          
+#Switch to numeric variables for quality measures
+data$COMP_HIP_KNEE <- as.numeric(data$COMP_HIP_KNEE)
+data$MORT_30_AMI <- as.numeric(data$MORT_30_AMI)
+data$MORT_30_CABG <- as.numeric(data$MORT_30_CABG)
+data$MORT_30_COPD <- as.numeric(data$MORT_30_COPD)
+data$MORT_30_HF <- as.numeric(data$MORT_30_HF)
+data$MORT_30_PN <- as.numeric(data$MORT_30_PN)
+data$MORT_30_STK <- as.numeric(data$MORT_30_STK)
+data$PSI_03 <- as.numeric(data$PSI_03)
+data$PSI_04 <- as.numeric(data$PSI_04)
+data$PSI_06 <- as.numeric(data$PSI_06)
+data$PSI_08 <- as.numeric(data$PSI_08)
+data$PSI_09 <- as.numeric(data$PSI_09)
+data$PSI_10 <- as.numeric(data$PSI_10)
+data$PSI_12 <- as.numeric(data$PSI_12)
+data$PSI_11 <- as.numeric(data$PSI_11)
+data$PSI_13 <- as.numeric(data$PSI_13)
+data$PSI_11 <- as.numeric(data$PSI_11)
+data$PSI_14 <- as.numeric(data$PSI_14)
+data$PSI_15 <- as.numeric(data$PSI_15)
+data$PSI_90 <- as.numeric(data$PSI_90)
+
+#Switch chr variables to factor
+data$city <- as.factor(data$city)
+data$state <- as.factor(data$state)
+data$hospital_type <- as.factor(data$hospital_type)
+data$hospital_ownership <- as.factor(data$hospital_ownership)
+data$census_region <- as.factor(data$census_region)
+data$census_division <- as.factor(data$census_division)
+
+#check to make sure all are now integers
+str(data)
+
+```
+
+## Initial EDA - Overall Star Rating 
+
+```{r}
+#Histogram of Overall Hospital Star Rating
+
+hist(data$hosp_overall_rating)
+
+
+```
+```{r}
+colnames(data)
+
+```
+
+
+
+
+```{r}
+
+##SDOH Measures by Overall Hospital Rating
+
+require(gridExtra)
+
+
+plot1 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,13]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[13]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+plot2 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,14]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[14]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot3 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,15]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[15]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+plot4 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,16]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[16]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot5 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,17]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[17]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, plot3, plot4, plot5, ncol=3)
+
+
+#Save
+
+g <- arrangeGrob(plot1, plot2, plot3, plot4, plot5, ncol=3) #generates g
+ggsave("SDOH.png", g, width = 20, height = 15, units = "cm")
+
+
+
+```
+
+```{r, warning = FALSE}
+
+##Mortality and Complication Measures by Overall Hospital Rating -- GROUP 1
+
+require(gridExtra)
+
+
+plot1 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,18]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[18]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+plot2 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,19]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[19]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot3 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,20]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[20]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+plot4 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,21]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[21]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot5 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,22]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[22]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot6 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,23]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[23]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot7 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,24]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[24]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot8 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,25]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[25]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot9 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,26]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[26]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3)
+
+
+#Save
+
+g <- arrangeGrob(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3) #generates g
+ggsave("Measures_grp1.png", g, width = 25, height = 20, units = "cm")
+
+```
+
+
+```{r, warning = FALSE}
+
+##Mortality and Complication Measures by Overall Hospital Rating -- GROUP 2
+
+require(gridExtra)
+
+
+plot1 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,28]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[28]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+plot2 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,29]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[29]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot3 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,30]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[30]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+plot4 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,31]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[31]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot5 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,32]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[32]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot6 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,33]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[33]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot7 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,34]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[34]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot8 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,35]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[35]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+plot9 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,36]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[36]) + 
+  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
+
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3)
+
+
+#Save
+
+g <- arrangeGrob(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3) #generates g
+ggsave("Measures_grp2.png", g, width = 25, height = 20, units = "cm")
+
+```
+
+
+
+
+
+
+
+
+
+```{r}
+#histograms plot of measure by overall star rating
+
+data %>% ggplot(aes(x=MORT_30_AMI, fill = hosp_overall_rating))+
+  geom_histogram(show.legend = F, binwidth = 1) +
+  facet_wrap(~hosp_overall_rating)
+
+```
+
+```{r, warning=FALSE}
+#histograms plot of first measure by overall star rating
+
+
+#Overall Mean:
+M0 <- mean(data[,19],na.rm=TRUE)
+
+#Generate Plot
+data %>% ggplot(aes(data[,19], fill=as.factor(hosp_overall_rating)))+
+  geom_histogram(position = "identity",show.legend = T, alpha = 0.4, bins = 50) +
+  ggtitle(colnames(data)[19]) + 
+  xlab(colnames(data)[19]) + ylab("Count")+
+  geom_vline(xintercept=M0)
+  
+
+```
+
+```{r}
+
+#Repeat code over all measures
+
+#Initiate Graphs
+par(mfrow=c(2,9))
+
+#Create loop
+for(j in 1:18) {
+  k=j+18
+  #Overall Mean:
+  M0 <- mean(data[,k],na.rm=TRUE)
+  #Generate Plot
+  data %>% ggplot(aes(data[,k],
+                      fill=as.factor(hosp_overall_rating)))+
+    geom_histogram(show.legend = T, binwidth = 1) +
+    ggtitle(colnames(data)[k])+
+    xlab(colnames(data)[k]) + ylab("Count")+
+    geom_vline(xintercept=M0)
+}
+
+```
+
+
+```{r}
+
+#histograms plot of measure by overall star rating
+
+data %>% ggplot(aes(x=MORT_30_AMI, fill = hosp_overall_rating))+
+  geom_histogram(show.legend = F, binwidth = 1)+
+  theme_bw()
+
+```
+
+
+```{r}
+
+
+### Create a data table with the mean values for each measure at each Overall Star Rating
+
+meas_sum <- data %>% filter(MORT_30_AMI != 'NA') %>% select(10,19) %>%  group_by(as.factor(hosp_overall_rating)) %>% summarize(count = n())
+
+meas_sum
+
+mean(data$MORT_30_AMI,na.rm=TRUE)
+
+```
+
+

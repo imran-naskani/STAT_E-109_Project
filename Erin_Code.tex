@@ -1,0 +1,748 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={STAT\_E-109\_Project},
+  pdfauthor={Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{STAT\_E-109\_Project}
+\author{Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover}
+\date{2023-03-22}
+
+\begin{document}
+\maketitle
+
+\hypertarget{intitial-package-installation-and-data-loading}{%
+\subsection{Intitial package installation and data
+loading}\label{intitial-package-installation-and-data-loading}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Install packages/libraries}
+
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Load in csv data for project}
+
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}SDOH\_Quality.csv\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{count\_initial }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data)}
+
+\FunctionTok{str}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    5317 obs. of  36 variables:
+##  $ facility_ID                 : chr  "10001" "10005" "10006" "10007" ...
+##  $ facility_name               : chr  "SOUTHEAST HEALTH MEDICAL CENTER" "MARSHALL MEDICAL CENTERS" "NORTH ALABAMA MEDICAL CENTER" "MIZELL MEMORIAL HOSPITAL" ...
+##  $ address                     : chr  "1108 ROSS CLARK CIRCLE" "2505 U S HIGHWAY 431 NORTH" "1701 VETERANS DRIVE" "702 N MAIN ST" ...
+##  $ city                        : chr  "DOTHAN" "BOAZ" "FLORENCE" "OPP" ...
+##  $ state                       : chr  "AL" "AL" "AL" "AL" ...
+##  $ zip                         : int  36301 35957 35630 36467 36049 35235 35968 35007 35233 35660 ...
+##  $ county                      : chr  "HOUSTON" "MARSHALL" "LAUDERDALE" "COVINGTON" ...
+##  $ hospital_type               : chr  "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" ...
+##  $ hospital_ownership          : chr  "Government - Hospital District or Authority" "Government - Hospital District or Authority" "Proprietary" "Voluntary non-profit - Private" ...
+##  $ hosp_overall_rating         : int  3 3 2 3 NA 2 3 4 NA 3 ...
+##  $ census_region               : chr  "South" "South" "South" "South" ...
+##  $ census_division             : chr  "East South Central" "East South Central" "East South Central" "East South Central" ...
+##  $ median_age                  : chr  "39.1" "38.3" "33.8" "47.4" ...
+##  $ per_white_non_hisp          : chr  "61.8" "81" "71.6" "83" ...
+##  $ med_inc_15plus_12mo         : chr  "25326" "22419" "21362" "21490" ...
+##  $ per_below_poverty           : chr  "20.7" "24.2" "22.9" "18.4" ...
+##  $ per_college_grad_deg_25_plus: chr  "17.2" "13.7" "23.5" "12.1" ...
+##  $ COMP_HIP_KNEE               : chr  "2.4" "1.8" "3.4" "" ...
+##  $ MORT_30_AMI                 : chr  "12.4" "12.6" "16.5" "" ...
+##  $ MORT_30_CABG                : chr  "4.7" "" "3.5" "" ...
+##  $ MORT_30_COPD                : chr  "8.5" "8.1" "7.8" "10.3" ...
+##  $ MORT_30_HF                  : chr  "8.3" "16.9" "12.2" "13.9" ...
+##  $ MORT_30_PN                  : chr  "15.9" "21.8" "17.8" "21.7" ...
+##  $ MORT_30_STK                 : chr  "16.4" "16.6" "18.9" "" ...
+##  $ PSI_03                      : chr  "0.23" "0.86" "1.83" "0.32" ...
+##  $ PSI_04                      : chr  "173.39" "142.88" "157.42" "" ...
+##  $ PSI_06                      : chr  "0.17" "0.17" "0.26" "0.18" ...
+##  $ PSI_08                      : chr  "0.1" "0.06" "0.05" "0.07" ...
+##  $ PSI_09                      : chr  "2.33" "2.08" "3.46" "2.37" ...
+##  $ PSI_10                      : chr  "0.61" "0.76" "0.65" "0.91" ...
+##  $ PSI_11                      : chr  "8.92" "6.87" "3.89" "6.01" ...
+##  $ PSI_12                      : chr  "3.33" "2.54" "2.8" "3.8" ...
+##  $ PSI_13                      : chr  "5.98" "3.44" "3.72" "4.05" ...
+##  $ PSI_14                      : chr  "0.65" "0.76" "0.68" "" ...
+##  $ PSI_15                      : chr  "1.21" "0.87" "1.33" "1.02" ...
+##  $ PSI_90                      : chr  "1.01" "0.91" "1.1" "0.99" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Filter to only acute care and critical access facilities}
+
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(hospital\_type }\SpecialCharTok{==} \StringTok{\textquotesingle{}Acute Care Hospitals\textquotesingle{}} \SpecialCharTok{|}\NormalTok{  hospital\_type }\SpecialCharTok{==} \StringTok{\textquotesingle{}Critical Access Hospitals\textquotesingle{}}\NormalTok{) }
+
+\NormalTok{(count\_cah\_acutre }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4585
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Drop facilities where zip code census demographic data is not available}
+
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(median\_age }\SpecialCharTok{!=} \StringTok{"\#N/A"}\NormalTok{) }
+
+\NormalTok{(count\_cah\_acutre\_zipNA }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4407
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datana }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating ))}
+\FunctionTok{str}\NormalTok{(datana)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    2970 obs. of  36 variables:
+##  $ facility_ID                 : chr  "10001" "10005" "10006" "10007" ...
+##  $ facility_name               : chr  "SOUTHEAST HEALTH MEDICAL CENTER" "MARSHALL MEDICAL CENTERS" "NORTH ALABAMA MEDICAL CENTER" "MIZELL MEMORIAL HOSPITAL" ...
+##  $ address                     : chr  "1108 ROSS CLARK CIRCLE" "2505 U S HIGHWAY 431 NORTH" "1701 VETERANS DRIVE" "702 N MAIN ST" ...
+##  $ city                        : chr  "DOTHAN" "BOAZ" "FLORENCE" "OPP" ...
+##  $ state                       : chr  "AL" "AL" "AL" "AL" ...
+##  $ zip                         : int  36301 35957 35630 36467 35235 35968 35007 35660 36360 36116 ...
+##  $ county                      : chr  "HOUSTON" "MARSHALL" "LAUDERDALE" "COVINGTON" ...
+##  $ hospital_type               : chr  "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" ...
+##  $ hospital_ownership          : chr  "Government - Hospital District or Authority" "Government - Hospital District or Authority" "Proprietary" "Voluntary non-profit - Private" ...
+##  $ hosp_overall_rating         : int  3 3 2 3 2 3 4 3 4 2 ...
+##  $ census_region               : chr  "South" "South" "South" "South" ...
+##  $ census_division             : chr  "East South Central" "East South Central" "East South Central" "East South Central" ...
+##  $ median_age                  : chr  "39.1" "38.3" "33.8" "47.4" ...
+##  $ per_white_non_hisp          : chr  "61.8" "81" "71.6" "83" ...
+##  $ med_inc_15plus_12mo         : chr  "25326" "22419" "21362" "21490" ...
+##  $ per_below_poverty           : chr  "20.7" "24.2" "22.9" "18.4" ...
+##  $ per_college_grad_deg_25_plus: chr  "17.2" "13.7" "23.5" "12.1" ...
+##  $ COMP_HIP_KNEE               : chr  "2.4" "1.8" "3.4" "" ...
+##  $ MORT_30_AMI                 : chr  "12.4" "12.6" "16.5" "" ...
+##  $ MORT_30_CABG                : chr  "4.7" "" "3.5" "" ...
+##  $ MORT_30_COPD                : chr  "8.5" "8.1" "7.8" "10.3" ...
+##  $ MORT_30_HF                  : chr  "8.3" "16.9" "12.2" "13.9" ...
+##  $ MORT_30_PN                  : chr  "15.9" "21.8" "17.8" "21.7" ...
+##  $ MORT_30_STK                 : chr  "16.4" "16.6" "18.9" "" ...
+##  $ PSI_03                      : chr  "0.23" "0.86" "1.83" "0.32" ...
+##  $ PSI_04                      : chr  "173.39" "142.88" "157.42" "" ...
+##  $ PSI_06                      : chr  "0.17" "0.17" "0.26" "0.18" ...
+##  $ PSI_08                      : chr  "0.1" "0.06" "0.05" "0.07" ...
+##  $ PSI_09                      : chr  "2.33" "2.08" "3.46" "2.37" ...
+##  $ PSI_10                      : chr  "0.61" "0.76" "0.65" "0.91" ...
+##  $ PSI_11                      : chr  "8.92" "6.87" "3.89" "6.01" ...
+##  $ PSI_12                      : chr  "3.33" "2.54" "2.8" "3.8" ...
+##  $ PSI_13                      : chr  "5.98" "3.44" "3.72" "4.05" ...
+##  $ PSI_14                      : chr  "0.65" "0.76" "0.68" "" ...
+##  $ PSI_15                      : chr  "1.21" "0.87" "1.33" "1.02" ...
+##  $ PSI_90                      : chr  "1.01" "0.91" "1.1" "0.99" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Switch to numeric variables fo censuse/SDOH measures}
+
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{median\_age }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{median\_age)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{per\_white\_non\_hisp }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{per\_white\_non\_hisp)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{med\_inc\_15plus\_12mo }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{med\_inc\_15plus\_12mo)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{per\_below\_poverty }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{per\_below\_poverty)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{per\_college\_grad\_deg\_25\_plus }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{per\_college\_grad\_deg\_25\_plus)}
+          
+\CommentTok{\#Switch to numeric variables for quality measures}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{COMP\_HIP\_KNEE }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{COMP\_HIP\_KNEE)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_AMI }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_AMI)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_CABG }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_CABG)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_COPD }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_COPD)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_HF }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_HF)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_PN }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_PN)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_STK }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_STK)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_03 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_03)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_04 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_04)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_06 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_06)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_08 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_08)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_09 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_09)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_10 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_10)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_12 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_12)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_11 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_11)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_13 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_13)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_11 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_11)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_14 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_14)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_15 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_15)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_90 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_90)}
+
+\CommentTok{\#Switch chr variables to factor}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{city }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{city)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{state }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{state)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{hospital\_type }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{hospital\_type)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{hospital\_ownership }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{hospital\_ownership)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{census\_region }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{census\_region)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{census\_division }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{census\_division)}
+
+\CommentTok{\#check to make sure all are now integers}
+\FunctionTok{str}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    4407 obs. of  36 variables:
+##  $ facility_ID                 : chr  "10001" "10005" "10006" "10007" ...
+##  $ facility_name               : chr  "SOUTHEAST HEALTH MEDICAL CENTER" "MARSHALL MEDICAL CENTERS" "NORTH ALABAMA MEDICAL CENTER" "MIZELL MEMORIAL HOSPITAL" ...
+##  $ address                     : chr  "1108 ROSS CLARK CIRCLE" "2505 U S HIGHWAY 431 NORTH" "1701 VETERANS DRIVE" "702 N MAIN ST" ...
+##  $ city                        : Factor w/ 2835 levels "ABBEVILLE","ABERDEEN",..: 666 251 835 1846 1462 226 861 18 226 2316 ...
+##  $ state                       : Factor w/ 51 levels "AK","AL","AR",..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ zip                         : int  36301 35957 35630 36467 36049 35235 35968 35007 35233 35660 ...
+##  $ county                      : chr  "HOUSTON" "MARSHALL" "LAUDERDALE" "COVINGTON" ...
+##  $ hospital_type               : Factor w/ 2 levels "Acute Care Hospitals",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ hospital_ownership          : Factor w/ 10 levels "Government - Federal",..: 2 2 6 10 6 10 6 10 10 2 ...
+##  $ hosp_overall_rating         : int  3 3 2 3 NA 2 3 4 NA 3 ...
+##  $ census_region               : Factor w/ 4 levels "Midwest","Northeast",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ census_division             : Factor w/ 9 levels "East North Central",..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ median_age                  : num  39.1 38.3 33.8 47.4 41.7 37.1 36.4 37.6 28.4 45 ...
+##  $ per_white_non_hisp          : num  61.8 81 71.6 83 72.9 32.9 71.6 70.6 54 73.4 ...
+##  $ med_inc_15plus_12mo         : num  25326 22419 21362 21490 21429 ...
+##  $ per_below_poverty           : num  20.7 24.2 22.9 18.4 8.1 19.5 12.7 7.8 38 23.3 ...
+##  $ per_college_grad_deg_25_plus: num  17.2 13.7 23.5 12.1 20.8 27 13.9 34.9 83.8 16.7 ...
+##  $ COMP_HIP_KNEE               : num  2.4 1.8 3.4 NA NA 2.4 2.4 2.5 NA 2.8 ...
+##  $ MORT_30_AMI                 : num  12.4 12.6 16.5 NA NA 13.8 12.9 11.8 NA NA ...
+##  $ MORT_30_CABG                : num  4.7 NA 3.5 NA NA 3.5 NA 2.9 NA NA ...
+##  $ MORT_30_COPD                : num  8.5 8.1 7.8 10.3 NA 8.2 8 8.2 NA 7.3 ...
+##  $ MORT_30_HF                  : num  8.3 16.9 12.2 13.9 NA 12.2 11.5 12.1 NA 13.4 ...
+##  $ MORT_30_PN                  : num  15.9 21.8 17.8 21.7 19.7 17.1 20.2 16.7 NA 21.7 ...
+##  $ MORT_30_STK                 : num  16.4 16.6 18.9 NA NA 15.2 NA 12 NA 17.5 ...
+##  $ PSI_03                      : num  0.23 0.86 1.83 0.32 0.5 0.05 0.22 0.07 0.55 0.85 ...
+##  $ PSI_04                      : num  173 143 157 NA NA ...
+##  $ PSI_06                      : num  0.17 0.17 0.26 0.18 0.19 0.16 0.18 0.16 0.19 0.17 ...
+##  $ PSI_08                      : num  0.1 0.06 0.05 0.07 0.07 0.05 0.07 0.05 0.07 0.13 ...
+##  $ PSI_09                      : num  2.33 2.08 3.46 2.37 NA 2.31 2.33 3.35 2.34 2.24 ...
+##  $ PSI_10                      : num  0.61 0.76 0.65 0.91 NA 0.98 0.9 1.56 0.91 NA ...
+##  $ PSI_11                      : num  8.92 6.87 3.89 6.01 NA ...
+##  $ PSI_12                      : num  3.33 2.54 2.8 3.8 NA 2.68 3.15 2.68 3.33 4.25 ...
+##  $ PSI_13                      : num  5.98 3.44 3.72 4.05 NA 4.63 3.92 4.07 NA NA ...
+##  $ PSI_14                      : num  0.65 0.76 0.68 NA NA 0.75 0.78 0.99 NA 0.74 ...
+##  $ PSI_15                      : num  1.21 0.87 1.33 1.02 NA 0.8 0.99 0.81 NA 1.24 ...
+##  $ PSI_90                      : num  1.01 0.91 1.1 0.99 NA 0.82 0.91 1.07 0.98 1.09 ...
+\end{verbatim}
+
+\hypertarget{initial-eda---overall-star-rating}{%
+\subsection{Initial EDA - Overall Star
+Rating}\label{initial-eda---overall-star-rating}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Histogram of Overall Hospital Star Rating}
+
+\FunctionTok{hist}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Erin_Code_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "facility_ID"                  "facility_name"               
+##  [3] "address"                      "city"                        
+##  [5] "state"                        "zip"                         
+##  [7] "county"                       "hospital_type"               
+##  [9] "hospital_ownership"           "hosp_overall_rating"         
+## [11] "census_region"                "census_division"             
+## [13] "median_age"                   "per_white_non_hisp"          
+## [15] "med_inc_15plus_12mo"          "per_below_poverty"           
+## [17] "per_college_grad_deg_25_plus" "COMP_HIP_KNEE"               
+## [19] "MORT_30_AMI"                  "MORT_30_CABG"                
+## [21] "MORT_30_COPD"                 "MORT_30_HF"                  
+## [23] "MORT_30_PN"                   "MORT_30_STK"                 
+## [25] "PSI_03"                       "PSI_04"                      
+## [27] "PSI_06"                       "PSI_08"                      
+## [29] "PSI_09"                       "PSI_10"                      
+## [31] "PSI_11"                       "PSI_12"                      
+## [33] "PSI_13"                       "PSI_14"                      
+## [35] "PSI_15"                       "PSI_90"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#SDOH Measures by Overall Hospital Rating}
+
+\FunctionTok{require}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: gridExtra
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'gridExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot1 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{13}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{13}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{14}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{14}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{15}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{15}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{16}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{16}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot5 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{17}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{17}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\CommentTok{\#Aggregate into a single graph}
+\FunctionTok{grid.arrange}\NormalTok{(plot1, plot2, plot3, plot4, plot5, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Erin_Code_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save}
+
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(plot1, plot2, plot3, plot4, plot5, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{) }\CommentTok{\#generates g}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"SDOH.png"}\NormalTok{, g, }\AttributeTok{width =} \DecValTok{20}\NormalTok{, }\AttributeTok{height =} \DecValTok{15}\NormalTok{, }\AttributeTok{units =} \StringTok{"cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#Mortality and Complication Measures by Overall Hospital Rating {-}{-} GROUP 1}
+
+\FunctionTok{require}\NormalTok{(gridExtra)}
+
+
+\NormalTok{plot1 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{18}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{18}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{19}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{19}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{20}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{20}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{21}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{21}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot5 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{22}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{22}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot6 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{23}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{23}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot7 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{24}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{24}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot8 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{25}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{25}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot9 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{26}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{26}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\CommentTok{\#Aggregate into a single graph}
+\FunctionTok{grid.arrange}\NormalTok{(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Erin_Code_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save}
+
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{) }\CommentTok{\#generates g}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"Measures\_grp1.png"}\NormalTok{, g, }\AttributeTok{width =} \DecValTok{25}\NormalTok{, }\AttributeTok{height =} \DecValTok{20}\NormalTok{, }\AttributeTok{units =} \StringTok{"cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#Mortality and Complication Measures by Overall Hospital Rating {-}{-} GROUP 2}
+
+\FunctionTok{require}\NormalTok{(gridExtra)}
+
+
+\NormalTok{plot1 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{28}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{28}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{29}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{29}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{30}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{30}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{31}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{31}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot5 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{32}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{32}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot6 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{33}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{33}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot7 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{34}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{34}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot8 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{35}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{35}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot9 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{36}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{36}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\CommentTok{\#Aggregate into a single graph}
+\FunctionTok{grid.arrange}\NormalTok{(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Erin_Code_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save}
+
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{) }\CommentTok{\#generates g}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"Measures\_grp2.png"}\NormalTok{, g, }\AttributeTok{width =} \DecValTok{25}\NormalTok{, }\AttributeTok{height =} \DecValTok{20}\NormalTok{, }\AttributeTok{units =} \StringTok{"cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#histograms plot of measure by overall star rating}
+
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{MORT\_30\_AMI, }\AttributeTok{fill =}\NormalTok{ hosp\_overall\_rating))}\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F, }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{hosp\_overall\_rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2578 rows containing non-finite values (`stat_bin()`).
+\end{verbatim}
+
+\includegraphics{Erin_Code_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#histograms plot of first measure by overall star rating}
+
+
+\CommentTok{\#Overall Mean:}
+\NormalTok{M0 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(data[,}\DecValTok{19}\NormalTok{],}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\#Generate Plot}
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(data[,}\DecValTok{19}\NormalTok{], }\AttributeTok{fill=}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)))}\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{position =} \StringTok{"identity"}\NormalTok{,}\AttributeTok{show.legend =}\NormalTok{ T, }\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{, }\AttributeTok{bins =} \DecValTok{50}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{19}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{19}\NormalTok{]) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Count"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept=}\NormalTok{M0)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Erin_Code_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Repeat code over all measures}
+
+\CommentTok{\#Initiate Graphs}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{9}\NormalTok{))}
+
+\CommentTok{\#Create loop}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{18}\NormalTok{) \{}
+\NormalTok{  k}\OtherTok{=}\NormalTok{j}\SpecialCharTok{+}\DecValTok{18}
+  \CommentTok{\#Overall Mean:}
+\NormalTok{  M0 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(data[,k],}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+  \CommentTok{\#Generate Plot}
+\NormalTok{  data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(data[,k],}
+                      \AttributeTok{fill=}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)))}\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ T, }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[k])}\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[k]) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Count"}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept=}\NormalTok{M0)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#histograms plot of measure by overall star rating}
+
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{MORT\_30\_AMI, }\AttributeTok{fill =}\NormalTok{ hosp\_overall\_rating))}\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F, }\AttributeTok{binwidth =} \DecValTok{1}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2578 rows containing non-finite values (`stat_bin()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: The following aesthetics were dropped during statistical transformation: fill
+## i This can happen when ggplot fails to infer the correct grouping structure in
+##   the data.
+## i Did you forget to specify a `group` aesthetic or to convert a numerical
+##   variable into a factor?
+\end{verbatim}
+
+\includegraphics{Erin_Code_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Create a data table with the mean values for each measure at each Overall Star Rating}
+
+\NormalTok{meas\_sum }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(MORT\_30\_AMI }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{19}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}  \FunctionTok{group\_by}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+
+\NormalTok{meas\_sum}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   `as.factor(hosp_overall_rating)` count
+##   <fct>                            <int>
+## 1 1                                  133
+## 2 2                                  441
+## 3 3                                  523
+## 4 4                                  511
+## 5 5                                  218
+## 6 <NA>                                 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_AMI,}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.38119
+\end{verbatim}
+
+\end{document}
