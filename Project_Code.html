@@ -791,10 +791,31 @@ library(psych)</code></pre>
 <pre><code>## The following object is masked from &#39;package:graphics&#39;:
 ## 
 ##     legend</code></pre>
+<pre class="r"><code>library(MASS)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre class="r"><code>library(car)</code></pre>
+<pre><code>## Warning: package &#39;car&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## Warning: package &#39;carData&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;car&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:psych&#39;:
+## 
+##     logit</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
 <pre class="r"><code>library(olsrr)</code></pre>
 <pre><code>## Warning: package &#39;olsrr&#39; was built under R version 4.2.3</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;olsrr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     cement</code></pre>
 <pre><code>## The following object is masked from &#39;package:datasets&#39;:
 ## 
 ##     rivers</code></pre>
@@ -821,8 +842,7 @@ colnames(data)</code></pre>
 <p>#Regression on the Composite measure for complications</p>
 <pre class="r"><code>#Data cleaning -&gt; Quality Measure 90 - &gt; Composite Score for Other P Measures
 
-mod_data &lt;- data %&gt;%  
-  select(4:5,7:17,36) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+mod_data &lt;- data %&gt;%  dplyr::select(4:5,8:17,36) %&gt;% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
   filter(PSI_90 != &#39;NA&#39;)  #Remove NAs from measure
 
@@ -850,7 +870,7 @@ nrow(mod_train)</code></pre>
 <pre class="r"><code>#Data cleaning -&gt; MORT_30_HF - &gt; 30 Day Heart Failure Death Rate
 
 hf_data &lt;- data %&gt;%  
-  select(4:5,7:17,22) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+  dplyr::select(4:5,8:17,22) %&gt;% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
   filter(MORT_30_HF != &#39;NA&#39;)  #Remove NAs from measure
 
@@ -877,7 +897,7 @@ nrow(hf_train)</code></pre>
 <pre class="r"><code>#Data cleaning -&gt; MORT_30_PN - &gt; 30 Day pneumonia death rate
 
 pn_data &lt;- data %&gt;%  
-  select(4:5,7:17,23) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+  dplyr::select(4:5,7:17,23) %&gt;% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
   filter(MORT_30_PN != &#39;NA&#39;)  #Remove NAs from measure
 
@@ -904,7 +924,7 @@ nrow(pn_train)</code></pre>
 <pre class="r"><code>#Data cleaning -&gt; MORT_30_COPD - &gt; 30 Day COPD death rate
 
 copd_data &lt;- data %&gt;%  
-  select(4:5,7:17,21) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+  dplyr::select(4:5,8:17,21) %&gt;% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
   filter(MORT_30_COPD != &#39;NA&#39;)  #Remove NAs from measure
 
