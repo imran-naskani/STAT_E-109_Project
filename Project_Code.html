@@ -738,6 +738,193 @@ grid.arrange(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3)<
 g &lt;- arrangeGrob(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3) #generates g
 ggsave(&quot;Measures_grp2.png&quot;, g, width = 25, height = 20, units = &quot;cm&quot;)</code></pre>
 </div>
+<div id="linear-regression---four-different-measures---1-for-each" class="section level2">
+<h2>Linear regression - FOur Different Measures - 1 for each!</h2>
+<pre class="r"><code>#Additional packages/libraries
+#install.packages(&quot;Rtools&quot;)
+#install.packages(&quot;psych&quot;)
+#install.packages(&quot;PerformanceAnalytics&quot;)
+#install.packages(&quot;olsrr&quot;)
+
+
+library(psych)</code></pre>
+<pre><code>## Warning: package &#39;psych&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;psych&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%, alpha</code></pre>
+<pre class="r"><code>library(PerformanceAnalytics)</code></pre>
+<pre><code>## Warning: package &#39;PerformanceAnalytics&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Loading required package: xts</code></pre>
+<pre><code>## Warning: package &#39;xts&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Loading required package: zoo</code></pre>
+<pre><code>## 
+## Attaching package: &#39;zoo&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+<pre><code>## 
+## ################################### WARNING ###################################
+## # We noticed you have dplyr installed. The dplyr lag() function breaks how    #
+## # base R&#39;s lag() function is supposed to work, which breaks lag(my_xts).      #
+## #                                                                             #
+## # Calls to lag(my_xts) that you enter or source() into this session won&#39;t     #
+## # work correctly.                                                             #
+## #                                                                             #
+## # All package code is unaffected because it is protected by the R namespace   #
+## # mechanism.                                                                  #
+## #                                                                             #
+## # Set `options(xts.warn_dplyr_breaks_lag = FALSE)` to suppress this warning.  #
+## #                                                                             #
+## # You can use stats::lag() to make sure you&#39;re not using dplyr::lag(), or you #
+## # can add conflictRules(&#39;dplyr&#39;, exclude = &#39;lag&#39;) to your .Rprofile to stop   #
+## # dplyr from breaking base R&#39;s lag() function.                                #
+## ################################### WARNING ###################################</code></pre>
+<pre><code>## 
+## Attaching package: &#39;xts&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     first, last</code></pre>
+<pre><code>## 
+## Attaching package: &#39;PerformanceAnalytics&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     legend</code></pre>
+<pre class="r"><code>library(olsrr)</code></pre>
+<pre><code>## Warning: package &#39;olsrr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;olsrr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:datasets&#39;:
+## 
+##     rivers</code></pre>
+<pre class="r"><code>#Refresh on column names
+colnames(data)</code></pre>
+<pre><code>##  [1] &quot;facility_ID&quot;                  &quot;facility_name&quot;               
+##  [3] &quot;address&quot;                      &quot;city&quot;                        
+##  [5] &quot;state&quot;                        &quot;zip&quot;                         
+##  [7] &quot;county&quot;                       &quot;hospital_type&quot;               
+##  [9] &quot;hospital_ownership&quot;           &quot;hosp_overall_rating&quot;         
+## [11] &quot;census_region&quot;                &quot;census_division&quot;             
+## [13] &quot;median_age&quot;                   &quot;per_white_non_hisp&quot;          
+## [15] &quot;med_inc_15plus_12mo&quot;          &quot;per_below_poverty&quot;           
+## [17] &quot;per_college_grad_deg_25_plus&quot; &quot;COMP_HIP_KNEE&quot;               
+## [19] &quot;MORT_30_AMI&quot;                  &quot;MORT_30_CABG&quot;                
+## [21] &quot;MORT_30_COPD&quot;                 &quot;MORT_30_HF&quot;                  
+## [23] &quot;MORT_30_PN&quot;                   &quot;MORT_30_STK&quot;                 
+## [25] &quot;PSI_03&quot;                       &quot;PSI_04&quot;                      
+## [27] &quot;PSI_06&quot;                       &quot;PSI_08&quot;                      
+## [29] &quot;PSI_09&quot;                       &quot;PSI_10&quot;                      
+## [31] &quot;PSI_11&quot;                       &quot;PSI_12&quot;                      
+## [33] &quot;PSI_13&quot;                       &quot;PSI_14&quot;                      
+## [35] &quot;PSI_15&quot;                       &quot;PSI_90&quot;</code></pre>
+<p>#Regression on the Composite measure for complications</p>
+<pre class="r"><code>#Data cleaning -&gt; Quality Measure 90 - &gt; Composite Score for Other P Measures
+
+mod_data &lt;- data %&gt;%  
+  select(4:5,7:17,36) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
+  filter(PSI_90 != &#39;NA&#39;)  #Remove NAs from measure
+
+# treat overall rating as a factor  
+mod_data$hosp_overall_rating &lt;- as.factor(mod_data$hosp_overall_rating)
+
+
+# Separate into test/train  
+
+set.seed(1234)
+
+#data partitioning test/train
+ind &lt;- sample(2, nrow(mod_data), replace = T, prob=c(0.75,0.25))
+
+mod_train &lt;- mod_data[ind == 1,]
+mod_test &lt;- mod_data[ind ==2, ]
+
+nrow(mod_train)</code></pre>
+<pre><code>## [1] 1960</code></pre>
+<pre class="r"><code>nrow(mod_test)</code></pre>
+<pre><code>## [1] 628</code></pre>
+</div>
+<div id="regression-for-heart-failure" class="section level2">
+<h2>Regression for Heart Failure</h2>
+<pre class="r"><code>#Data cleaning -&gt; MORT_30_HF - &gt; 30 Day Heart Failure Death Rate
+
+hf_data &lt;- data %&gt;%  
+  select(4:5,7:17,22) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
+  filter(MORT_30_HF != &#39;NA&#39;)  #Remove NAs from measure
+
+# treat overall rating as a factor  
+hf_data$hosp_overall_rating &lt;- as.factor(hf_data$hosp_overall_rating)
+
+# Separate into test/train  
+
+set.seed(1234)
+
+#data partitioning test/train
+ind &lt;- sample(2, nrow(hf_data), replace = T, prob=c(0.75,0.25))
+
+hf_train &lt;- hf_data[ind == 1,]
+hf_test &lt;- hf_data[ind ==2, ]
+
+nrow(hf_train)</code></pre>
+<pre><code>## [1] 2125</code></pre>
+<pre class="r"><code>nrow(hf_test)</code></pre>
+<pre><code>## [1] 688</code></pre>
+</div>
+<div id="regression-for-pneumonia" class="section level2">
+<h2>Regression for Pneumonia</h2>
+<pre class="r"><code>#Data cleaning -&gt; MORT_30_PN - &gt; 30 Day pneumonia death rate
+
+pn_data &lt;- data %&gt;%  
+  select(4:5,7:17,23) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
+  filter(MORT_30_PN != &#39;NA&#39;)  #Remove NAs from measure
+
+# treat overall rating as a factor  
+pn_data$hosp_overall_rating &lt;- as.factor(pn_data$hosp_overall_rating)
+
+
+# Test / Train Split
+set.seed(1234)
+
+#data partitioning test/train
+ind &lt;- sample(2, nrow(pn_data), replace = T, prob=c(0.75,0.25))
+
+pn_train &lt;- pn_data[ind == 1,]
+pn_test &lt;- pn_data[ind ==2, ]
+
+nrow(pn_train)</code></pre>
+<pre><code>## [1] 2183</code></pre>
+<pre class="r"><code>nrow(pn_test)</code></pre>
+<pre><code>## [1] 708</code></pre>
+</div>
+<div id="regression-for-copd" class="section level2">
+<h2>Regression for COPD</h2>
+<pre class="r"><code>#Data cleaning -&gt; MORT_30_COPD - &gt; 30 Day COPD death rate
+
+copd_data &lt;- data %&gt;%  
+  select(4:5,7:17,21) %&gt;% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != &#39;NA&#39;) %&gt;% #remove NAs
+  filter(MORT_30_COPD != &#39;NA&#39;)  #Remove NAs from measure
+
+# treat overall rating as a factor  
+copd_data$hosp_overall_rating &lt;- as.factor(copd_data$hosp_overall_rating)
+
+# Test / Train Split
+set.seed(1234)
+
+#data partitioning test/train
+ind &lt;- sample(2, nrow(copd_data), replace = T, prob=c(0.75,0.25))
+
+copd_train &lt;- copd_data[ind == 1,]
+copd_test &lt;- copd_data[ind ==2, ]
+
+nrow(copd_train)</code></pre>
+<pre><code>## [1] 1979</code></pre>
+<pre class="r"><code>nrow(copd_test)</code></pre>
+<pre><code>## [1] 637</code></pre>
+</div>
 
 
 

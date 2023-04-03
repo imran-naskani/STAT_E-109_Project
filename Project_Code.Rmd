@@ -318,8 +318,146 @@ ggsave("Measures_grp2.png", g, width = 25, height = 20, units = "cm")
 ```
 
 
+## Linear regression - FOur Different Measures - 1 for each!
+
+```{r}
+#Additional packages/libraries
+#install.packages("Rtools")
+#install.packages("psych")
+#install.packages("PerformanceAnalytics")
+#install.packages("olsrr")
 
 
+library(psych)
+library(PerformanceAnalytics)
+library(olsrr)
+
+```
+
+
+```{r}
+#Refresh on column names
+colnames(data)
+
+```
+
+#Regression on the Composite measure for complications
+
+```{r}
+
+#Data cleaning -> Quality Measure 90 - > Composite Score for Other P Measures
+
+mod_data <- data %>%  
+  select(4:5,7:17,36) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(PSI_90 != 'NA')  #Remove NAs from measure
+
+# treat overall rating as a factor  
+mod_data$hosp_overall_rating <- as.factor(mod_data$hosp_overall_rating)
+
+
+# Separate into test/train  
+
+set.seed(1234)
+
+#data partitioning test/train
+ind <- sample(2, nrow(mod_data), replace = T, prob=c(0.75,0.25))
+
+mod_train <- mod_data[ind == 1,]
+mod_test <- mod_data[ind ==2, ]
+
+nrow(mod_train)
+nrow(mod_test)
+
+```
+
+
+## Regression for Heart Failure
+
+```{r}
+
+#Data cleaning -> MORT_30_HF - > 30 Day Heart Failure Death Rate
+
+hf_data <- data %>%  
+  select(4:5,7:17,22) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')  #Remove NAs from measure
+
+# treat overall rating as a factor  
+hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
+
+# Separate into test/train  
+
+set.seed(1234)
+
+#data partitioning test/train
+ind <- sample(2, nrow(hf_data), replace = T, prob=c(0.75,0.25))
+
+hf_train <- hf_data[ind == 1,]
+hf_test <- hf_data[ind ==2, ]
+
+nrow(hf_train)
+nrow(hf_test)
+
+```
+
+
+## Regression for Pneumonia
+
+```{r}
+
+#Data cleaning -> MORT_30_PN - > 30 Day pneumonia death rate
+
+pn_data <- data %>%  
+  select(4:5,7:17,23) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_PN != 'NA')  #Remove NAs from measure
+
+# treat overall rating as a factor  
+pn_data$hosp_overall_rating <- as.factor(pn_data$hosp_overall_rating)
+
+
+# Test / Train Split
+set.seed(1234)
+
+#data partitioning test/train
+ind <- sample(2, nrow(pn_data), replace = T, prob=c(0.75,0.25))
+
+pn_train <- pn_data[ind == 1,]
+pn_test <- pn_data[ind ==2, ]
+
+nrow(pn_train)
+nrow(pn_test)
+
+
+```
+
+## Regression for COPD
+
+```{r}
+
+#Data cleaning -> MORT_30_COPD - > 30 Day COPD death rate
+
+copd_data <- data %>%  
+  select(4:5,7:17,21) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_COPD != 'NA')  #Remove NAs from measure
+
+# treat overall rating as a factor  
+copd_data$hosp_overall_rating <- as.factor(copd_data$hosp_overall_rating)
+
+# Test / Train Split
+set.seed(1234)
+
+#data partitioning test/train
+ind <- sample(2, nrow(copd_data), replace = T, prob=c(0.75,0.25))
+
+copd_train <- copd_data[ind == 1,]
+copd_test <- copd_data[ind ==2, ]
+
+nrow(copd_train)
+nrow(copd_test)
+```
 
 
 
