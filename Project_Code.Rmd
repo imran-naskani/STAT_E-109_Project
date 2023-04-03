@@ -407,7 +407,7 @@ nrow(hf_test)
 #Data cleaning -> MORT_30_PN - > 30 Day pneumonia death rate
 
 pn_data <- data %>%  
-  dplyr::select(4:5,7:17,23) %>% #Narrow to features to use in the model (plus one quality measure)
+  dplyr::select(4:5,8:17,23) %>% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != 'NA') %>% #remove NAs
   filter(MORT_30_PN != 'NA')  #Remove NAs from measure
 
