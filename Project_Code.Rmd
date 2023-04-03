@@ -57,8 +57,6 @@ str(datana)
 
 ```{r}
 
-```{r}
-
 #Switch to numeric variables fo censuse/SDOH measures
 
 data$median_age <- as.numeric(data$median_age)
