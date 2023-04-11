@@ -19,8 +19,10 @@ library(dplyr)
 library(ggplot2)
 library(psych)
 library(gridExtra)
-
-
+library(PerformanceAnalytics)
+library(olsrr)
+library(caret)
+library(nnet)
 ```
 
 ```{r, load}
@@ -162,4 +164,199 @@ cor.data <- data %>% filter(!is.na(hosp_overall_rating)) %>% select(10,13:17)
 cor.data <- cor.data[complete.cases(cor.data),] 
 pairs.panels(cor.data)
 
+```
+```{r,warnging = FALSE}
+
+#hf_data <- data %>%  
+#  select(4:5,7:17,22) %>% #Narrow to features to use in the model (plus one quality measure)
+#  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+#  filter(MORT_30_HF != 'NA')  #Remove NAs from measure
+
+hf_data <- data %>%  
+  select(10,13:17,22) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')  #Remove NAs from measure
+
+
+# treat overall rating as a factor  
+hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
+
+# Re leveling to use 1 as reference for Multinomial Model
+hf_data$hosp_overall_rating <- relevel(hf_data$hosp_overall_rating, ref = '1')
+
+
+
+# Separate into test/train  
+set.seed(1234)
+#data partitioning test/train
+ind <- sample(2, nrow(hf_data), replace = T, prob=c(0.75,0.25))
+hf_train <- hf_data[ind == 1,]
+hf_test <- hf_data[ind ==2, ]
+
+#nrow(hf_train)
+#View(hf_test)
+
+#-city - state -county -hospital_type -hospital_ownership -census_division - census_region 
+# Multinomial Model
+model_multi_hf <- multinom(hosp_overall_rating ~ ., data = hf_train)
+summary(model_multi_hf)
+# 2-tailed z test
+z <- summary(model_multi_hf)$coefficients/summary(model_multi_hf)$standard.errors
+((1 - pnorm(abs(z), 0, 1)) * 2)
+
+# Predict
+p_train <- predict(model_multi_hf, hf_train, type = 'class')
+
+#CM - train data
+confusionMatrix(p_train, hf_train$hosp_overall_rating)
+
+#CM - test
+p_test <- predict(model_multi_hf, hf_test, type = 'class')
+confusionMatrix(p_test, hf_test$hosp_overall_rating)
+
+
+
+
+
+#model_hf <- glm(hosp_overall_rating~ . -city - state -county -hospital_type -hospital_ownership #-census_division - census_region , data = hf_train, family = 'binomial' )
+#summary(model_hf)
+
+```
+
+```{r, warning = FALSE}
+
+hf_data <- data %>%  
+  select(8,10:11,13:17,22) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')   %>%  #Remove NAs from measure
+  filter(census_region != '#N/A')   
+
+L <- 1
+aic.vector <- numeric(20)
+c.train <- c(0.4,0.5,0.6,0.7,0.8)
+c.test <- c(0.6,0.5,0.4,0.3,0.2)
+for (i in 2:5)
+{
+hf_data_log <- hf_data
+hf_data_log$hosp_overall_rating <- as.numeric(hf_data_log$hosp_overall_rating)
+hf_data_log[hf_data_log$hosp_overall_rating < i,]$hosp_overall_rating <- 0
+hf_data_log[hf_data_log$hosp_overall_rating >= i,]$hosp_overall_rating <- 1
+hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
+
+  for (j in 1:5)
+  {
+  # Separate into test/train  
+  set.seed(1234)
+  #data partitioning test/train
+  ind <- sample(2, nrow(hf_data_log), replace = T, prob=c(c.train[j],c.test[j]))
+  hf_train_log <- hf_data_log[ind == 1,]
+  hf_test_log <- hf_data_log[ind ==2, ]
+
+  model_train_log <- glm(hosp_overall_rating ~ ., data = hf_train_log, family = 'binomial' )
+  #summary(model_train_log)
+  full_model <- model_train_log %>% stepAIC(trace = FALSE)
+  aic.vector[L] <- full_model$deviance
+  L <- L + 1
+  }
+
+}
+
+aic.vector
+
+
+
+
+hf_data_log <- hf_data
+hf_data_log$hosp_overall_rating <- as.numeric(hf_data_log$hosp_overall_rating)
+hf_data_log[hf_data_log$hosp_overall_rating < 4,]$hosp_overall_rating <- 0
+hf_data_log[hf_data_log$hosp_overall_rating >= 4,]$hosp_overall_rating <- 1
+hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
+
+  # Separate into test/train  
+  set.seed(1234)
+  #data partitioning test/train
+  ind <- sample(2, nrow(hf_data_log), replace = T, prob=c(0.5,0.5))
+  hf_train_log <- hf_data_log[ind == 1,]
+  hf_test_log <- hf_data_log[ind ==2, ]
+
+  model_train_log <- glm(hosp_overall_rating ~ hospital_type + census_region + 
+    per_white_non_hisp + per_below_poverty +  
+    MORT_30_HF, data = hf_train_log, family = 'binomial' )
+  summary(model_train_log)
+  #(full_model <- model_train_log %>% stepAIC(trace = FALSE))
+
+
+
+#CM - train data
+p_log_train <- predict(model_train_log, hf_train_log, type = 'response')
+pred_log_train <- ifelse(p_log_train > 0.5, 1, 0)
+confusionMatrix(factor(pred_log_train), factor(hf_train_log$hosp_overall_rating), positive = '1')
+
+
+#CM - test data
+p_log_test <- predict(model_train_log, hf_test_log, type = 'response')
+pred_log_test <- ifelse(p_log_test > 0.5, 1, 0)
+confusionMatrix(factor(pred_log_test), factor(hf_test_log$hosp_overall_rating), positive = '1')
+
+#ROC Curve
+p_log_train <- predict(model_train_log, hf_train_log, type = 'response')
+r_train <- multiclass.roc(hf_train_log$hosp_overall_rating, p_log_train, percent = TRUE)
+roc_train <- r_train[['rocs']]
+r1_train <- roc_train[[1]]
+
+
+p_log_test <- predict(model_train_log, hf_test_log, type = 'response')
+r_test <- multiclass.roc(hf_test_log$hosp_overall_rating, p_log_test, percent = TRUE)
+roc_test <- r_test[['rocs']]
+r1_test <- roc_test[[1]]
+
+plot.roc(r1_train,col= "red", lwd = 3,
+         print.auc = T,
+         auc.polygon= T,
+         max.auc.polygon = T,
+         print.thres = T,
+         main = "ROC Curve for Hospital Rating")
+plot(r1_test, add = T, col = "blue",  
+     print.auc = T,
+     lwd = 3, print.thres = T)
+
+coords(r1_train, "best", ret="threshold", transpose = FALSE) 
+coords(r1_test, "best", ret="threshold", transpose = FALSE) 
+
+```
+
+```{r, warning=FALSE}
+#CM - train data
+p_log_train <- predict(model_train_log, hf_train_log, type = 'response')
+pred_log_train <- ifelse(p_log_train > 0.5090891, 1, 0)
+confusionMatrix(factor(pred_log_train), factor(hf_train_log$hosp_overall_rating), positive = '1')
+
+
+#CM - test data
+p_log_test <- predict(model_train_log, hf_test_log, type = 'response')
+pred_log_test <- ifelse(p_log_test > 0.4238041, 1, 0)
+confusionMatrix(factor(pred_log_test), factor(hf_test_log$hosp_overall_rating), positive = '1')
+
+#ROC Curve
+p_log_train <- predict(model_train_log, hf_train_log, type = 'response')
+r_train <- multiclass.roc(hf_train_log$hosp_overall_rating, p_log_train, percent = TRUE)
+roc_train <- r_train[['rocs']]
+r1_train <- roc_train[[1]]
+
+
+p_log_test <- predict(model_train_log, hf_test_log, type = 'response')
+r_test <- multiclass.roc(hf_test_log$hosp_overall_rating, p_log_test, percent = TRUE)
+roc_test <- r_test[['rocs']]
+r1_test <- roc_test[[1]]
+
+plot.roc(r1_train,col= "red", lwd = 3,
+         print.auc = T,
+         auc.polygon= T,
+         max.auc.polygon = T,
+         print.thres = T,
+         main = "ROC Curve for Hospital Rating")
+plot(r1_test, add = T, col = "blue",  lwd = 3, print.thres = T)
+
+coords(r1_train, "best", ret="threshold", transpose = FALSE) 
+coords(r1_test, "best", ret="threshold", transpose = FALSE) 
 ```
