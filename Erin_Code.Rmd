@@ -100,6 +100,8 @@ data$census_division <- as.factor(data$census_division)
 #check to make sure all are now integers
 str(data)
 
+table(data$hospital_type)
+
 ```
 
 ## Initial EDA - Overall Star Rating 
@@ -396,7 +398,7 @@ data %>% ggplot(aes(x=MORT_30_AMI, fill = hosp_overall_rating))+
 
 ### Create a data table with the mean values for each measure at each Overall Star Rating
 
-meas_sum <- data %>% filter(MORT_30_AMI != 'NA') %>% select(10,19) %>%  group_by(as.factor(hosp_overall_rating)) %>% summarize(count = n())
+meas_sum <- data %>% filter(MORT_30_AMI != 'NA') %>% dplyr::select(10,19) %>%  group_by(as.factor(hosp_overall_rating)) %>% summarize(count = n())
 
 meas_sum
 
@@ -409,13 +411,15 @@ mean(data$MORT_30_AMI,na.rm=TRUE)
 
 ```{r}
 #Additional packages/libraries
-install.packages("Rtools")
-install.packages("psych")
-install.packages("PerformanceAnalytics")
-install.packages("olsrr")
+#install.packages("Rtools")
+#install.packages("psych")
+#install.packages("PerformanceAnalytics")
+#install.packages("olsrr")
 
 
 library(psych)
+library(MASS)
+library(car)
 library(PerformanceAnalytics)
 library(olsrr)
 
@@ -427,6 +431,21 @@ library(olsrr)
 colnames(data)
 
 ```
+#Correlation Plot
+
+```{r}
+
+#Correlation Plots for Key Numeric Variables
+
+cor_data <- data %>% dplyr::select(13:17,21,22,23,36)
+
+cor.plot(cor_data)
+
+
+```
+
+
+
 #Regression on the Composite measure for complications
 
 ```{r}
@@ -434,7 +453,7 @@ colnames(data)
 #Data cleaning -> Quality Measure 90 - > Composite Score for Other P Measures
 
 mod_data <- data %>%  
-  select(4:5,7:17,36) %>% #Narrow to features to use in the model (plus one quality measure)
+   dplyr::select(4:5,8:17,36) %>% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != 'NA') %>% #remove NAs
   filter(PSI_90 != 'NA')  #Remove NAs from measure
 
@@ -456,7 +475,134 @@ nrow(mod_train)
 nrow(mod_test)
 
 ```
+```{r}
+str(mod_train)
+```
 
+```{r}
+
+colnames(mod_train)
+```
+```{r}
+
+table(mod_train$hospital_type)
+```
+
+
+
+```{r}
+#Take a full model with all numeric terms
+
+mod_mod <- lm(PSI_90~median_age+per_white_non_hisp+med_inc_15plus_12mo+
+                per_below_poverty+per_college_grad_deg_25_plus,mod_train)
+
+summary(mod_mod)
+
+```
+
+
+
+
+```{r}
+
+#conduct a step AIC analysis to prioritize functions
+
+new <- stepAIC(mod_mod)
+
+```
+
+
+
+```{r}
+
+#Use model selected by stepAIC function
+mod_modf <- lm(PSI_90~median_age+per_white_non_hisp+per_college_grad_deg_25_plus,mod_train)
+
+summary(mod_modf)
+
+
+```
+
+
+```{r}
+#Take a full model with all numeric terms add census division hospand overall factor
+
+mod_mod2 <- lm(PSI_90~median_age+per_white_non_hisp+med_inc_15plus_12mo+
+                per_below_poverty+per_college_grad_deg_25_plus+
+                 census_division+hospital_ownership+hosp_overall_rating,mod_train)
+
+summary(mod_mod2)
+
+```
+```{r}
+
+#conduct a step AIC analysis to prioritize features in model
+
+new <- stepAIC(mod_mod2)
+
+```
+
+
+
+```{r}
+
+#Use model selected by stepAIC function
+mod_mod2_f <- lm(PSI_90~hosp_overall_rating+per_college_grad_deg_25_plus,mod_train)
+
+summary(mod_mod2_f)
+
+
+```
+
+
+```{r}
+#Take a full model with all numeric terms add census division and overall factor
+
+mod_mod3 <- lm(PSI_90~median_age+per_white_non_hisp+med_inc_15plus_12mo+
+                per_below_poverty+per_college_grad_deg_25_plus+hospital_ownership+
+                 census_division,mod_train)
+
+summary(mod_mod3)
+
+```
+
+```{r}
+
+#conduct a step AIC analysis to prioritize functions
+
+new <- stepAIC(mod_mod3)
+
+```
+```{r}
+#Final model
+
+mod_mod3f <- lm(PSI_90~per_white_non_hisp+per_college_grad_deg_25_plus+
+                  census_division,mod_train)
+
+summary(mod_mod3f)
+
+```
+```{r}
+
+
+mod_mod3f$coefficients
+coef(summary(mod_mod3f))[, "Pr(>|t|)"]
+
+```
+```{r}
+
+
+
+
+```
+
+```{r}
+
+vif(mod_mod3f)
+
+
+
+```
 
 ## Regression for Heart Failure
 
