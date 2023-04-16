@@ -447,6 +447,8 @@ hf_data <- data %>%
 hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
 
 
+#---------Temp Code begin to find AIC -------------
+
 L <- 1
 aic.vector <- numeric(20)
 c.train <- c(0.4,0.5,0.6,0.7,0.8)
@@ -479,7 +481,9 @@ hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
 
 aic.vector
 
+##---------Temp Code end to find AIC -------------
 
+##---------Actual Code begins to create logistic model -------------
 
 hf_data_log <- hf_data
 hf_data_log$hosp_overall_rating <- as.numeric(hf_data_log$hosp_overall_rating)
@@ -596,9 +600,13 @@ hf_data <- data %>%
 
 #View(data)
 #View(hf_data)
+dim(hf_data[!complete.cases(hf_data),])
 
+hf_data_inc <- hf_data[complete.cases(hf_data),] #incomplete cases
 hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
 
+dim(hf_data_inc)
+dim(hf_data)
 
 # treat overall rating as a factor  
 hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
@@ -616,31 +624,30 @@ hf_test <- hf_data[ind ==2, ]
 #nrow(hf_train)
 #nrow(hf_test)
 
-colnames(hf_data)
+#colnames(hf_data)
 #cor.plot(hf_data[,5:28], diag = FALSE, upper = FALSE, cex.axis = 0.5, cex = 0.25)
 
 
-multi.model <- lm(MORT_30_HF ~ .-1, data = hf_train[,5:28])
+multi.model <- lm(MORT_30_HF ~ ., data = hf_train[,5:28])
 summary(multi.model)
 vif(multi.model)
 
 
-multi.model <- lm(MORT_30_HF ~ per_white_non_hisp + COMP_HIP_KNEE + MORT_30_AMI + MORT_30_COPD + MORT_30_PN + MORT_30_STK + PSI_12 - 1
-                    , data = hf_train[,5:28])
+multi.aic <- stepAIC(multi.model, tarce = F)
+
+multi.model <- lm(MORT_30_HF ~ per_white_non_hisp + med_inc_15plus_12mo + COMP_HIP_KNEE + 
+                  MORT_30_AMI + MORT_30_COPD + MORT_30_PN + MORT_30_STK +
+                  PSI_14, data = hf_train[,5:28])
 summary(multi.model)
 vif(multi.model)
 
+#View(corrdata) <- data.frame(cor(hf_data[,5:28]))
 
 corrplot(cor(hf_data[,5:28]), 
          type = "upper", 
-         method = "number",
-         tl.cex = 0.5,
+         method = "color",
+         tl.cex = 0.4,
          number.cex = 0.5,
          is.corr = TRUE)
-
-
-multi.aic <- stepAIC(multi.model)
-
-
 
 ```
