@@ -84,6 +84,17 @@ data$census_division <- as.factor(data$census_division)
 ```
 
 ```{r}
+for.ggplot <- data %>%  filter(!is.na(hosp_overall_rating) &  census_region != "#N/A")  %>% group_by(census_region, hosp_overall_rating) %>% summarize(count.hist = n())   
+  
+
+for.ggplot %>% ggplot(aes(x = hosp_overall_rating, y=count.hist,  fill = census_region)) +
+  geom_col(position = "dodge")
+
+
+
+```
+
+```{r}
 
 #EDA on Star Rating v/s Hospital Types and Ownership
 
@@ -434,7 +445,6 @@ coords(r1_test, "best", ret="threshold", transpose = FALSE)
 
 ##---- Logisitic regression with all measures-----------
 
-
 #View(data)
 #View(hf_data)
 
@@ -539,7 +549,7 @@ plot.roc(r1_train,col= "red", lwd = 3,
          print.thres = T,
          main = "ROC Curve for Hospital Rating")
 plot(r1_test, add = T, col = "blue",  
-     print.auc = T,
+     
      lwd = 3, print.thres = T)
 
 coords(r1_train, "best", ret="threshold", transpose = FALSE) 
@@ -646,8 +656,8 @@ vif(multi.model)
 corrplot(cor(hf_data[,5:28]), 
          type = "upper", 
          method = "color",
-         tl.cex = 0.4,
-         number.cex = 0.5,
+         tl.cex = 0.5,
+         #number.cex = 0.5,
          is.corr = TRUE)
 
 ```
