@@ -163,6 +163,49 @@ ggsave("SDOH.png", g, width = 20, height = 15, units = "cm")
 
 ```
 
+
+```{r}
+##------- Boxplot: Star Rating vs Social Indicators -------------
+
+#------- Boxplot: Star Rating vs Median Age -------------
+social.ind1 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = median_age, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('Median Age') 
+
+#------- Boxplot: Star Rating vs Percentage White Population -------------
+social.ind2 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_white_non_hisp, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('White Pop %') 
+
+#------- Boxplot: Star Rating vs Population Below Poverty -------------
+social.ind3 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_below_poverty, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('Below Poverty %') 
+
+#------- Boxplot: Star Rating vs per_college_grad_deg_25_plus -------------
+social.ind4 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_college_grad_deg_25_plus, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('College Grad Degree %') 
+
+#------- Boxplot: Star Rating vs med_inc_15plus_12mo -------------
+social.ind5 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = med_inc_15plus_12mo, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('Median Income $') 
+
+#Five Graphs in One
+grid.arrange(social.ind1, social.ind2, social.ind3, social.ind4, social.ind5, ncol=2)
+grid.social.ind3 <- arrangeGrob(social.ind1, social.ind2,social.ind3, social.ind4, social.ind5, ncol=2) 
+
+```
+
+
+
+
 ```{r, warning = FALSE}
 
 ##Mortality and Complication Measures by Overall Hospital Rating -- FINAL GROUP
