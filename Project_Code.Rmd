@@ -376,18 +376,6 @@ hf_data <- data %>%
 # treat overall rating as a factor  
 hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
 
-# Separate into test/train  
-
-set.seed(1234)
-
-#data partitioning test/train
-ind <- sample(2, nrow(hf_data), replace = T, prob=c(0.75,0.25))
-
-hf_train <- hf_data[ind == 1,]
-hf_test <- hf_data[ind ==2, ]
-
-nrow(hf_train)
-nrow(hf_test)
 
 ```
 
@@ -406,20 +394,6 @@ pn_data <- data %>%
 # treat overall rating as a factor  
 pn_data$hosp_overall_rating <- as.factor(pn_data$hosp_overall_rating)
 
-
-# Test / Train Split
-set.seed(1234)
-
-#data partitioning test/train
-ind <- sample(2, nrow(pn_data), replace = T, prob=c(0.75,0.25))
-
-pn_train <- pn_data[ind == 1,]
-pn_test <- pn_data[ind ==2, ]
-
-nrow(pn_train)
-nrow(pn_test)
-
-
 ```
 
 ## Regression for COPD
@@ -436,17 +410,7 @@ copd_data <- data %>%
 # treat overall rating as a factor  
 copd_data$hosp_overall_rating <- as.factor(copd_data$hosp_overall_rating)
 
-# Test / Train Split
-set.seed(1234)
 
-#data partitioning test/train
-ind <- sample(2, nrow(copd_data), replace = T, prob=c(0.75,0.25))
-
-copd_train <- copd_data[ind == 1,]
-copd_test <- copd_data[ind ==2, ]
-
-nrow(copd_train)
-nrow(copd_test)
 ```
 
 
