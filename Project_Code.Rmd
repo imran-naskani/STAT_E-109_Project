@@ -110,6 +110,18 @@ hist(data$hosp_overall_rating)
 
 ```
 
+```{r}
+#Figure 2
+#Table of Overall Hospital Star Rating
+(counts <- table(data$hosp_overall_rating))
+```
+
+
+```{r}
+#Figure 2
+#total number of rows in data
+(nrows <- nrow(data))
+```
 
 
 ```{r}
@@ -307,34 +319,8 @@ mod_data <- data %>%
 # treat overall rating as a factor  
 mod_data$hosp_overall_rating <- as.factor(mod_data$hosp_overall_rating)
 
+table(mod_data$hospital_type)
 
-# Separate into test/train  
-
-set.seed(1234)
-
-#data partitioning test/train
-ind <- sample(2, nrow(mod_data), replace = T, prob=c(0.75,0.25))
-
-mod_train <- mod_data[ind == 1,]
-mod_test <- mod_data[ind ==2, ]
-
-nrow(mod_train)
-nrow(mod_test)
-
-```
-```{r}
-str(mod_train)
-```
-
-```{r}
-
-colnames(mod_train)
-```
-
-
-```{r}
-
-table(mod_train$hospital_type)
 ```
 
 
@@ -343,7 +329,7 @@ table(mod_train$hospital_type)
 #Take a full model with all numeric terms
 
 mod_mod <- lm(PSI_90~median_age+per_white_non_hisp+med_inc_15plus_12mo+
-                per_below_poverty+per_college_grad_deg_25_plus+census_division+hospital_ownership,mod_train)
+                per_below_poverty+per_college_grad_deg_25_plus+census_region,mod_data)
 
 summary(mod_mod)
 
@@ -363,15 +349,14 @@ new <- stepAIC(mod_mod)
 ```{r}
 
 #Use model selected by stepAIC function
-mod_modf <- lm(PSI_90~median_age+per_white_non_hisp+per_college_grad_deg_25_plus+census_division+hospital_ownership,mod_train)
+mod_modf <- lm(PSI_90~median_age+per_white_non_hisp+per_college_grad_deg_25_plus+census_region,mod_data)
 
 summary(mod_modf)
-
 
 ```
 
 ```{r}
-#VIF_Composite_PSI90
+#VIF for PSI_90 
 vif(mod_modf)
 
 ```

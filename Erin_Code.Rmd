@@ -106,6 +106,9 @@ table(data$hospital_type)
 
 ## Initial EDA - Overall Star Rating 
 
+
+
+
 ```{r}
 #Histogram of Overall Hospital Star Rating
 
@@ -113,11 +116,128 @@ hist(data$hosp_overall_rating)
 
 
 ```
+
+```{r}
+#Figure 2
+#Table of Overall Hospital Star Rating
+(counts <- table(data$hosp_overall_rating))
+```
+```{r}
+#Figure 2
+#total number of rows in data
+(nrows <- nrow(data))
+```
+```{r} 
+#counts$na <- nrows-sum(counts)
+```
+
+```{r}
+#Figure 2
+(final <- counts/nrows)
+```
+
+
 ```{r}
 colnames(data)
 
 ```
 
+```{r}
+#EDA on Star Rating v/s Hospital Types and Ownership
+
+#------- Summarising Avg, SD and Median per Hospital Type -------------
+data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(hospital_type) %>%  
+summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT = n()) %>% arrange(desc(AVG))
+
+```
+```{r}
+#------- Box plot: Median per Hospital Type -------------
+data %>% filter(!is.na(hosp_overall_rating)) %>%  
+  ggplot(aes(x = hospital_type, y = hosp_overall_rating, fill = hospital_type )) + geom_boxplot(show.legend = F)
+```
+
+```{r}
+#------- Summarising Avg, SD and Median per Hospital Type & Ownership ----------
+avg.hosp.own <- 
+data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(hospital_type, hospital_ownership) %>% 
+summarize(AVG  = round(mean(hosp_overall_rating),2), SD = round(sd(hosp_overall_rating),2), Median = median(hosp_overall_rating), COUNT = n(), .groups = 'drop') %>% arrange(desc(hospital_type))
+
+```
+
+```{r}
+#------- Barplots: Avg and Count per Hospital Type & Ownership ----------
+plot.avg1 <- avg.hosp.own %>% ggplot(aes(x = hospital_ownership, y = AVG, fill = hospital_ownership)) + 
+  geom_col(show.legend = F) +
+  facet_wrap(~hospital_type) +
+  coord_flip()
+
+plot.cnt1 <- avg.hosp.own %>% ggplot(aes(x = hospital_ownership, y = COUNT, fill = hospital_ownership)) + 
+  geom_col(show.legend = F) + 
+  facet_wrap(~hospital_type) +
+  coord_flip() 
+
+grid.arrange(plot.avg1, plot.cnt1, ncol=1)
+grid.avg.hosp.own <- arrangeGrob(plot.avg1, plot.cnt1, ncol=1) 
+```
+
+
+```{r}
+#------- Star Rating Distribution per Hospital Type -------------
+data %>% filter(!is.na(hosp_overall_rating)) %>%  
+  ggplot(aes(x = hosp_overall_rating, fill = hospital_type)) + 
+  geom_histogram(alpha = 0.5, color = "black") +
+  facet_wrap(~hospital_type) + 
+  ggtitle("Hospital Star Rating", 'Hospital Type') + 
+  theme_bw()
+```
+
+```{r}
+##------- Boxplot: Star Rating vs Social Indicators -------------
+
+#------- Boxplot: Star Rating vs Median Age -------------
+social.ind1 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = median_age, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('Median Age') 
+
+#------- Boxplot: Star Rating vs Percentage White Population -------------
+social.ind2 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_white_non_hisp, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('White Pop %') 
+
+#------- Boxplot: Star Rating vs Population Below Poverty -------------
+social.ind3 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_below_poverty, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('Below Poverty %') 
+
+#------- Boxplot: Star Rating vs per_college_grad_deg_25_plus -------------
+social.ind4 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_college_grad_deg_25_plus, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('College Grad Degree %') 
+
+#------- Boxplot: Star Rating vs med_inc_15plus_12mo -------------
+social.ind5 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = med_inc_15plus_12mo, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('Median Income $') 
+
+#Five Graphs in One
+grid.arrange(social.ind1, social.ind2, social.ind3, social.ind4, social.ind5, ncol=2)
+grid.social.ind3 <- arrangeGrob(social.ind1, social.ind2,social.ind3, social.ind4, social.ind5, ncol=2) 
+
+```
+
+
+```{r}
+#------- Correlation: Star Rating vs Social Indicators  -------------
+cor.data <- data %>% filter(!is.na(hosp_overall_rating)) %>% dplyr::select(10,13:17) 
+cor.data <- cor.data[complete.cases(cor.data),] 
+pairs.panels(cor.data)
+
+```
 
 
 
@@ -324,6 +444,8 @@ ggsave("Measures_grp2.png", g, width = 25, height = 20, units = "cm")
 
 ```
 
+
+
 ```{r, warning = FALSE}
 
 ##Mortality and Complication Measures by Overall Hospital Rating -- FINAL GROUP
@@ -503,34 +625,8 @@ mod_data <- data %>%
 # treat overall rating as a factor  
 mod_data$hosp_overall_rating <- as.factor(mod_data$hosp_overall_rating)
 
+table(mod_data$hospital_type)
 
-# Separate into test/train  
-
-set.seed(1234)
-
-#data partitioning test/train
-ind <- sample(2, nrow(mod_data), replace = T, prob=c(0.75,0.25))
-
-mod_train <- mod_data[ind == 1,]
-mod_test <- mod_data[ind ==2, ]
-
-nrow(mod_train)
-nrow(mod_test)
-
-```
-```{r}
-str(mod_train)
-```
-
-```{r}
-
-colnames(mod_train)
-```
-
-
-```{r}
-
-table(mod_train$hospital_type)
 ```
 
 
@@ -539,7 +635,7 @@ table(mod_train$hospital_type)
 #Take a full model with all numeric terms
 
 mod_mod <- lm(PSI_90~median_age+per_white_non_hisp+med_inc_15plus_12mo+
-                per_below_poverty+per_college_grad_deg_25_plus+census_division+hospital_ownership,mod_train)
+                per_below_poverty+per_college_grad_deg_25_plus+census_region,mod_data)
 
 summary(mod_mod)
 
@@ -559,18 +655,15 @@ new <- stepAIC(mod_mod)
 ```{r}
 
 #Use model selected by stepAIC function
-mod_modf <- lm(PSI_90~median_age+per_white_non_hisp+per_college_grad_deg_25_plus+census_division+hospital_ownership,mod_train)
+mod_modf <- lm(PSI_90~median_age+per_white_non_hisp+per_college_grad_deg_25_plus+census_region,mod_data)
 
 summary(mod_modf)
-
 
 ```
 
 ```{r}
-
+#VIF for PSI_90 
 vif(mod_modf)
-
-
 
 ```
 
