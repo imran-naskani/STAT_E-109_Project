@@ -263,6 +263,100 @@ ggsave("Top4_Star.png", g, width = 25, height = 20, units = "cm")
 
 ```
 
+```{r, warning = FALSE}
+
+##Mortality and Complication Measures by Census Region -- FINAL GROUP
+
+require(gridExtra)
+
+#21,22,23,36
+
+plot1 <- data  %>% ggplot(aes(x=census_division,y =data[,21]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[21]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+
+plot2 <- data %>% ggplot(aes(x=census_division,y =data[,22]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[22]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+plot3 <- data %>% ggplot(aes(x=census_division,y =data[,23]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[23]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+
+plot4 <- data %>% ggplot(aes(x=census_division,y =data[,36]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[36]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, plot3, plot4, ncol=2)
+
+
+#Save
+g <- arrangeGrob(plot1, plot2, plot3, plot4, ncol=2) #generates g
+ggsave("Census_Division_Meas.png", g, width = 25, height = 20, units = "cm")
+
+
+```
+
+```{r, warning = FALSE}
+
+##Mortality and Complication Measures by Census Region -- FINAL GROUP
+
+require(gridExtra)
+require(forcats)
+
+#21,22,23,36
+
+plot1 <- data  %>% ggplot(aes(x=census_region,y =data[,21]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[21]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+
+plot2 <- data %>% ggplot(aes(x=census_region,y =data[,22]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[22]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+plot3 <- data %>% ggplot(aes(x=census_region,y =data[,23]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[23]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+
+plot4 <- data %>% ggplot(aes(x=census_region,y =data[,36]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[36]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, plot3, plot4, ncol=2)
+
+
+#Save
+g <- arrangeGrob(plot1, plot2, plot3, plot4, ncol=2) #generates g
+ggsave("Census_Region_Meas.png", g, width = 25, height = 20, units = "cm")
+
+
+```
+
+
+
+
 #Correlation Plot
 
 ```{r}
