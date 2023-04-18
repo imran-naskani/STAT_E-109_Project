@@ -493,7 +493,7 @@ ggsave("Top4_Star.png", g, width = 25, height = 20, units = "cm")
 
 ```{r, warning = FALSE}
 
-##Mortality and Complication Measures by Census Region -- FINAL GROUP
+##Mortality and Complication Measures by Census Division -- FINAL GROUP
 
 require(gridExtra)
 
@@ -524,6 +524,7 @@ plot4 <- data %>% ggplot(aes(x=census_division,y =data[,36]))+
   coord_flip() +
   ggtitle(colnames(data)[36]) + 
   ylab('Measure Value') + xlab("Census Division")
+
 
 #Aggregate into a single graph
 grid.arrange(plot1, plot2, plot3, plot4, ncol=2)
@@ -582,7 +583,75 @@ ggsave("Census_Region_Meas.png", g, width = 25, height = 20, units = "cm")
 
 ```
 
+```{r, warning = FALSE}
 
+##Hospital Overall Rating by Census Region|Division
+
+require(gridExtra)
+
+
+plot1 <- data  %>% ggplot(aes(x=census_region,y=hosp_overall_rating))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle('Hospital Overall Rating by Census Division') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+
+plot2 <- data %>% ggplot(aes(x=census_division,y=hosp_overall_rating))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle('Hospital Overall Rating by Census Division') + 
+  ylab('Hospital Overall Rating') + xlab("Census Division")
+
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, ncol=2)
+
+
+#Save
+g <- arrangeGrob(plot1, plot2, ncol=2) #generates g
+ggsave("Overall_Census.png", g, width = 25, height = 20, units = "cm")
+
+
+```
+
+
+```{r, warning = FALSE}
+
+##Hospital Overall Rating by Census Region|Division
+
+require(gridExtra)
+
+
+plot1 <- data  %>% ggplot(aes(x=census_region,y=hosp_overall_rating))+
+  geom_boxplot(show.legend = F) +facet_wrap(~hospital_type) + 
+  ggtitle('Hospital Overall Rating by Census Region') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+
+#Aggregate into a single graph
+grid.arrange(plot1, ncol=1)
+
+
+```
+```{r, warning = FALSE}
+
+##Hospital Overall Rating by Census Region|Division
+
+require(gridExtra)
+
+
+plot1 <- data  %>% ggplot(aes(x=census_division,y=hosp_overall_rating))+
+  geom_boxplot(show.legend = F) +facet_wrap(~hospital_type) + 
+  ggtitle('Hospital Overall Rating by Census Region') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+
+#Aggregate into a single graph
+grid.arrange(plot1, ncol=1)
+
+
+```
 
 
 ```{r}
