@@ -122,6 +122,50 @@ hist(data$hosp_overall_rating)
 #total number of rows in data
 (nrows <- nrow(data))
 ```
+```{r}
+#------- Create a Data Table to Support Model Overview ----------
+avg.PSI_90 <- 
+data %>% filter(!is.na(PSI_90)) %>%  
+summarize(Average= round(mean(PSI_90),3), Count = n(), Std_Dev = round(sd(PSI_90),3),.groups = 'drop') 
+row.names(avg.PSI_90) <- c("PSI_90")
+
+avg.PSI_90 <- as.data.frame(avg.PSI_90) 
+
+avg.MORT_30_PN <- 
+data %>% filter(!is.na(MORT_30_PN)) %>%  
+summarize(Average= round(mean(MORT_30_PN),3), Count = n(), Std_Dev = round(sd(MORT_30_PN),3),.groups = 'drop') 
+row.names(avg.MORT_30_PN) <- c("MORT_30_PN")
+
+avg.MORT_30_PN <- as.data.frame(avg.MORT_30_PN) 
+
+avg.MORT_30_HF <- 
+data %>% filter(!is.na(MORT_30_HF)) %>%  
+summarize(Average= round(mean(MORT_30_HF),3), Count = n(), Std_Dev = round(sd(MORT_30_HF),3),.groups = 'drop') 
+row.names(avg.MORT_30_HF) <- c("MORT_30_HF")
+
+avg.MORT_30_HF <- as.data.frame(avg.MORT_30_HF) 
+
+avg.MORT_30_COPD <- 
+data %>% filter(!is.na(MORT_30_COPD)) %>%  
+summarize(Average= round(mean(MORT_30_COPD),3), Count = n(), Std_Dev = round(sd(MORT_30_COPD),3),.groups = 'drop') 
+row.names(avg.MORT_30_COPD) <- c("MORT_30_COPD")
+
+avg.MORT_30_COPD <- as.data.frame(avg.MORT_30_COPD) 
+
+avg.rating <- 
+data %>% filter(!is.na(hosp_overall_rating)) %>%  
+summarize(Average= round(mean(hosp_overall_rating),3), Count = n(), Std_Dev = round(sd(hosp_overall_rating),3),.groups = 'drop') 
+row.names(avg.rating) <- c("Hospital Overall Rating")
+
+avg.rating <- as.data.frame(avg.rating) 
+
+
+Blended <- rbind(avg.MORT_30_COPD,avg.MORT_30_HF,avg.MORT_30_PN,avg.PSI_90,avg.rating)
+
+t(Blended)
+
+```
+
 
 
 ```{r}
@@ -369,7 +413,6 @@ cor.plot(cor_data)
 
 
 ```
-
 
 
 

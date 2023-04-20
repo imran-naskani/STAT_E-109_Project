@@ -162,6 +162,8 @@ avg.hosp.own <-
 data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(hospital_type, hospital_ownership) %>% 
 summarize(AVG  = round(mean(hosp_overall_rating),2), SD = round(sd(hosp_overall_rating),2), Median = median(hosp_overall_rating), COUNT = n(), .groups = 'drop') %>% arrange(desc(hospital_type))
 
+avg.hosp.own
+
 ```
 
 ```{r}
@@ -233,6 +235,8 @@ grid.social.ind3 <- arrangeGrob(social.ind1, social.ind2,social.ind3, social.ind
 
 ```{r}
 #------- Correlation: Star Rating vs Social Indicators  -------------
+require(psych)
+
 cor.data <- data %>% filter(!is.na(hosp_overall_rating)) %>% dplyr::select(10,13:17) 
 cor.data <- cor.data[complete.cases(cor.data),] 
 pairs.panels(cor.data)
@@ -583,6 +587,78 @@ ggsave("Census_Region_Meas.png", g, width = 25, height = 20, units = "cm")
 
 ```
 
+```{r}
+#------- Summarising Avg, SD and Median per Census Region ----------
+avg.region <- 
+data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(census_region, hospital_type) %>% 
+summarize(AVG  = round(mean(hosp_overall_rating),2), SD = round(sd(hosp_overall_rating),2), Median = median(hosp_overall_rating), COUNT = n(), .groups = 'drop') %>% arrange(desc(AVG))
+
+avg.region
+
+```
+
+```{r}
+#------- Create a Data Table to Support Figure 3, model overview ----------
+avg.PSI_90 <- 
+data %>% filter(!is.na(PSI_90)) %>%  
+summarize(Average= round(mean(PSI_90),3), Count = n(), Std_Dev = round(sd(PSI_90),3),.groups = 'drop') 
+row.names(avg.PSI_90) <- c("PSI_90")
+
+avg.PSI_90 <- as.data.frame(avg.PSI_90) 
+
+avg.MORT_30_PN <- 
+data %>% filter(!is.na(MORT_30_PN)) %>%  
+summarize(Average= round(mean(MORT_30_PN),3), Count = n(), Std_Dev = round(sd(MORT_30_PN),3),.groups = 'drop') 
+row.names(avg.MORT_30_PN) <- c("MORT_30_PN")
+
+avg.MORT_30_PN <- as.data.frame(avg.MORT_30_PN) 
+
+avg.MORT_30_HF <- 
+data %>% filter(!is.na(MORT_30_HF)) %>%  
+summarize(Average= round(mean(MORT_30_HF),3), Count = n(), Std_Dev = round(sd(MORT_30_HF),3),.groups = 'drop') 
+row.names(avg.MORT_30_HF) <- c("MORT_30_HF")
+
+avg.MORT_30_HF <- as.data.frame(avg.MORT_30_HF) 
+
+avg.MORT_30_COPD <- 
+data %>% filter(!is.na(MORT_30_COPD)) %>%  
+summarize(Average= round(mean(MORT_30_COPD),3), Count = n(), Std_Dev = round(sd(MORT_30_COPD),3),.groups = 'drop') 
+row.names(avg.MORT_30_COPD) <- c("MORT_30_COPD")
+
+avg.MORT_30_COPD <- as.data.frame(avg.MORT_30_COPD) 
+
+avg.rating <- 
+data %>% filter(!is.na(hosp_overall_rating)) %>%  
+summarize(Average= round(mean(hosp_overall_rating),3), Count = n(), Std_Dev = round(sd(hosp_overall_rating),3),.groups = 'drop') 
+row.names(avg.rating) <- c("Hospital Overall Rating")
+
+avg.rating <- as.data.frame(avg.rating) 
+
+
+Blended <- rbind(avg.MORT_30_COPD,avg.MORT_30_HF,avg.MORT_30_PN,avg.PSI_90,avg.rating)
+
+t(Blended)
+
+```
+
+
+```{r}
+#------- Summarizing Avg, Values per Census Region ----------
+avg.COPD <- data %>% filter(!is.na(MORT_30_COPD)) %>%  group_by(census_region) %>% 
+summarize(MORT_COPD=round(mean(MORT_30_COPD),4), COUNT = n(), .groups = 'drop') 
+avg.region
+
+```
+
+```{r}
+
+avg.COPD <- data %>% filter(!is.na(MORT_30_COPD)) %>%  group_by(census_region) %>% 
+summarize(MORT_COPD=round(mean(MORT_30_COPD),4), COUNT = n(), .groups = 'drop') 
+avg.region
+
+
+```
+
 ```{r, warning = FALSE}
 
 ##Hospital Overall Rating by Census Region|Division
@@ -630,28 +706,11 @@ plot1 <- data  %>% ggplot(aes(x=census_region,y=hosp_overall_rating))+
 
 
 #Aggregate into a single graph
-grid.arrange(plot1, ncol=1)
+grid.arrange(plot1, plot2, ncol=2)
 
 
 ```
-```{r, warning = FALSE}
 
-##Hospital Overall Rating by Census Region|Division
-
-require(gridExtra)
-
-
-plot1 <- data  %>% ggplot(aes(x=census_division,y=hosp_overall_rating))+
-  geom_boxplot(show.legend = F) +facet_wrap(~hospital_type) + 
-  ggtitle('Hospital Overall Rating by Census Region') + 
-  ylab('Hospital Overall Rating') + xlab("Census Region")
-
-
-#Aggregate into a single graph
-grid.arrange(plot1, ncol=1)
-
-
-```
 
 
 ```{r}
@@ -679,6 +738,24 @@ data %>% ggplot(aes(data[,19], fill=as.factor(hosp_overall_rating)))+
   
 
 ```
+
+```{r, warning=FALSE}
+
+#<<<<<<<<<<Transfer>>>>>>!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#histograms plot of overall star rating by Census Region
+
+#Generate Plot
+data %>% ggplot(aes(hosp_overall_rating, fill=census_region))+
+  geom_histogram(position = "identity",show.legend = T, alpha = 0.4, bins = 50) +
+  facet_wrap(~census_region) +
+  ggtitle("Counts of Hosptials by Census Region and Hospital Overall Rating") + 
+  xlab("Hospital Overall Rating") + ylab("Count")
+  
+
+```
+
+
 
 ```{r}
 
