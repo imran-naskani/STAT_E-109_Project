@@ -110,6 +110,62 @@ hist(data$hosp_overall_rating)
 
 ```
 
+```{r}
+#Figure 2
+#Table of Overall Hospital Star Rating
+(counts <- table(data$hosp_overall_rating))
+```
+
+
+```{r}
+#Figure 2
+#total number of rows in data
+(nrows <- nrow(data))
+```
+```{r}
+#------- Create a Data Table to Support Model Overview ----------
+avg.PSI_90 <- 
+data %>% filter(!is.na(PSI_90)) %>%  
+summarize(Average= round(mean(PSI_90),3), Count = n(), Std_Dev = round(sd(PSI_90),3),.groups = 'drop') 
+row.names(avg.PSI_90) <- c("PSI_90")
+
+avg.PSI_90 <- as.data.frame(avg.PSI_90) 
+
+avg.MORT_30_PN <- 
+data %>% filter(!is.na(MORT_30_PN)) %>%  
+summarize(Average= round(mean(MORT_30_PN),3), Count = n(), Std_Dev = round(sd(MORT_30_PN),3),.groups = 'drop') 
+row.names(avg.MORT_30_PN) <- c("MORT_30_PN")
+
+avg.MORT_30_PN <- as.data.frame(avg.MORT_30_PN) 
+
+avg.MORT_30_HF <- 
+data %>% filter(!is.na(MORT_30_HF)) %>%  
+summarize(Average= round(mean(MORT_30_HF),3), Count = n(), Std_Dev = round(sd(MORT_30_HF),3),.groups = 'drop') 
+row.names(avg.MORT_30_HF) <- c("MORT_30_HF")
+
+avg.MORT_30_HF <- as.data.frame(avg.MORT_30_HF) 
+
+avg.MORT_30_COPD <- 
+data %>% filter(!is.na(MORT_30_COPD)) %>%  
+summarize(Average= round(mean(MORT_30_COPD),3), Count = n(), Std_Dev = round(sd(MORT_30_COPD),3),.groups = 'drop') 
+row.names(avg.MORT_30_COPD) <- c("MORT_30_COPD")
+
+avg.MORT_30_COPD <- as.data.frame(avg.MORT_30_COPD) 
+
+avg.rating <- 
+data %>% filter(!is.na(hosp_overall_rating)) %>%  
+summarize(Average= round(mean(hosp_overall_rating),3), Count = n(), Std_Dev = round(sd(hosp_overall_rating),3),.groups = 'drop') 
+row.names(avg.rating) <- c("Hospital Overall Rating")
+
+avg.rating <- as.data.frame(avg.rating) 
+
+
+Blended <- rbind(avg.MORT_30_COPD,avg.MORT_30_HF,avg.MORT_30_PN,avg.PSI_90,avg.rating)
+
+t(Blended)
+
+```
+
 
 
 ```{r}
@@ -163,156 +219,202 @@ ggsave("SDOH.png", g, width = 20, height = 15, units = "cm")
 
 ```
 
+
+```{r}
+##------- Boxplot: Star Rating vs Social Indicators -------------
+
+#------- Boxplot: Star Rating vs Median Age -------------
+social.ind1 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = median_age, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('Median Age') 
+
+#------- Boxplot: Star Rating vs Percentage White Population -------------
+social.ind2 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_white_non_hisp, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('White Pop %') 
+
+#------- Boxplot: Star Rating vs Population Below Poverty -------------
+social.ind3 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_below_poverty, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('Below Poverty %') 
+
+#------- Boxplot: Star Rating vs per_college_grad_deg_25_plus -------------
+social.ind4 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = per_college_grad_deg_25_plus, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F)  + facet_wrap(~hospital_type) + 
+ylab('College Grad Degree %') 
+
+#------- Boxplot: Star Rating vs med_inc_15plus_12mo -------------
+social.ind5 <- data %>% filter(!is.na(hosp_overall_rating)) %>% 
+ggplot(aes(x = hosp_overall_rating, y = med_inc_15plus_12mo, fill = as.factor(hosp_overall_rating))) + 
+geom_boxplot(show.legend = F) + facet_wrap(~hospital_type) + 
+ylab('Median Income $') 
+
+#Five Graphs in One
+grid.arrange(social.ind1, social.ind2, social.ind3, social.ind4, social.ind5, ncol=2)
+grid.social.ind3 <- arrangeGrob(social.ind1, social.ind2,social.ind3, social.ind4, social.ind5, ncol=2) 
+
+```
+
+
+
+
 ```{r, warning = FALSE}
 
-##Mortality and Complication Measures by Overall Hospital Rating -- GROUP 1
+##Mortality and Complication Measures by Overall Hospital Rating -- FINAL GROUP
 
 require(gridExtra)
 
+#21,22,23,36
 
-plot1 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,18]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[18]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-
-plot2 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,19]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[19]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot3 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,20]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[20]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-
-plot4 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,21]))+
+plot1 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,21]))+
   geom_boxplot(show.legend = F) +
   coord_flip() +
   ggtitle(colnames(data)[21]) + 
   ylab('Measure Value') + xlab("Hosp_Overall_Rating")
 
-plot5 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,22]))+
+
+plot2 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,22]))+
   geom_boxplot(show.legend = F) +
   coord_flip() +
   ggtitle(colnames(data)[22]) + 
   ylab('Measure Value') + xlab("Hosp_Overall_Rating")
 
-plot6 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,23]))+
+plot3 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,23]))+
   geom_boxplot(show.legend = F) +
   coord_flip() +
   ggtitle(colnames(data)[23]) + 
   ylab('Measure Value') + xlab("Hosp_Overall_Rating")
 
-plot7 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,24]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[24]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
 
-plot8 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,25]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[25]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot9 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,26]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[26]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-
-#Aggregate into a single graph
-grid.arrange(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3)
-
-
-#Save
-
-g <- arrangeGrob(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3) #generates g
-ggsave("Measures_grp1.png", g, width = 25, height = 20, units = "cm")
-
-```
-
-
-```{r, warning = FALSE}
-
-##Mortality and Complication Measures by Overall Hospital Rating -- GROUP 2
-
-require(gridExtra)
-
-
-plot1 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,28]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[28]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-
-plot2 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,29]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[29]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot3 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,30]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[30]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-
-plot4 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,31]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[31]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot5 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,32]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[32]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot6 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,33]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[33]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot7 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,34]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[34]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot8 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,35]))+
-  geom_boxplot(show.legend = F) +
-  coord_flip() +
-  ggtitle(colnames(data)[35]) + 
-  ylab('Measure Value') + xlab("Hosp_Overall_Rating")
-
-plot9 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,36]))+
+plot4 <- data %>% ggplot(aes(x=factor(as.factor(hosp_overall_rating)),y =data[,36]))+
   geom_boxplot(show.legend = F) +
   coord_flip() +
   ggtitle(colnames(data)[36]) + 
   ylab('Measure Value') + xlab("Hosp_Overall_Rating")
 
-
 #Aggregate into a single graph
-grid.arrange(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3)
+grid.arrange(plot1, plot2, plot3, plot4, ncol=2)
 
 
 #Save
+g <- arrangeGrob(plot1, plot2, plot3, plot4, ncol=2) #generates g
+ggsave("Top4_Star.png", g, width = 25, height = 20, units = "cm")
 
-g <- arrangeGrob(plot1, plot2, plot3, plot4, plot5,plot6,plot7,plot8,plot9, ncol=3) #generates g
-ggsave("Measures_grp2.png", g, width = 25, height = 20, units = "cm")
 
 ```
+
+```{r, warning = FALSE}
+
+##Mortality and Complication Measures by Census Region -- FINAL GROUP
+
+require(gridExtra)
+
+#21,22,23,36
+
+plot1 <- data  %>% ggplot(aes(x=census_division,y =data[,21]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[21]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+
+plot2 <- data %>% ggplot(aes(x=census_division,y =data[,22]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[22]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+plot3 <- data %>% ggplot(aes(x=census_division,y =data[,23]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[23]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+
+plot4 <- data %>% ggplot(aes(x=census_division,y =data[,36]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[36]) + 
+  ylab('Measure Value') + xlab("Census Division")
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, plot3, plot4, ncol=2)
+
+
+#Save
+g <- arrangeGrob(plot1, plot2, plot3, plot4, ncol=2) #generates g
+ggsave("Census_Division_Meas.png", g, width = 25, height = 20, units = "cm")
+
+
+```
+
+```{r, warning = FALSE}
+
+##Mortality and Complication Measures by Census Region -- FINAL GROUP
+
+require(gridExtra)
+require(forcats)
+
+#21,22,23,36
+
+plot1 <- data  %>% ggplot(aes(x=census_region,y =data[,21]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[21]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+
+plot2 <- data %>% ggplot(aes(x=census_region,y =data[,22]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[22]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+plot3 <- data %>% ggplot(aes(x=census_region,y =data[,23]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[23]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+
+plot4 <- data %>% ggplot(aes(x=census_region,y =data[,36]))+
+  geom_boxplot(show.legend = F) +
+  coord_flip() +
+  ggtitle(colnames(data)[36]) + 
+  ylab('Measure Value') + xlab("Census Region")
+
+#Aggregate into a single graph
+grid.arrange(plot1, plot2, plot3, plot4, ncol=2)
+
+
+#Save
+g <- arrangeGrob(plot1, plot2, plot3, plot4, ncol=2) #generates g
+ggsave("Census_Region_Meas.png", g, width = 25, height = 20, units = "cm")
+
+
+```
+
+
+
+
+#Correlation Plot
+
+```{r}
+
+#Correlation Plots for Key Numeric Variables
+
+cor_data <- data %>% dplyr::select(13:17,21,22,23,36)
+
+cor.plot(cor_data)
+
+
+```
+
+
 
 
 ## Linear regression - FOur Different Measures - 1 for each!
@@ -346,26 +448,53 @@ colnames(data)
 
 #Data cleaning -> Quality Measure 90 - > Composite Score for Other P Measures
 
-mod_data <- data %>%  dplyr::select(4:5,8:17,36) %>% #Narrow to features to use in the model (plus one quality measure)
+mod_data <- data %>%  
+   dplyr::select(4:5,8:17,36) %>% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != 'NA') %>% #remove NAs
   filter(PSI_90 != 'NA')  #Remove NAs from measure
 
 # treat overall rating as a factor  
 mod_data$hosp_overall_rating <- as.factor(mod_data$hosp_overall_rating)
 
+table(mod_data$hospital_type)
 
-# Separate into test/train  
+```
 
-set.seed(1234)
 
-#data partitioning test/train
-ind <- sample(2, nrow(mod_data), replace = T, prob=c(0.75,0.25))
 
-mod_train <- mod_data[ind == 1,]
-mod_test <- mod_data[ind ==2, ]
+```{r}
+#Take a full model with all numeric terms
 
-nrow(mod_train)
-nrow(mod_test)
+mod_mod <- lm(PSI_90~median_age+per_white_non_hisp+med_inc_15plus_12mo+
+                per_below_poverty+per_college_grad_deg_25_plus+census_region,mod_data)
+
+summary(mod_mod)
+
+```
+
+
+```{r}
+
+#conduct a step AIC analysis to prioritize functions
+
+new <- stepAIC(mod_mod)
+
+```
+
+
+
+```{r}
+
+#Use model selected by stepAIC function
+mod_modf <- lm(PSI_90~median_age+per_white_non_hisp+per_college_grad_deg_25_plus+census_region,mod_data)
+
+summary(mod_modf)
+
+```
+
+```{r}
+#VIF for PSI_90 
+vif(mod_modf)
 
 ```
 
@@ -384,18 +513,6 @@ hf_data <- data %>%
 # treat overall rating as a factor  
 hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
 
-# Separate into test/train  
-
-set.seed(1234)
-
-#data partitioning test/train
-ind <- sample(2, nrow(hf_data), replace = T, prob=c(0.75,0.25))
-
-hf_train <- hf_data[ind == 1,]
-hf_test <- hf_data[ind ==2, ]
-
-nrow(hf_train)
-nrow(hf_test)
 
 ```
 
@@ -414,20 +531,6 @@ pn_data <- data %>%
 # treat overall rating as a factor  
 pn_data$hosp_overall_rating <- as.factor(pn_data$hosp_overall_rating)
 
-
-# Test / Train Split
-set.seed(1234)
-
-#data partitioning test/train
-ind <- sample(2, nrow(pn_data), replace = T, prob=c(0.75,0.25))
-
-pn_train <- pn_data[ind == 1,]
-pn_test <- pn_data[ind ==2, ]
-
-nrow(pn_train)
-nrow(pn_test)
-
-
 ```
 
 ## Regression for COPD
@@ -444,17 +547,7 @@ copd_data <- data %>%
 # treat overall rating as a factor  
 copd_data$hosp_overall_rating <- as.factor(copd_data$hosp_overall_rating)
 
-# Test / Train Split
-set.seed(1234)
 
-#data partitioning test/train
-ind <- sample(2, nrow(copd_data), replace = T, prob=c(0.75,0.25))
-
-copd_train <- copd_data[ind == 1,]
-copd_test <- copd_data[ind ==2, ]
-
-nrow(copd_train)
-nrow(copd_test)
 ```
 
 
