@@ -447,6 +447,7 @@ coords(r1_test, "best", ret="threshold", transpose = FALSE)
 
 #View(data)
 #View(hf_data)
+detach(package:MASS, unload = TRUE)
 
 hf_data <- data %>%  
   select(10:11,13:36) %>% #Narrow to features to use in the model (plus one quality measure)
@@ -455,6 +456,8 @@ hf_data <- data %>%
   filter(census_region != '#N/A')   
 
 hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
+
+library(MASS)
 
 
 #---------Temp Code begin to find AIC -------------
@@ -510,11 +513,17 @@ hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
   hf_train_log <- hf_data_log[ind == 1,]
   hf_test_log <- hf_data_log[ind ==2, ]
 
+#  model_train_log <- glm(hosp_overall_rating ~ census_region + median_age + 
+#    per_white_non_hisp + per_below_poverty + COMP_HIP_KNEE + 
+#    MORT_30_AMI + MORT_30_CABG + MORT_30_COPD + MORT_30_PN + 
+#    MORT_30_STK + PSI_03 + PSI_04 + PSI_06 + PSI_08 + PSI_13, data = hf_train_log, family #= 'binomial' )
+
   model_train_log <- glm(hosp_overall_rating ~ census_region + median_age + 
     per_white_non_hisp + per_below_poverty + COMP_HIP_KNEE + 
-    MORT_30_AMI + MORT_30_CABG + MORT_30_COPD + MORT_30_PN + 
-    MORT_30_STK + PSI_03 + PSI_04 + PSI_06 + PSI_08 + PSI_13, data = hf_train_log, family = 'binomial' )
-  summary(model_train_log)
+    MORT_30_CABG + MORT_30_PN + 
+    MORT_30_STK + PSI_03 + PSI_04, data = hf_train_log, family = 'binomial' )
+  
+    summary(model_train_log)
   (full_model <- model_train_log %>% stepAIC(trace = FALSE))
 
 
@@ -599,65 +608,36 @@ coords(r1_test, "best", ret="threshold", transpose = FALSE)
 
 
 ```{r, warning=FALSE}
-#---- Linear Regression ------
+#---- Linear Regression Heart Failure ------
 
 #Data cleaning -> MORT_30_HF - > 30 Day Heart Failure Death Rate
-
-hf_data <- data %>%  
-  select(8,10:36) %>% #Narrow to features to use in the model (plus one quality measure)
-  filter(hosp_overall_rating != 'NA') %>% #remove NAs
-  filter(MORT_30_HF != 'NA')  #Remove NAs from measure
-
-#View(data)
-#View(hf_data)
-dim(hf_data[!complete.cases(hf_data),])
-
-hf_data_inc <- hf_data[complete.cases(hf_data),] #incomplete cases
+detach(package:MASS, unload = TRUE)
+hf_data <- data %>% select(11,13:17,22) 
+library(MASS)
 hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
 
-dim(hf_data_inc)
-dim(hf_data)
+# treat overall rating as a factor  
+multi.model.hf <- lm(MORT_30_HF ~ census_region + per_white_non_hisp +
+                      med_inc_15plus_12mo + per_college_grad_deg_25_plus, data = hf_data)
+summary(multi.model.hf)
+vif(multi.model.hf)
+
+```
+
+
+```{r, warning=FALSE}
+#---- Linear Regression COPD ------
+
+#Data cleaning -> MORT_30_COPD - > 30 Day Heart Failure Death Rate
+detach(package:MASS, unload = TRUE)
+copd_data <- data %>% select(11,13:17,21) 
+library(MASS)
+copd_data <- copd_data[complete.cases(copd_data),] #Only complete cases
 
 # treat overall rating as a factor  
-hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
-
-# Separate into test/train  
-
-set.seed(1234)
-
-#data partitioning test/train
-ind <- sample(2, nrow(hf_data), replace = T, prob=c(0.6,0.4))
-
-hf_train <- hf_data[ind == 1,]
-hf_test <- hf_data[ind ==2, ]
-
-#nrow(hf_train)
-#nrow(hf_test)
-
-#colnames(hf_data)
-#cor.plot(hf_data[,5:28], diag = FALSE, upper = FALSE, cex.axis = 0.5, cex = 0.25)
-
-
-multi.model <- lm(MORT_30_HF ~ ., data = hf_train[,5:28])
-summary(multi.model)
-vif(multi.model)
-
-
-multi.aic <- stepAIC(multi.model, tarce = F)
-
-multi.model <- lm(MORT_30_HF ~ per_white_non_hisp + med_inc_15plus_12mo + COMP_HIP_KNEE + 
-                  MORT_30_AMI + MORT_30_COPD + MORT_30_PN + MORT_30_STK +
-                  PSI_14, data = hf_train[,5:28])
-summary(multi.model)
-vif(multi.model)
-
-#View(corrdata) <- data.frame(cor(hf_data[,5:28]))
-
-corrplot(cor(hf_data[,5:28]), 
-         type = "upper", 
-         method = "color",
-         tl.cex = 0.5,
-         #number.cex = 0.5,
-         is.corr = TRUE)
+multi.model.copd <- lm(MORT_30_COPD ~ census_region + per_white_non_hisp + 
+    med_inc_15plus_12mo, data = copd_data)
+summary(multi.model.copd)
+vif(multi.model.copd)
 
 ```
