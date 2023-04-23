@@ -15,10 +15,33 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, packages}
 
 #Install packages/libraries
+#remove.packages('rlang')
+#install.packages("rlang")
+#remove.packages('vctrs')
+#install.packages("vctrs")
+#remove.packages('tibble')
+#install.packages('tibble')
+#install.packages('RToools')
+#remove.packages('caret')
+#install.packages('caret')
+#Additional packages/libraries
+#install.packages("Rtools")
+#install.packages("psych")
+#install.packages("PerformanceAnalytics")
+#install.packages("olsrr")
 
+
+library(MASS)
+library(car)
 library(dplyr)
 library(ggplot2)
-
+library(psych)
+library(gridExtra)
+library(PerformanceAnalytics)
+library(olsrr)
+library(nnet)
+library(pROC) 
+library(caret)
 ```
 
 
@@ -420,18 +443,7 @@ cor.plot(cor_data)
 ## Linear regression - FOur Different Measures - 1 for each!
 
 ```{r}
-#Additional packages/libraries
-#install.packages("Rtools")
-#install.packages("psych")
-#install.packages("PerformanceAnalytics")
-#install.packages("olsrr")
 
-
-library(psych)
-library(PerformanceAnalytics)
-library(MASS)
-library(car)
-library(olsrr)
 
 ```
 
@@ -514,6 +526,22 @@ hf_data <- data %>%
 hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
 
 
+#Data cleaning -> MORT_30_HF - > 30 Day Heart Failure Death Rate
+detach(package:MASS, unload = TRUE)
+hf_data <- data %>% select(11,13:17,22) 
+library(MASS)
+hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
+
+  
+multi.model.hf <- lm(MORT_30_HF ~ census_region + per_white_non_hisp +
+                      med_inc_15plus_12mo + per_college_grad_deg_25_plus, data = hf_data)
+
+summary(multi.model.hf)
+
+vif(multi.model.hf)
+
+
+
 ```
 
 
@@ -547,7 +575,116 @@ copd_data <- data %>%
 # treat overall rating as a factor  
 copd_data$hosp_overall_rating <- as.factor(copd_data$hosp_overall_rating)
 
+#Data cleaning -> MORT_30_COPD - > 30 Day Heart Failure Death Rate
+detach(package:MASS, unload = TRUE)
+copd_data <- data %>% select(11,13:17,21) 
+library(MASS)
+copd_data <- copd_data[complete.cases(copd_data),] #Only complete cases
 
+multi.model.copd <- lm(MORT_30_COPD ~ census_region + per_white_non_hisp + 
+    med_inc_15plus_12mo, data = copd_data)
+summary(multi.model.copd)
+vif(multi.model.copd)
+
+
+
+```
+```{r}
+nrow(mod_data)
+nrow(copd_data)
+nrow(pn_data)
+nrow(hf_data)
+
+```
+
+## Logistic Regression
+
+```{r}
+##---------Actual Code begins to create logistic model -------------
+
+hf_data <- data %>%  
+  dplyr::select(10:11,13:36) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')   %>%  #Remove NAs from measure
+  filter(census_region != '#N/A')   
+
+hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
+
+
+hf_data_log <- hf_data
+
+#hf_data_log$hosp_overall_rating <- as.numeric(hf_data_log$hosp_overall_rating)
+hf_data_log[hf_data_log$hosp_overall_rating < 4,]$hosp_overall_rating <- 0
+hf_data_log[hf_data_log$hosp_overall_rating >= 4,]$hosp_overall_rating <- 1
+hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
+
+#table(hf_data_log$hosp_overall_rating)
+
+  # Separate into test/train  
+  set.seed(1234)
+  #data partitioning test/train
+  ind <- sample(2, nrow(hf_data_log), replace = T, prob=c(0.6,0.4))
+  hf_train_log <- hf_data_log[ind == 1,]
+  hf_test_log <- hf_data_log[ind ==2, ]
+
+#  model_train_log <- glm(hosp_overall_rating ~ census_region + median_age + 
+#    per_white_non_hisp + per_below_poverty + COMP_HIP_KNEE + 
+#    MORT_30_AMI + MORT_30_CABG + MORT_30_COPD + MORT_30_PN + 
+#    MORT_30_STK + PSI_03 + PSI_04 + PSI_06 + PSI_08 + PSI_13, data = hf_train_log, family #= 'binomial' )
+
+  model_train_log <- glm(hosp_overall_rating ~ census_region + median_age + 
+    per_white_non_hisp + per_below_poverty + COMP_HIP_KNEE + 
+    MORT_30_CABG + MORT_30_PN + 
+    MORT_30_STK + PSI_03 + PSI_04, data = hf_train_log, family = 'binomial' )
+  
+    summary(model_train_log)
+  (full_model <- model_train_log %>% stepAIC(trace = FALSE))
+```
+
+
+```{r}
+#CM - train data
+p_log_train <- predict(model_train_log, hf_train_log, type = 'response')
+pred_log_train <- ifelse(p_log_train > 0.5, 1, 0)
+confusionMatrix(factor(pred_log_train), factor(hf_train_log$hosp_overall_rating), positive = '1')
+```
+
+```{r}
+#CM - test data
+p_log_test <- predict(model_train_log, hf_test_log, type = 'response')
+pred_log_test <- ifelse(p_log_test > 0.5, 1, 0)
+confusionMatrix(factor(pred_log_test), factor(hf_test_log$hosp_overall_rating), positive = '1')
+```
+
+```{r}
+#ROC Curve
+p_log_train <- predict(model_train_log, hf_train_log, type = 'response')
+r_train <- multiclass.roc(hf_train_log$hosp_overall_rating, p_log_train, percent = TRUE)
+roc_train <- r_train[['rocs']]
+r1_train <- roc_train[[1]]
+```
+
+```{r}
+p_log_test <- predict(model_train_log, hf_test_log, type = 'response')
+r_test <- multiclass.roc(hf_test_log$hosp_overall_rating, p_log_test, percent = TRUE)
+roc_test <- r_test[['rocs']]
+r1_test <- roc_test[[1]]
+```
+
+```{r}
+plot.roc(r1_train,col= "red", lwd = 3,
+         print.auc = T,
+         auc.polygon= T,
+         max.auc.polygon = T,
+         print.thres = T,
+         main = "ROC Curve for Hospital Rating")
+plot(r1_test, add = T, col = "blue",
+     lwd = 3, print.thres = T)
+```
+
+```{r}
+(coords(r1_train, "best", ret="threshold", transpose = FALSE))
+(coords(r1_test, "best", ret="threshold", transpose = FALSE))
 ```
 
 
