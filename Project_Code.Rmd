@@ -1,8 +1,10 @@
 ---
 title: "STAT_E-109_Project"
 author: "Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover"
-output: html_document
 date: "2023-03-22"
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -29,8 +31,22 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages("psych")
 #install.packages("PerformanceAnalytics")
 #install.packages("olsrr")
+#install.packages('lime')
+#install.packages('mlbench')
+#install.packages('e1071')
+#install.packages('randomForest')
+#install.packages('rpart')
+#install.packages('rpart.plot')
+#install.packages('tinytex')
 
 
+library(tinytex)
+library(rpart.plot)
+library(rpart)
+library(mlbench)
+library(e1071)
+library(lime)
+library(randomForest)
 library(MASS)
 library(car)
 library(dplyr)
@@ -686,6 +702,133 @@ plot(r1_test, add = T, col = "blue",
 (coords(r1_train, "best", ret="threshold", transpose = FALSE))
 (coords(r1_test, "best", ret="threshold", transpose = FALSE))
 ```
+## Trees!
+
+```{r}
+
+##---------Actual Code begins to create decision tree model -------------
+
+hf_data <- data %>%  
+  dplyr::select(10:11,13:36) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')   %>%  #Remove NAs from measure
+  filter(census_region != '#N/A')   
+
+hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
+
+
+hf_data_log <- hf_data
+
+#hf_data_log$hosp_overall_rating <- as.numeric(hf_data_log$hosp_overall_rating)
+hf_data_log[hf_data_log$hosp_overall_rating < 4,]$hosp_overall_rating <- 0
+hf_data_log[hf_data_log$hosp_overall_rating >= 4,]$hosp_overall_rating <- 1
+hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
+
+#table(hf_data_log$hosp_overall_rating)
+
+  # Separate into test/train  
+  set.seed(1234)
+  #data partitioning test/train
+  ind <- sample(2, nrow(hf_data_log), replace = T, prob=c(0.6,0.4))
+  train_tree <- hf_data_log[ind == 1,]
+  test_tree <- hf_data_log[ind ==2, ]
 
 
 
+```
+
+```{r}
+#### Trees
+
+tree <- rpart(hosp_overall_rating ~., data = train_tree, cp=0.02)
+rpart.plot(tree)
+
+```
+```{r}
+summary(tree)
+
+```
+
+```{r}
+plotcp(tree)
+```
+```{r}
+# Confusion matrix -train
+p <- predict(tree, train_tree, type = 'class')
+confusionMatrix(p, train_tree$hosp_overall_rating, positive = '1')
+```
+```{r}
+# Confusion matrix -train
+p <- predict(tree, test_tree, type = 'class')
+confusionMatrix(p, test_tree$hosp_overall_rating, positive = '1')
+
+```
+
+## Bagging
+
+```{r}
+require(caret)
+set.seed(1234)
+cvcontrol <- trainControl(method="repeatedcv", 
+                          number = 5, #split 5 times
+                          repeats = 2, #repeat 2 times
+                          allowParallel=TRUE)
+set.seed(1234)
+bag <- train(hosp_overall_rating ~ ., 
+             data=train_tree,
+             method="treebag",
+             trControl=cvcontrol,#implement yourtrain control method from above
+             importance=TRUE)# if you want the importance plot
+plot(varImp(bag))
+
+```
+
+
+```{r}
+bag_import <- varImp(bag)
+
+bag_import
+
+```
+
+```{r}
+bag
+```
+```{r}
+# Confusion matrix -train - BAGGING
+p <- predict(bag, train_tree, type = 'prob')
+#p <- p[,2]
+#p <- ifelse(p>0.5,1,0)
+
+#confusionMatrix(p, train_tree$hosp_overall_rating, positive = '1')
+
+
+
+```
+
+
+
+```{r}
+# Random Forest
+set.seed(1234) 
+#train is from caret data set and it makes it easy
+forest <- train(hosp_overall_rating ~ ., 
+             data=train_tree,
+             method="rf",
+             trControl=cvcontrol,
+             importance=TRUE)
+plot(varImp(forest))
+```
+
+```{r}
+rf_import <- varImp(forest)
+
+rf_import
+
+```
+
+
+```{r}
+
+
+```

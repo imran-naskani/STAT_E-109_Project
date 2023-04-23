@@ -1,0 +1,2292 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={STAT\_E-109\_Project},
+  pdfauthor={Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{STAT\_E-109\_Project}
+\author{Erin Rebholz, Nadia Zafar, Imran Naskani, Max Yanover}
+\date{2023-03-22}
+
+\begin{document}
+\maketitle
+
+\hypertarget{intitial-package-installation-and-data-loading}{%
+\subsection{Intitial package installation and data
+loading}\label{intitial-package-installation-and-data-loading}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Install packages/libraries}
+\CommentTok{\#remove.packages(\textquotesingle{}rlang\textquotesingle{})}
+\CommentTok{\#install.packages("rlang")}
+\CommentTok{\#remove.packages(\textquotesingle{}vctrs\textquotesingle{})}
+\CommentTok{\#install.packages("vctrs")}
+\CommentTok{\#remove.packages(\textquotesingle{}tibble\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}tibble\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}RToools\textquotesingle{})}
+\CommentTok{\#remove.packages(\textquotesingle{}caret\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}caret\textquotesingle{})}
+\CommentTok{\#Additional packages/libraries}
+\CommentTok{\#install.packages("Rtools")}
+\CommentTok{\#install.packages("psych")}
+\CommentTok{\#install.packages("PerformanceAnalytics")}
+\CommentTok{\#install.packages("olsrr")}
+\CommentTok{\#install.packages(\textquotesingle{}lime\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}mlbench\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}e1071\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}randomForest\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}rpart\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}rpart.plot\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}tinytex\textquotesingle{})}
+
+
+\FunctionTok{library}\NormalTok{(tinytex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'tinytex' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rpart.plot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'rpart.plot' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: rpart
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rpart)}
+\FunctionTok{library}\NormalTok{(mlbench)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'mlbench' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(e1071)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'e1071' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lime)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'lime' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(randomForest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'randomForest' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## randomForest 4.7-1.1
+\end{verbatim}
+
+\begin{verbatim}
+## Type rfNews() to see new features/changes/bug fixes.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(MASS)}
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'car' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'carData' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:car':
+## 
+##     recode
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:MASS':
+## 
+##     select
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:randomForest':
+## 
+##     combine
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:lime':
+## 
+##     explain
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'ggplot2'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:randomForest':
+## 
+##     margin
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(psych)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'psych' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'psych'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:ggplot2':
+## 
+##     %+%, alpha
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:car':
+## 
+##     logit
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:randomForest':
+## 
+##     outlier
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'gridExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:randomForest':
+## 
+##     combine
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(PerformanceAnalytics)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'PerformanceAnalytics' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: xts
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'xts' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: zoo
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'zoo'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## ################################### WARNING ###################################
+## # We noticed you have dplyr installed. The dplyr lag() function breaks how    #
+## # base R's lag() function is supposed to work, which breaks lag(my_xts).      #
+## #                                                                             #
+## # Calls to lag(my_xts) that you enter or source() into this session won't     #
+## # work correctly.                                                             #
+## #                                                                             #
+## # All package code is unaffected because it is protected by the R namespace   #
+## # mechanism.                                                                  #
+## #                                                                             #
+## # Set `options(xts.warn_dplyr_breaks_lag = FALSE)` to suppress this warning.  #
+## #                                                                             #
+## # You can use stats::lag() to make sure you're not using dplyr::lag(), or you #
+## # can add conflictRules('dplyr', exclude = 'lag') to your .Rprofile to stop   #
+## # dplyr from breaking base R's lag() function.                                #
+## ################################### WARNING ###################################
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'xts'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:dplyr':
+## 
+##     first, last
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'PerformanceAnalytics'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:e1071':
+## 
+##     kurtosis, skewness
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     legend
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(olsrr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'olsrr' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'olsrr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:MASS':
+## 
+##     cement
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:datasets':
+## 
+##     rivers
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(nnet)}
+\FunctionTok{library}\NormalTok{(pROC) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'pROC' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Type 'citation("pROC")' for a citation.
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'pROC'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     cov, smooth, var
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'caret' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Load in csv data for project}
+
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}SDOH\_Quality.csv\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{count\_initial }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data)}
+
+\FunctionTok{str}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    5317 obs. of  36 variables:
+##  $ facility_ID                 : chr  "10001" "10005" "10006" "10007" ...
+##  $ facility_name               : chr  "SOUTHEAST HEALTH MEDICAL CENTER" "MARSHALL MEDICAL CENTERS" "NORTH ALABAMA MEDICAL CENTER" "MIZELL MEMORIAL HOSPITAL" ...
+##  $ address                     : chr  "1108 ROSS CLARK CIRCLE" "2505 U S HIGHWAY 431 NORTH" "1701 VETERANS DRIVE" "702 N MAIN ST" ...
+##  $ city                        : chr  "DOTHAN" "BOAZ" "FLORENCE" "OPP" ...
+##  $ state                       : chr  "AL" "AL" "AL" "AL" ...
+##  $ zip                         : int  36301 35957 35630 36467 36049 35235 35968 35007 35233 35660 ...
+##  $ county                      : chr  "HOUSTON" "MARSHALL" "LAUDERDALE" "COVINGTON" ...
+##  $ hospital_type               : chr  "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" ...
+##  $ hospital_ownership          : chr  "Government - Hospital District or Authority" "Government - Hospital District or Authority" "Proprietary" "Voluntary non-profit - Private" ...
+##  $ hosp_overall_rating         : int  3 3 2 3 NA 2 3 4 NA 3 ...
+##  $ census_region               : chr  "South" "South" "South" "South" ...
+##  $ census_division             : chr  "East South Central" "East South Central" "East South Central" "East South Central" ...
+##  $ median_age                  : chr  "39.1" "38.3" "33.8" "47.4" ...
+##  $ per_white_non_hisp          : chr  "61.8" "81" "71.6" "83" ...
+##  $ med_inc_15plus_12mo         : chr  "25326" "22419" "21362" "21490" ...
+##  $ per_below_poverty           : chr  "20.7" "24.2" "22.9" "18.4" ...
+##  $ per_college_grad_deg_25_plus: chr  "17.2" "13.7" "23.5" "12.1" ...
+##  $ COMP_HIP_KNEE               : chr  "2.4" "1.8" "3.4" "" ...
+##  $ MORT_30_AMI                 : chr  "12.4" "12.6" "16.5" "" ...
+##  $ MORT_30_CABG                : chr  "4.7" "" "3.5" "" ...
+##  $ MORT_30_COPD                : chr  "8.5" "8.1" "7.8" "10.3" ...
+##  $ MORT_30_HF                  : chr  "8.3" "16.9" "12.2" "13.9" ...
+##  $ MORT_30_PN                  : chr  "15.9" "21.8" "17.8" "21.7" ...
+##  $ MORT_30_STK                 : chr  "16.4" "16.6" "18.9" "" ...
+##  $ PSI_03                      : chr  "0.23" "0.86" "1.83" "0.32" ...
+##  $ PSI_04                      : chr  "173.39" "142.88" "157.42" "" ...
+##  $ PSI_06                      : chr  "0.17" "0.17" "0.26" "0.18" ...
+##  $ PSI_08                      : chr  "0.1" "0.06" "0.05" "0.07" ...
+##  $ PSI_09                      : chr  "2.33" "2.08" "3.46" "2.37" ...
+##  $ PSI_10                      : chr  "0.61" "0.76" "0.65" "0.91" ...
+##  $ PSI_11                      : chr  "8.92" "6.87" "3.89" "6.01" ...
+##  $ PSI_12                      : chr  "3.33" "2.54" "2.8" "3.8" ...
+##  $ PSI_13                      : chr  "5.98" "3.44" "3.72" "4.05" ...
+##  $ PSI_14                      : chr  "0.65" "0.76" "0.68" "" ...
+##  $ PSI_15                      : chr  "1.21" "0.87" "1.33" "1.02" ...
+##  $ PSI_90                      : chr  "1.01" "0.91" "1.1" "0.99" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Filter to only acute care and critical access facilities}
+
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(hospital\_type }\SpecialCharTok{==} \StringTok{\textquotesingle{}Acute Care Hospitals\textquotesingle{}} \SpecialCharTok{|}\NormalTok{  hospital\_type }\SpecialCharTok{==} \StringTok{\textquotesingle{}Critical Access Hospitals\textquotesingle{}}\NormalTok{) }
+
+\NormalTok{(count\_cah\_acutre }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4585
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Drop facilities where zip code census demographic data is not available}
+
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(median\_age }\SpecialCharTok{!=} \StringTok{"\#N/A"}\NormalTok{) }
+
+\NormalTok{(count\_cah\_acutre\_zipNA }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4407
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datana }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating ))}
+\FunctionTok{str}\NormalTok{(datana)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    2970 obs. of  36 variables:
+##  $ facility_ID                 : chr  "10001" "10005" "10006" "10007" ...
+##  $ facility_name               : chr  "SOUTHEAST HEALTH MEDICAL CENTER" "MARSHALL MEDICAL CENTERS" "NORTH ALABAMA MEDICAL CENTER" "MIZELL MEMORIAL HOSPITAL" ...
+##  $ address                     : chr  "1108 ROSS CLARK CIRCLE" "2505 U S HIGHWAY 431 NORTH" "1701 VETERANS DRIVE" "702 N MAIN ST" ...
+##  $ city                        : chr  "DOTHAN" "BOAZ" "FLORENCE" "OPP" ...
+##  $ state                       : chr  "AL" "AL" "AL" "AL" ...
+##  $ zip                         : int  36301 35957 35630 36467 35235 35968 35007 35660 36360 36116 ...
+##  $ county                      : chr  "HOUSTON" "MARSHALL" "LAUDERDALE" "COVINGTON" ...
+##  $ hospital_type               : chr  "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" "Acute Care Hospitals" ...
+##  $ hospital_ownership          : chr  "Government - Hospital District or Authority" "Government - Hospital District or Authority" "Proprietary" "Voluntary non-profit - Private" ...
+##  $ hosp_overall_rating         : int  3 3 2 3 2 3 4 3 4 2 ...
+##  $ census_region               : chr  "South" "South" "South" "South" ...
+##  $ census_division             : chr  "East South Central" "East South Central" "East South Central" "East South Central" ...
+##  $ median_age                  : chr  "39.1" "38.3" "33.8" "47.4" ...
+##  $ per_white_non_hisp          : chr  "61.8" "81" "71.6" "83" ...
+##  $ med_inc_15plus_12mo         : chr  "25326" "22419" "21362" "21490" ...
+##  $ per_below_poverty           : chr  "20.7" "24.2" "22.9" "18.4" ...
+##  $ per_college_grad_deg_25_plus: chr  "17.2" "13.7" "23.5" "12.1" ...
+##  $ COMP_HIP_KNEE               : chr  "2.4" "1.8" "3.4" "" ...
+##  $ MORT_30_AMI                 : chr  "12.4" "12.6" "16.5" "" ...
+##  $ MORT_30_CABG                : chr  "4.7" "" "3.5" "" ...
+##  $ MORT_30_COPD                : chr  "8.5" "8.1" "7.8" "10.3" ...
+##  $ MORT_30_HF                  : chr  "8.3" "16.9" "12.2" "13.9" ...
+##  $ MORT_30_PN                  : chr  "15.9" "21.8" "17.8" "21.7" ...
+##  $ MORT_30_STK                 : chr  "16.4" "16.6" "18.9" "" ...
+##  $ PSI_03                      : chr  "0.23" "0.86" "1.83" "0.32" ...
+##  $ PSI_04                      : chr  "173.39" "142.88" "157.42" "" ...
+##  $ PSI_06                      : chr  "0.17" "0.17" "0.26" "0.18" ...
+##  $ PSI_08                      : chr  "0.1" "0.06" "0.05" "0.07" ...
+##  $ PSI_09                      : chr  "2.33" "2.08" "3.46" "2.37" ...
+##  $ PSI_10                      : chr  "0.61" "0.76" "0.65" "0.91" ...
+##  $ PSI_11                      : chr  "8.92" "6.87" "3.89" "6.01" ...
+##  $ PSI_12                      : chr  "3.33" "2.54" "2.8" "3.8" ...
+##  $ PSI_13                      : chr  "5.98" "3.44" "3.72" "4.05" ...
+##  $ PSI_14                      : chr  "0.65" "0.76" "0.68" "" ...
+##  $ PSI_15                      : chr  "1.21" "0.87" "1.33" "1.02" ...
+##  $ PSI_90                      : chr  "1.01" "0.91" "1.1" "0.99" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Switch to numeric variables fo censuse/SDOH measures}
+
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{median\_age }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{median\_age)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{per\_white\_non\_hisp }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{per\_white\_non\_hisp)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{med\_inc\_15plus\_12mo }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{med\_inc\_15plus\_12mo)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{per\_below\_poverty }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{per\_below\_poverty)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{per\_college\_grad\_deg\_25\_plus }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{per\_college\_grad\_deg\_25\_plus)}
+          
+\CommentTok{\#Switch to numeric variables for quality measures}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{COMP\_HIP\_KNEE }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{COMP\_HIP\_KNEE)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_AMI }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_AMI)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_CABG }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_CABG)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_COPD }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_COPD)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_HF }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_HF)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_PN }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_PN)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{MORT\_30\_STK }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{MORT\_30\_STK)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_03 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_03)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_04 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_04)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_06 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_06)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_08 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_08)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_09 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_09)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_10 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_10)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_12 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_12)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_11 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_11)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_13 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_13)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_11 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_11)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_14 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_14)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_15 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_15)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{PSI\_90 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{PSI\_90)}
+
+\CommentTok{\#Switch chr variables to factor}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{city }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{city)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{state }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{state)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{hospital\_type }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{hospital\_type)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{hospital\_ownership }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{hospital\_ownership)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{census\_region }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{census\_region)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{census\_division }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{census\_division)}
+
+\CommentTok{\#check to make sure all are now integers}
+\FunctionTok{str}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    4407 obs. of  36 variables:
+##  $ facility_ID                 : chr  "10001" "10005" "10006" "10007" ...
+##  $ facility_name               : chr  "SOUTHEAST HEALTH MEDICAL CENTER" "MARSHALL MEDICAL CENTERS" "NORTH ALABAMA MEDICAL CENTER" "MIZELL MEMORIAL HOSPITAL" ...
+##  $ address                     : chr  "1108 ROSS CLARK CIRCLE" "2505 U S HIGHWAY 431 NORTH" "1701 VETERANS DRIVE" "702 N MAIN ST" ...
+##  $ city                        : Factor w/ 2835 levels "ABBEVILLE","ABERDEEN",..: 666 251 835 1846 1462 226 861 18 226 2316 ...
+##  $ state                       : Factor w/ 51 levels "AK","AL","AR",..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ zip                         : int  36301 35957 35630 36467 36049 35235 35968 35007 35233 35660 ...
+##  $ county                      : chr  "HOUSTON" "MARSHALL" "LAUDERDALE" "COVINGTON" ...
+##  $ hospital_type               : Factor w/ 2 levels "Acute Care Hospitals",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ hospital_ownership          : Factor w/ 10 levels "Government - Federal",..: 2 2 6 10 6 10 6 10 10 2 ...
+##  $ hosp_overall_rating         : int  3 3 2 3 NA 2 3 4 NA 3 ...
+##  $ census_region               : Factor w/ 4 levels "Midwest","Northeast",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ census_division             : Factor w/ 9 levels "East North Central",..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ median_age                  : num  39.1 38.3 33.8 47.4 41.7 37.1 36.4 37.6 28.4 45 ...
+##  $ per_white_non_hisp          : num  61.8 81 71.6 83 72.9 32.9 71.6 70.6 54 73.4 ...
+##  $ med_inc_15plus_12mo         : num  25326 22419 21362 21490 21429 ...
+##  $ per_below_poverty           : num  20.7 24.2 22.9 18.4 8.1 19.5 12.7 7.8 38 23.3 ...
+##  $ per_college_grad_deg_25_plus: num  17.2 13.7 23.5 12.1 20.8 27 13.9 34.9 83.8 16.7 ...
+##  $ COMP_HIP_KNEE               : num  2.4 1.8 3.4 NA NA 2.4 2.4 2.5 NA 2.8 ...
+##  $ MORT_30_AMI                 : num  12.4 12.6 16.5 NA NA 13.8 12.9 11.8 NA NA ...
+##  $ MORT_30_CABG                : num  4.7 NA 3.5 NA NA 3.5 NA 2.9 NA NA ...
+##  $ MORT_30_COPD                : num  8.5 8.1 7.8 10.3 NA 8.2 8 8.2 NA 7.3 ...
+##  $ MORT_30_HF                  : num  8.3 16.9 12.2 13.9 NA 12.2 11.5 12.1 NA 13.4 ...
+##  $ MORT_30_PN                  : num  15.9 21.8 17.8 21.7 19.7 17.1 20.2 16.7 NA 21.7 ...
+##  $ MORT_30_STK                 : num  16.4 16.6 18.9 NA NA 15.2 NA 12 NA 17.5 ...
+##  $ PSI_03                      : num  0.23 0.86 1.83 0.32 0.5 0.05 0.22 0.07 0.55 0.85 ...
+##  $ PSI_04                      : num  173 143 157 NA NA ...
+##  $ PSI_06                      : num  0.17 0.17 0.26 0.18 0.19 0.16 0.18 0.16 0.19 0.17 ...
+##  $ PSI_08                      : num  0.1 0.06 0.05 0.07 0.07 0.05 0.07 0.05 0.07 0.13 ...
+##  $ PSI_09                      : num  2.33 2.08 3.46 2.37 NA 2.31 2.33 3.35 2.34 2.24 ...
+##  $ PSI_10                      : num  0.61 0.76 0.65 0.91 NA 0.98 0.9 1.56 0.91 NA ...
+##  $ PSI_11                      : num  8.92 6.87 3.89 6.01 NA ...
+##  $ PSI_12                      : num  3.33 2.54 2.8 3.8 NA 2.68 3.15 2.68 3.33 4.25 ...
+##  $ PSI_13                      : num  5.98 3.44 3.72 4.05 NA 4.63 3.92 4.07 NA NA ...
+##  $ PSI_14                      : num  0.65 0.76 0.68 NA NA 0.75 0.78 0.99 NA 0.74 ...
+##  $ PSI_15                      : num  1.21 0.87 1.33 1.02 NA 0.8 0.99 0.81 NA 1.24 ...
+##  $ PSI_90                      : num  1.01 0.91 1.1 0.99 NA 0.82 0.91 1.07 0.98 1.09 ...
+\end{verbatim}
+
+\hypertarget{initial-eda---overall-star-rating}{%
+\subsection{Initial EDA - Overall Star
+Rating}\label{initial-eda---overall-star-rating}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Histogram of Overall Hospital Star Rating}
+
+\FunctionTok{hist}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Figure 2}
+\CommentTok{\#Table of Overall Hospital Star Rating}
+\NormalTok{(counts }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   1   2   3   4   5 
+## 179 667 850 859 415
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Figure 2}
+\CommentTok{\#total number of rows in data}
+\NormalTok{(nrows }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4407
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-} Create a Data Table to Support Model Overview {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{avg.PSI\_90 }\OtherTok{\textless{}{-}} 
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(PSI\_90)) }\SpecialCharTok{\%\textgreater{}\%}  
+\FunctionTok{summarize}\NormalTok{(}\AttributeTok{Average=} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(PSI\_90),}\DecValTok{3}\NormalTok{), }\AttributeTok{Count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{Std\_Dev =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(PSI\_90),}\DecValTok{3}\NormalTok{),}\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }
+\FunctionTok{row.names}\NormalTok{(avg.PSI\_90) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"PSI\_90"}\NormalTok{)}
+
+\NormalTok{avg.PSI\_90 }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(avg.PSI\_90) }
+
+\NormalTok{avg.MORT\_30\_PN }\OtherTok{\textless{}{-}} 
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(MORT\_30\_PN)) }\SpecialCharTok{\%\textgreater{}\%}  
+\FunctionTok{summarize}\NormalTok{(}\AttributeTok{Average=} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(MORT\_30\_PN),}\DecValTok{3}\NormalTok{), }\AttributeTok{Count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{Std\_Dev =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(MORT\_30\_PN),}\DecValTok{3}\NormalTok{),}\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }
+\FunctionTok{row.names}\NormalTok{(avg.MORT\_30\_PN) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MORT\_30\_PN"}\NormalTok{)}
+
+\NormalTok{avg.MORT\_30\_PN }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(avg.MORT\_30\_PN) }
+
+\NormalTok{avg.MORT\_30\_HF }\OtherTok{\textless{}{-}} 
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(MORT\_30\_HF)) }\SpecialCharTok{\%\textgreater{}\%}  
+\FunctionTok{summarize}\NormalTok{(}\AttributeTok{Average=} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(MORT\_30\_HF),}\DecValTok{3}\NormalTok{), }\AttributeTok{Count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{Std\_Dev =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(MORT\_30\_HF),}\DecValTok{3}\NormalTok{),}\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }
+\FunctionTok{row.names}\NormalTok{(avg.MORT\_30\_HF) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MORT\_30\_HF"}\NormalTok{)}
+
+\NormalTok{avg.MORT\_30\_HF }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(avg.MORT\_30\_HF) }
+
+\NormalTok{avg.MORT\_30\_COPD }\OtherTok{\textless{}{-}} 
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(MORT\_30\_COPD)) }\SpecialCharTok{\%\textgreater{}\%}  
+\FunctionTok{summarize}\NormalTok{(}\AttributeTok{Average=} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(MORT\_30\_COPD),}\DecValTok{3}\NormalTok{), }\AttributeTok{Count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{Std\_Dev =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(MORT\_30\_COPD),}\DecValTok{3}\NormalTok{),}\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }
+\FunctionTok{row.names}\NormalTok{(avg.MORT\_30\_COPD) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MORT\_30\_COPD"}\NormalTok{)}
+
+\NormalTok{avg.MORT\_30\_COPD }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(avg.MORT\_30\_COPD) }
+
+\NormalTok{avg.rating }\OtherTok{\textless{}{-}} 
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating)) }\SpecialCharTok{\%\textgreater{}\%}  
+\FunctionTok{summarize}\NormalTok{(}\AttributeTok{Average=} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(hosp\_overall\_rating),}\DecValTok{3}\NormalTok{), }\AttributeTok{Count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{Std\_Dev =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(hosp\_overall\_rating),}\DecValTok{3}\NormalTok{),}\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }
+\FunctionTok{row.names}\NormalTok{(avg.rating) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Hospital Overall Rating"}\NormalTok{)}
+
+\NormalTok{avg.rating }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(avg.rating) }
+
+
+\NormalTok{Blended }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(avg.MORT\_30\_COPD,avg.MORT\_30\_HF,avg.MORT\_30\_PN,avg.PSI\_90,avg.rating)}
+
+\FunctionTok{t}\NormalTok{(Blended)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         MORT_30_COPD MORT_30_HF MORT_30_PN   PSI_90 Hospital Overall Rating
+## Average        8.497     11.456     16.833    0.975                   3.224
+## Count       2724.000   2969.000   3448.000 2820.000                2970.000
+## Std_Dev        1.142      1.751      2.268    0.161                   1.124
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#SDOH Measures by Overall Hospital Rating}
+
+\FunctionTok{require}\NormalTok{(gridExtra)}
+
+\NormalTok{plot1 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{13}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{13}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{14}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{14}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{15}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{15}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{16}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{16}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot5 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{17}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{17}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\CommentTok{\#Aggregate into a single graph}
+\FunctionTok{grid.arrange}\NormalTok{(plot1, plot2, plot3, plot4, plot5, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save}
+
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(plot1, plot2, plot3, plot4, plot5, }\AttributeTok{ncol=}\DecValTok{3}\NormalTok{) }\CommentTok{\#generates g}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"SDOH.png"}\NormalTok{, g, }\AttributeTok{width =} \DecValTok{20}\NormalTok{, }\AttributeTok{height =} \DecValTok{15}\NormalTok{, }\AttributeTok{units =} \StringTok{"cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#{-}{-}{-}{-}{-}{-}{-} Boxplot: Star Rating vs Social Indicators {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-} Boxplot: Star Rating vs Median Age {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{social.ind1 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating)) }\SpecialCharTok{\%\textgreater{}\%} 
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ hosp\_overall\_rating, }\AttributeTok{y =}\NormalTok{ median\_age, }\AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating))) }\SpecialCharTok{+} 
+\FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F)  }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{hospital\_type) }\SpecialCharTok{+} 
+\FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Median Age\textquotesingle{}}\NormalTok{) }
+
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-} Boxplot: Star Rating vs Percentage White Population {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{social.ind2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating)) }\SpecialCharTok{\%\textgreater{}\%} 
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ hosp\_overall\_rating, }\AttributeTok{y =}\NormalTok{ per\_white\_non\_hisp, }\AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating))) }\SpecialCharTok{+} 
+\FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{hospital\_type) }\SpecialCharTok{+} 
+\FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}White Pop \%\textquotesingle{}}\NormalTok{) }
+
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-} Boxplot: Star Rating vs Population Below Poverty {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{social.ind3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating)) }\SpecialCharTok{\%\textgreater{}\%} 
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ hosp\_overall\_rating, }\AttributeTok{y =}\NormalTok{ per\_below\_poverty, }\AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating))) }\SpecialCharTok{+} 
+\FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F)  }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{hospital\_type) }\SpecialCharTok{+} 
+\FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Below Poverty \%\textquotesingle{}}\NormalTok{) }
+
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-} Boxplot: Star Rating vs per\_college\_grad\_deg\_25\_plus {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{social.ind4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating)) }\SpecialCharTok{\%\textgreater{}\%} 
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ hosp\_overall\_rating, }\AttributeTok{y =}\NormalTok{ per\_college\_grad\_deg\_25\_plus, }\AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating))) }\SpecialCharTok{+} 
+\FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F)  }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{hospital\_type) }\SpecialCharTok{+} 
+\FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}College Grad Degree \%\textquotesingle{}}\NormalTok{) }
+
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-} Boxplot: Star Rating vs med\_inc\_15plus\_12mo {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{social.ind5 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hosp\_overall\_rating)) }\SpecialCharTok{\%\textgreater{}\%} 
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ hosp\_overall\_rating, }\AttributeTok{y =}\NormalTok{ med\_inc\_15plus\_12mo, }\AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating))) }\SpecialCharTok{+} 
+\FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{hospital\_type) }\SpecialCharTok{+} 
+\FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Median Income $\textquotesingle{}}\NormalTok{) }
+
+\CommentTok{\#Five Graphs in One}
+\FunctionTok{grid.arrange}\NormalTok{(social.ind1, social.ind2, social.ind3, social.ind4, social.ind5, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{grid.social.ind3 }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(social.ind1, social.ind2,social.ind3, social.ind4, social.ind5, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#Mortality and Complication Measures by Overall Hospital Rating {-}{-} FINAL GROUP}
+
+\FunctionTok{require}\NormalTok{(gridExtra)}
+
+\CommentTok{\#21,22,23,36}
+
+\NormalTok{plot1 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{21}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{21}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{22}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{22}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\NormalTok{plot3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{23}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{23}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+
+\NormalTok{plot4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(hosp\_overall\_rating)),}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{36}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{36}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Hosp\_Overall\_Rating"}\NormalTok{)}
+
+\CommentTok{\#Aggregate into a single graph}
+\FunctionTok{grid.arrange}\NormalTok{(plot1, plot2, plot3, plot4, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save}
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(plot1, plot2, plot3, plot4, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{) }\CommentTok{\#generates g}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"Top4\_Star.png"}\NormalTok{, g, }\AttributeTok{width =} \DecValTok{25}\NormalTok{, }\AttributeTok{height =} \DecValTok{20}\NormalTok{, }\AttributeTok{units =} \StringTok{"cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#Mortality and Complication Measures by Census Region {-}{-} FINAL GROUP}
+
+\FunctionTok{require}\NormalTok{(gridExtra)}
+
+\CommentTok{\#21,22,23,36}
+
+\NormalTok{plot1 }\OtherTok{\textless{}{-}}\NormalTok{ data  }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_division,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{21}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{21}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Division"}\NormalTok{)}
+
+
+\NormalTok{plot2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_division,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{22}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{22}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Division"}\NormalTok{)}
+
+\NormalTok{plot3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_division,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{23}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{23}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Division"}\NormalTok{)}
+
+
+\NormalTok{plot4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_division,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{36}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{36}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Division"}\NormalTok{)}
+
+\CommentTok{\#Aggregate into a single graph}
+\FunctionTok{grid.arrange}\NormalTok{(plot1, plot2, plot3, plot4, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save}
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(plot1, plot2, plot3, plot4, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{) }\CommentTok{\#generates g}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"Census\_Division\_Meas.png"}\NormalTok{, g, }\AttributeTok{width =} \DecValTok{25}\NormalTok{, }\AttributeTok{height =} \DecValTok{20}\NormalTok{, }\AttributeTok{units =} \StringTok{"cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#Mortality and Complication Measures by Census Region {-}{-} FINAL GROUP}
+
+\FunctionTok{require}\NormalTok{(gridExtra)}
+\FunctionTok{require}\NormalTok{(forcats)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: forcats
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#21,22,23,36}
+
+\NormalTok{plot1 }\OtherTok{\textless{}{-}}\NormalTok{ data  }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_region,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{21}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{21}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Region"}\NormalTok{)}
+
+
+\NormalTok{plot2 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_region,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{22}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{22}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Region"}\NormalTok{)}
+
+\NormalTok{plot3 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_region,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{23}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{23}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Region"}\NormalTok{)}
+
+
+\NormalTok{plot4 }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{census\_region,}\AttributeTok{y =}\NormalTok{data[,}\DecValTok{36}\NormalTok{]))}\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{show.legend =}\NormalTok{ F) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(data)[}\DecValTok{36}\NormalTok{]) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Measure Value\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Census Region"}\NormalTok{)}
+
+\CommentTok{\#Aggregate into a single graph}
+\FunctionTok{grid.arrange}\NormalTok{(plot1, plot2, plot3, plot4, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save}
+\NormalTok{g }\OtherTok{\textless{}{-}} \FunctionTok{arrangeGrob}\NormalTok{(plot1, plot2, plot3, plot4, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{) }\CommentTok{\#generates g}
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"Census\_Region\_Meas.png"}\NormalTok{, g, }\AttributeTok{width =} \DecValTok{25}\NormalTok{, }\AttributeTok{height =} \DecValTok{20}\NormalTok{, }\AttributeTok{units =} \StringTok{"cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\#Correlation Plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Correlation Plots for Key Numeric Variables}
+
+\NormalTok{cor\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\DecValTok{13}\SpecialCharTok{:}\DecValTok{17}\NormalTok{,}\DecValTok{21}\NormalTok{,}\DecValTok{22}\NormalTok{,}\DecValTok{23}\NormalTok{,}\DecValTok{36}\NormalTok{)}
+
+\FunctionTok{cor.plot}\NormalTok{(cor\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\hypertarget{linear-regression---four-different-measures---1-for-each}{%
+\subsection{Linear regression - FOur Different Measures - 1 for
+each!}\label{linear-regression---four-different-measures---1-for-each}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Refresh on column names}
+\FunctionTok{colnames}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "facility_ID"                  "facility_name"               
+##  [3] "address"                      "city"                        
+##  [5] "state"                        "zip"                         
+##  [7] "county"                       "hospital_type"               
+##  [9] "hospital_ownership"           "hosp_overall_rating"         
+## [11] "census_region"                "census_division"             
+## [13] "median_age"                   "per_white_non_hisp"          
+## [15] "med_inc_15plus_12mo"          "per_below_poverty"           
+## [17] "per_college_grad_deg_25_plus" "COMP_HIP_KNEE"               
+## [19] "MORT_30_AMI"                  "MORT_30_CABG"                
+## [21] "MORT_30_COPD"                 "MORT_30_HF"                  
+## [23] "MORT_30_PN"                   "MORT_30_STK"                 
+## [25] "PSI_03"                       "PSI_04"                      
+## [27] "PSI_06"                       "PSI_08"                      
+## [29] "PSI_09"                       "PSI_10"                      
+## [31] "PSI_11"                       "PSI_12"                      
+## [33] "PSI_13"                       "PSI_14"                      
+## [35] "PSI_15"                       "PSI_90"
+\end{verbatim}
+
+\#Regression on the Composite measure for complications
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Data cleaning {-}\textgreater{} Quality Measure 90 {-} \textgreater{} Composite Score for Other P Measures}
+
+\NormalTok{mod\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{   dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{17}\NormalTok{,}\DecValTok{36}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Narrow to features to use in the model (plus one quality measure)}
+  \FunctionTok{filter}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#remove NAs}
+  \FunctionTok{filter}\NormalTok{(PSI\_90 }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)  }\CommentTok{\#Remove NAs from measure}
+
+\CommentTok{\# treat overall rating as a factor  }
+\NormalTok{mod\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(mod\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+
+\FunctionTok{table}\NormalTok{(mod\_data}\SpecialCharTok{$}\NormalTok{hospital\_type)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##      Acute Care Hospitals Critical Access Hospitals 
+##                      2588                         0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Take a full model with all numeric terms}
+
+\NormalTok{mod\_mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PSI\_90}\SpecialCharTok{\textasciitilde{}}\NormalTok{median\_age}\SpecialCharTok{+}\NormalTok{per\_white\_non\_hisp}\SpecialCharTok{+}\NormalTok{med\_inc\_15plus\_12mo}\SpecialCharTok{+}
+\NormalTok{                per\_below\_poverty}\SpecialCharTok{+}\NormalTok{per\_college\_grad\_deg\_25\_plus}\SpecialCharTok{+}\NormalTok{census\_region,mod\_data)}
+
+\FunctionTok{summary}\NormalTok{(mod\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = PSI_90 ~ median_age + per_white_non_hisp + med_inc_15plus_12mo + 
+##     per_below_poverty + per_college_grad_deg_25_plus + census_region, 
+##     data = mod_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.47432 -0.09114 -0.01345  0.06641  1.71062 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                   9.996e-01  2.843e-02  35.154  < 2e-16 ***
+## median_age                    9.448e-04  5.603e-04   1.686  0.09185 .  
+## per_white_non_hisp           -6.549e-04  1.593e-04  -4.110 4.07e-05 ***
+## med_inc_15plus_12mo          -3.476e-07  5.455e-07  -0.637  0.52403    
+## per_below_poverty             9.452e-05  5.177e-04   0.183  0.85514    
+## per_college_grad_deg_25_plus -4.943e-04  3.038e-04  -1.627  0.10383    
+## census_regionNortheast        3.315e-02  1.049e-02   3.162  0.00159 ** 
+## census_regionSouth            1.127e-02  8.563e-03   1.316  0.18819    
+## census_regionWest            -7.662e-03  1.025e-02  -0.747  0.45493    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1617 on 2579 degrees of freedom
+## Multiple R-squared:  0.02227,    Adjusted R-squared:  0.01924 
+## F-statistic: 7.343 on 8 and 2579 DF,  p-value: 1.071e-09
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#conduct a step AIC analysis to prioritize functions}
+
+\NormalTok{new }\OtherTok{\textless{}{-}} \FunctionTok{stepAIC}\NormalTok{(mod\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Start:  AIC=-9422.77
+## PSI_90 ~ median_age + per_white_non_hisp + med_inc_15plus_12mo + 
+##     per_below_poverty + per_college_grad_deg_25_plus + census_region
+## 
+##                                Df Sum of Sq    RSS     AIC
+## - per_below_poverty             1   0.00087 67.407 -9424.7
+## - med_inc_15plus_12mo           1   0.01061 67.417 -9424.4
+## <none>                                      67.406 -9422.8
+## - per_college_grad_deg_25_plus  1   0.06920 67.475 -9422.1
+## - median_age                    1   0.07433 67.481 -9421.9
+## - census_region                 3   0.42780 67.834 -9412.4
+## - per_white_non_hisp            1   0.44160 67.848 -9407.9
+## 
+## Step:  AIC=-9424.74
+## PSI_90 ~ median_age + per_white_non_hisp + med_inc_15plus_12mo + 
+##     per_college_grad_deg_25_plus + census_region
+## 
+##                                Df Sum of Sq    RSS     AIC
+## - med_inc_15plus_12mo           1   0.02143 67.429 -9425.9
+## <none>                                      67.407 -9424.7
+## - per_college_grad_deg_25_plus  1   0.06964 67.477 -9424.1
+## - median_age                    1   0.07363 67.481 -9423.9
+## - census_region                 3   0.43322 67.840 -9414.2
+## - per_white_non_hisp            1   0.50293 67.910 -9407.5
+## 
+## Step:  AIC=-9425.92
+## PSI_90 ~ median_age + per_white_non_hisp + per_college_grad_deg_25_plus + 
+##     census_region
+## 
+##                                Df Sum of Sq    RSS     AIC
+## <none>                                      67.429 -9425.9
+## - median_age                    1   0.05423 67.483 -9425.8
+## - per_college_grad_deg_25_plus  1   0.34556 67.774 -9414.7
+## - census_region                 3   0.45203 67.881 -9414.6
+## - per_white_non_hisp            1   0.48910 67.918 -9409.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Use model selected by stepAIC function}
+\NormalTok{mod\_modf }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PSI\_90}\SpecialCharTok{\textasciitilde{}}\NormalTok{median\_age}\SpecialCharTok{+}\NormalTok{per\_white\_non\_hisp}\SpecialCharTok{+}\NormalTok{per\_college\_grad\_deg\_25\_plus}\SpecialCharTok{+}\NormalTok{census\_region,mod\_data)}
+
+\FunctionTok{summary}\NormalTok{(mod\_modf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = PSI_90 ~ median_age + per_white_non_hisp + per_college_grad_deg_25_plus + 
+##     census_region, data = mod_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.47169 -0.09161 -0.01371  0.06637  1.71100 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                   1.0035572  0.0201266  49.862  < 2e-16 ***
+## median_age                    0.0007431  0.0005157   1.441 0.149760    
+## per_white_non_hisp           -0.0006525  0.0001508  -4.327 1.57e-05 ***
+## per_college_grad_deg_25_plus -0.0006854  0.0001885  -3.637 0.000281 ***
+## census_regionNortheast        0.0332783  0.0104823   3.175 0.001518 ** 
+## census_regionSouth            0.0118594  0.0085364   1.389 0.164869    
+## census_regionWest            -0.0084123  0.0101868  -0.826 0.408996    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1616 on 2581 degrees of freedom
+## Multiple R-squared:  0.02195,    Adjusted R-squared:  0.01967 
+## F-statistic: 9.653 on 6 and 2581 DF,  p-value: 1.572e-10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#VIF for PSI\_90 }
+\FunctionTok{vif}\NormalTok{(mod\_modf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                  GVIF Df GVIF^(1/(2*Df))
+## median_age                   1.203245  1        1.096925
+## per_white_non_hisp           1.365903  1        1.168719
+## per_college_grad_deg_25_plus 1.061198  1        1.030144
+## census_region                1.169423  3        1.026428
+\end{verbatim}
+
+\hypertarget{regression-for-heart-failure}{%
+\subsection{Regression for Heart
+Failure}\label{regression-for-heart-failure}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Data cleaning {-}\textgreater{} MORT\_30\_HF {-} \textgreater{} 30 Day Heart Failure Death Rate}
+
+\NormalTok{hf\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{17}\NormalTok{,}\DecValTok{22}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Narrow to features to use in the model (plus one quality measure)}
+  \FunctionTok{filter}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#remove NAs}
+  \FunctionTok{filter}\NormalTok{(MORT\_30\_HF }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)  }\CommentTok{\#Remove NAs from measure}
+
+\CommentTok{\# treat overall rating as a factor  }
+\NormalTok{hf\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(hf\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+
+
+\CommentTok{\#Data cleaning {-}\textgreater{} MORT\_30\_HF {-} \textgreater{} 30 Day Heart Failure Death Rate}
+\FunctionTok{detach}\NormalTok{(package}\SpecialCharTok{:}\NormalTok{MASS, }\AttributeTok{unload =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: 'MASS' namespace cannot be unloaded:
+##   namespace 'MASS' is imported by 'ipred' so cannot be unloaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hf\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{13}\SpecialCharTok{:}\DecValTok{17}\NormalTok{,}\DecValTok{22}\NormalTok{) }
+\FunctionTok{library}\NormalTok{(MASS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'MASS'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:olsrr':
+## 
+##     cement
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     select
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hf\_data }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data[}\FunctionTok{complete.cases}\NormalTok{(hf\_data),] }\CommentTok{\#Only complete cases}
+
+  
+\NormalTok{multi.model.hf }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(MORT\_30\_HF }\SpecialCharTok{\textasciitilde{}}\NormalTok{ census\_region }\SpecialCharTok{+}\NormalTok{ per\_white\_non\_hisp }\SpecialCharTok{+}
+\NormalTok{                      med\_inc\_15plus\_12mo }\SpecialCharTok{+}\NormalTok{ per\_college\_grad\_deg\_25\_plus, }\AttributeTok{data =}\NormalTok{ hf\_data)}
+
+\FunctionTok{summary}\NormalTok{(multi.model.hf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = MORT_30_HF ~ census_region + per_white_non_hisp + 
+##     med_inc_15plus_12mo + per_college_grad_deg_25_plus, data = hf_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.9876 -1.0865 -0.0969  1.0285  6.5660 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                   1.097e+01  1.380e-01  79.452  < 2e-16 ***
+## census_regionNortheast       -1.364e-01  9.666e-02  -1.411    0.158    
+## census_regionSouth            3.369e-01  7.831e-02   4.302 1.74e-05 ***
+## census_regionWest             4.385e-01  9.374e-02   4.677 3.04e-06 ***
+## per_white_non_hisp            2.173e-02  1.307e-03  16.629  < 2e-16 ***
+## med_inc_15plus_12mo          -1.924e-05  4.043e-06  -4.758 2.05e-06 ***
+## per_college_grad_deg_25_plus -1.711e-02  2.657e-03  -6.437 1.41e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.623 on 2962 degrees of freedom
+## Multiple R-squared:  0.142,  Adjusted R-squared:  0.1402 
+## F-statistic: 81.68 on 6 and 2962 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{vif}\NormalTok{(multi.model.hf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                  GVIF Df GVIF^(1/(2*Df))
+## census_region                1.191546  3        1.029639
+## per_white_non_hisp           1.164497  1        1.079119
+## med_inc_15plus_12mo          2.253382  1        1.501127
+## per_college_grad_deg_25_plus 2.223385  1        1.491102
+\end{verbatim}
+
+\hypertarget{regression-for-pneumonia}{%
+\subsection{Regression for Pneumonia}\label{regression-for-pneumonia}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Data cleaning {-}\textgreater{} MORT\_30\_PN {-} \textgreater{} 30 Day pneumonia death rate}
+
+\NormalTok{pn\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{17}\NormalTok{,}\DecValTok{23}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Narrow to features to use in the model (plus one quality measure)}
+  \FunctionTok{filter}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#remove NAs}
+  \FunctionTok{filter}\NormalTok{(MORT\_30\_PN }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)  }\CommentTok{\#Remove NAs from measure}
+
+\CommentTok{\# treat overall rating as a factor  }
+\NormalTok{pn\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(pn\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{regression-for-copd}{%
+\subsection{Regression for COPD}\label{regression-for-copd}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Data cleaning {-}\textgreater{} MORT\_30\_COPD {-} \textgreater{} 30 Day COPD death rate}
+
+\NormalTok{copd\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{8}\SpecialCharTok{:}\DecValTok{17}\NormalTok{,}\DecValTok{21}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Narrow to features to use in the model (plus one quality measure)}
+  \FunctionTok{filter}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#remove NAs}
+  \FunctionTok{filter}\NormalTok{(MORT\_30\_COPD }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)  }\CommentTok{\#Remove NAs from measure}
+
+\CommentTok{\# treat overall rating as a factor  }
+\NormalTok{copd\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(copd\_data}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+
+\CommentTok{\#Data cleaning {-}\textgreater{} MORT\_30\_COPD {-} \textgreater{} 30 Day Heart Failure Death Rate}
+\FunctionTok{detach}\NormalTok{(package}\SpecialCharTok{:}\NormalTok{MASS, }\AttributeTok{unload =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: 'MASS' namespace cannot be unloaded:
+##   namespace 'MASS' is imported by 'ipred' so cannot be unloaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{copd\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{13}\SpecialCharTok{:}\DecValTok{17}\NormalTok{,}\DecValTok{21}\NormalTok{) }
+\FunctionTok{library}\NormalTok{(MASS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'MASS'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:olsrr':
+## 
+##     cement
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     select
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{copd\_data }\OtherTok{\textless{}{-}}\NormalTok{ copd\_data[}\FunctionTok{complete.cases}\NormalTok{(copd\_data),] }\CommentTok{\#Only complete cases}
+
+\NormalTok{multi.model.copd }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(MORT\_30\_COPD }\SpecialCharTok{\textasciitilde{}}\NormalTok{ census\_region }\SpecialCharTok{+}\NormalTok{ per\_white\_non\_hisp }\SpecialCharTok{+} 
+\NormalTok{    med\_inc\_15plus\_12mo, }\AttributeTok{data =}\NormalTok{ copd\_data)}
+\FunctionTok{summary}\NormalTok{(multi.model.copd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = MORT_30_COPD ~ census_region + per_white_non_hisp + 
+##     med_inc_15plus_12mo, data = copd_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.1323 -0.7556 -0.0923  0.6844  5.5281 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)             8.388e+00  9.791e-02  85.674  < 2e-16 ***
+## census_regionNortheast -1.884e-01  6.836e-02  -2.757 0.005881 ** 
+## census_regionSouth      1.940e-01  5.535e-02   3.505 0.000464 ***
+## census_regionWest       3.245e-01  6.843e-02   4.743 2.21e-06 ***
+## per_white_non_hisp      7.787e-03  9.332e-04   8.345  < 2e-16 ***
+## med_inc_15plus_12mo    -1.620e-05  1.964e-06  -8.249 2.47e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.109 on 2718 degrees of freedom
+## Multiple R-squared:  0.05855,    Adjusted R-squared:  0.05681 
+## F-statistic: 33.81 on 5 and 2718 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{vif}\NormalTok{(multi.model.copd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         GVIF Df GVIF^(1/(2*Df))
+## census_region       1.162934  3        1.025477
+## per_white_non_hisp  1.135241  1        1.065477
+## med_inc_15plus_12mo 1.054808  1        1.027038
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(mod\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2588
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(copd\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2724
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(pn\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2891
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(hf\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2969
+\end{verbatim}
+
+\hypertarget{logistic-regression}{%
+\subsection{Logistic Regression}\label{logistic-regression}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#{-}{-}{-}{-}{-}{-}{-}{-}{-}Actual Code begins to create logistic model {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{hf\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\DecValTok{10}\SpecialCharTok{:}\DecValTok{11}\NormalTok{,}\DecValTok{13}\SpecialCharTok{:}\DecValTok{36}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Narrow to features to use in the model (plus one quality measure)}
+  \FunctionTok{filter}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#remove NAs}
+  \FunctionTok{filter}\NormalTok{(MORT\_30\_HF }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)   }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\#Remove NAs from measure}
+  \FunctionTok{filter}\NormalTok{(census\_region }\SpecialCharTok{!=} \StringTok{\textquotesingle{}\#N/A\textquotesingle{}}\NormalTok{)   }
+
+\NormalTok{hf\_data }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data[}\FunctionTok{complete.cases}\NormalTok{(hf\_data),] }\CommentTok{\#Only complete cases}
+
+
+\NormalTok{hf\_data\_log }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data}
+
+\CommentTok{\#hf\_data\_log$hosp\_overall\_rating \textless{}{-} as.numeric(hf\_data\_log$hosp\_overall\_rating)}
+\NormalTok{hf\_data\_log[hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\SpecialCharTok{\textless{}} \DecValTok{4}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{hf\_data\_log[hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\SpecialCharTok{\textgreater{}=} \DecValTok{4}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+
+\CommentTok{\#table(hf\_data\_log$hosp\_overall\_rating)}
+
+  \CommentTok{\# Separate into test/train  }
+  \FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+  \CommentTok{\#data partitioning test/train}
+\NormalTok{  ind }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{2}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(hf\_data\_log), }\AttributeTok{replace =}\NormalTok{ T, }\AttributeTok{prob=}\FunctionTok{c}\NormalTok{(}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.4}\NormalTok{))}
+\NormalTok{  hf\_train\_log }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data\_log[ind }\SpecialCharTok{==} \DecValTok{1}\NormalTok{,]}
+\NormalTok{  hf\_test\_log }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data\_log[ind }\SpecialCharTok{==}\DecValTok{2}\NormalTok{, ]}
+
+\CommentTok{\#  model\_train\_log \textless{}{-} glm(hosp\_overall\_rating \textasciitilde{} census\_region + median\_age + }
+\CommentTok{\#    per\_white\_non\_hisp + per\_below\_poverty + COMP\_HIP\_KNEE + }
+\CommentTok{\#    MORT\_30\_AMI + MORT\_30\_CABG + MORT\_30\_COPD + MORT\_30\_PN + }
+\CommentTok{\#    MORT\_30\_STK + PSI\_03 + PSI\_04 + PSI\_06 + PSI\_08 + PSI\_13, data = hf\_train\_log, family \#= \textquotesingle{}binomial\textquotesingle{} )}
+
+\NormalTok{  model\_train\_log }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{\textasciitilde{}}\NormalTok{ census\_region }\SpecialCharTok{+}\NormalTok{ median\_age }\SpecialCharTok{+} 
+\NormalTok{    per\_white\_non\_hisp }\SpecialCharTok{+}\NormalTok{ per\_below\_poverty }\SpecialCharTok{+}\NormalTok{ COMP\_HIP\_KNEE }\SpecialCharTok{+} 
+\NormalTok{    MORT\_30\_CABG }\SpecialCharTok{+}\NormalTok{ MORT\_30\_PN }\SpecialCharTok{+} 
+\NormalTok{    MORT\_30\_STK }\SpecialCharTok{+}\NormalTok{ PSI\_03 }\SpecialCharTok{+}\NormalTok{ PSI\_04, }\AttributeTok{data =}\NormalTok{ hf\_train\_log, }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{ )}
+  
+    \FunctionTok{summary}\NormalTok{(model\_train\_log)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = hosp_overall_rating ~ census_region + median_age + 
+##     per_white_non_hisp + per_below_poverty + COMP_HIP_KNEE + 
+##     MORT_30_CABG + MORT_30_PN + MORT_30_STK + PSI_03 + PSI_04, 
+##     family = "binomial", data = hf_train_log)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.0498  -0.7953  -0.2923   0.7920   2.7261  
+## 
+## Coefficients:
+##                         Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)            17.433397   2.110213   8.261  < 2e-16 ***
+## census_regionNortheast -1.286837   0.458665  -2.806 0.005022 ** 
+## census_regionSouth     -0.705203   0.316991  -2.225 0.026103 *  
+## census_regionWest      -0.557869   0.356979  -1.563 0.118111    
+## median_age             -0.060143   0.017785  -3.382 0.000721 ***
+## per_white_non_hisp      0.021772   0.006516   3.341 0.000834 ***
+## per_below_poverty      -0.046076   0.013822  -3.333 0.000858 ***
+## COMP_HIP_KNEE          -1.300612   0.275225  -4.726 2.29e-06 ***
+## MORT_30_CABG           -0.684959   0.189931  -3.606 0.000311 ***
+## MORT_30_PN             -0.267691   0.066785  -4.008 6.12e-05 ***
+## MORT_30_STK            -0.164051   0.075076  -2.185 0.028879 *  
+## PSI_03                 -0.518775   0.211956  -2.448 0.014383 *  
+## PSI_04                 -0.026320   0.007768  -3.388 0.000703 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 587.10  on 434  degrees of freedom
+## Residual deviance: 412.88  on 422  degrees of freedom
+## AIC: 438.88
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  (full\_model }\OtherTok{\textless{}{-}}\NormalTok{ model\_train\_log }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{stepAIC}\NormalTok{(}\AttributeTok{trace =} \ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:  glm(formula = hosp_overall_rating ~ census_region + median_age + 
+##     per_white_non_hisp + per_below_poverty + COMP_HIP_KNEE + 
+##     MORT_30_CABG + MORT_30_PN + MORT_30_STK + PSI_03 + PSI_04, 
+##     family = "binomial", data = hf_train_log)
+## 
+## Coefficients:
+##            (Intercept)  census_regionNortheast      census_regionSouth  
+##               17.43340                -1.28684                -0.70520  
+##      census_regionWest              median_age      per_white_non_hisp  
+##               -0.55787                -0.06014                 0.02177  
+##      per_below_poverty           COMP_HIP_KNEE            MORT_30_CABG  
+##               -0.04608                -1.30061                -0.68496  
+##             MORT_30_PN             MORT_30_STK                  PSI_03  
+##               -0.26769                -0.16405                -0.51877  
+##                 PSI_04  
+##               -0.02632  
+## 
+## Degrees of Freedom: 434 Total (i.e. Null);  422 Residual
+## Null Deviance:       587.1 
+## Residual Deviance: 412.9     AIC: 438.9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#CM {-} train data}
+\NormalTok{p\_log\_train }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model\_train\_log, hf\_train\_log, }\AttributeTok{type =} \StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{)}
+\NormalTok{pred\_log\_train }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(p\_log\_train }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\FunctionTok{confusionMatrix}\NormalTok{(}\FunctionTok{factor}\NormalTok{(pred\_log\_train), }\FunctionTok{factor}\NormalTok{(hf\_train\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating), }\AttributeTok{positive =} \StringTok{\textquotesingle{}1\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 212  50
+##          1  47 126
+##                                           
+##                Accuracy : 0.777           
+##                  95% CI : (0.7349, 0.8153)
+##     No Information Rate : 0.5954          
+##     P-Value [Acc > NIR] : 8.236e-16       
+##                                           
+##                   Kappa : 0.5359          
+##                                           
+##  Mcnemar's Test P-Value : 0.8391          
+##                                           
+##             Sensitivity : 0.7159          
+##             Specificity : 0.8185          
+##          Pos Pred Value : 0.7283          
+##          Neg Pred Value : 0.8092          
+##              Prevalence : 0.4046          
+##          Detection Rate : 0.2897          
+##    Detection Prevalence : 0.3977          
+##       Balanced Accuracy : 0.7672          
+##                                           
+##        'Positive' Class : 1               
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#CM {-} test data}
+\NormalTok{p\_log\_test }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model\_train\_log, hf\_test\_log, }\AttributeTok{type =} \StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{)}
+\NormalTok{pred\_log\_test }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(p\_log\_test }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\FunctionTok{confusionMatrix}\NormalTok{(}\FunctionTok{factor}\NormalTok{(pred\_log\_test), }\FunctionTok{factor}\NormalTok{(hf\_test\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating), }\AttributeTok{positive =} \StringTok{\textquotesingle{}1\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 142  40
+##          1  34  86
+##                                           
+##                Accuracy : 0.755           
+##                  95% CI : (0.7024, 0.8024)
+##     No Information Rate : 0.5828          
+##     P-Value [Acc > NIR] : 2.849e-10       
+##                                           
+##                   Kappa : 0.4927          
+##                                           
+##  Mcnemar's Test P-Value : 0.5611          
+##                                           
+##             Sensitivity : 0.6825          
+##             Specificity : 0.8068          
+##          Pos Pred Value : 0.7167          
+##          Neg Pred Value : 0.7802          
+##              Prevalence : 0.4172          
+##          Detection Rate : 0.2848          
+##    Detection Prevalence : 0.3974          
+##       Balanced Accuracy : 0.7447          
+##                                           
+##        'Positive' Class : 1               
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#ROC Curve}
+\NormalTok{p\_log\_train }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model\_train\_log, hf\_train\_log, }\AttributeTok{type =} \StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{)}
+\NormalTok{r\_train }\OtherTok{\textless{}{-}} \FunctionTok{multiclass.roc}\NormalTok{(hf\_train\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating, p\_log\_train, }\AttributeTok{percent =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Setting direction: controls < cases
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{roc\_train }\OtherTok{\textless{}{-}}\NormalTok{ r\_train[[}\StringTok{\textquotesingle{}rocs\textquotesingle{}}\NormalTok{]]}
+\NormalTok{r1\_train }\OtherTok{\textless{}{-}}\NormalTok{ roc\_train[[}\DecValTok{1}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p\_log\_test }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model\_train\_log, hf\_test\_log, }\AttributeTok{type =} \StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{)}
+\NormalTok{r\_test }\OtherTok{\textless{}{-}} \FunctionTok{multiclass.roc}\NormalTok{(hf\_test\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating, p\_log\_test, }\AttributeTok{percent =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Setting direction: controls < cases
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{roc\_test }\OtherTok{\textless{}{-}}\NormalTok{ r\_test[[}\StringTok{\textquotesingle{}rocs\textquotesingle{}}\NormalTok{]]}
+\NormalTok{r1\_test }\OtherTok{\textless{}{-}}\NormalTok{ roc\_test[[}\DecValTok{1}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.roc}\NormalTok{(r1\_train,}\AttributeTok{col=} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{3}\NormalTok{,}
+         \AttributeTok{print.auc =}\NormalTok{ T,}
+         \AttributeTok{auc.polygon=}\NormalTok{ T,}
+         \AttributeTok{max.auc.polygon =}\NormalTok{ T,}
+         \AttributeTok{print.thres =}\NormalTok{ T,}
+         \AttributeTok{main =} \StringTok{"ROC Curve for Hospital Rating"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(r1\_test, }\AttributeTok{add =}\NormalTok{ T, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{,}
+     \AttributeTok{lwd =} \DecValTok{3}\NormalTok{, }\AttributeTok{print.thres =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{coords}\NormalTok{(r1\_train, }\StringTok{"best"}\NormalTok{, }\AttributeTok{ret=}\StringTok{"threshold"}\NormalTok{, }\AttributeTok{transpose =} \ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   threshold
+## 1 0.4771103
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{coords}\NormalTok{(r1\_test, }\StringTok{"best"}\NormalTok{, }\AttributeTok{ret=}\StringTok{"threshold"}\NormalTok{, }\AttributeTok{transpose =} \ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   threshold
+## 1 0.4783859
+\end{verbatim}
+
+\hypertarget{trees}{%
+\subsection{Trees!}\label{trees}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#{-}{-}{-}{-}{-}{-}{-}{-}{-}Actual Code begins to create decision tree model {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{hf\_data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\DecValTok{10}\SpecialCharTok{:}\DecValTok{11}\NormalTok{,}\DecValTok{13}\SpecialCharTok{:}\DecValTok{36}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Narrow to features to use in the model (plus one quality measure)}
+  \FunctionTok{filter}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#remove NAs}
+  \FunctionTok{filter}\NormalTok{(MORT\_30\_HF }\SpecialCharTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)   }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\#Remove NAs from measure}
+  \FunctionTok{filter}\NormalTok{(census\_region }\SpecialCharTok{!=} \StringTok{\textquotesingle{}\#N/A\textquotesingle{}}\NormalTok{)   }
+
+\NormalTok{hf\_data }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data[}\FunctionTok{complete.cases}\NormalTok{(hf\_data),] }\CommentTok{\#Only complete cases}
+
+
+\NormalTok{hf\_data\_log }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data}
+
+\CommentTok{\#hf\_data\_log$hosp\_overall\_rating \textless{}{-} as.numeric(hf\_data\_log$hosp\_overall\_rating)}
+\NormalTok{hf\_data\_log[hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\SpecialCharTok{\textless{}} \DecValTok{4}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{hf\_data\_log[hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\SpecialCharTok{\textgreater{}=} \DecValTok{4}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(hf\_data\_log}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating)}
+
+\CommentTok{\#table(hf\_data\_log$hosp\_overall\_rating)}
+
+  \CommentTok{\# Separate into test/train  }
+  \FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+  \CommentTok{\#data partitioning test/train}
+\NormalTok{  ind }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{2}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(hf\_data\_log), }\AttributeTok{replace =}\NormalTok{ T, }\AttributeTok{prob=}\FunctionTok{c}\NormalTok{(}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.4}\NormalTok{))}
+\NormalTok{  train\_tree }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data\_log[ind }\SpecialCharTok{==} \DecValTok{1}\NormalTok{,]}
+\NormalTok{  test\_tree }\OtherTok{\textless{}{-}}\NormalTok{ hf\_data\_log[ind }\SpecialCharTok{==}\DecValTok{2}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\#\# Trees}
+
+\NormalTok{tree }\OtherTok{\textless{}{-}} \FunctionTok{rpart}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{\textasciitilde{}}\NormalTok{., }\AttributeTok{data =}\NormalTok{ train\_tree, }\AttributeTok{cp=}\FloatTok{0.02}\NormalTok{)}
+\FunctionTok{rpart.plot}\NormalTok{(tree)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(tree)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## rpart(formula = hosp_overall_rating ~ ., data = train_tree, cp = 0.02)
+##   n= 435 
+## 
+##           CP nsplit rel error    xerror       xstd
+## 1 0.21590909      0 1.0000000 1.0000000 0.05816328
+## 2 0.05303030      1 0.7840909 0.9488636 0.05763262
+## 3 0.03409091      4 0.6250000 0.8693182 0.05658652
+## 4 0.02556818      5 0.5909091 0.8806818 0.05675284
+## 5 0.02272727      7 0.5397727 0.9090909 0.05714379
+## 6 0.02000000      8 0.5170455 0.9034091 0.05706841
+## 
+## Variable importance
+##                   MORT_30_PN          med_inc_15plus_12mo 
+##                           19                           19 
+## per_college_grad_deg_25_plus                  MORT_30_STK 
+##                            9                            7 
+##            per_below_poverty                       PSI_04 
+##                            7                            5 
+##                   MORT_30_HF                 MORT_30_CABG 
+##                            5                            5 
+##                COMP_HIP_KNEE                  MORT_30_AMI 
+##                            5                            5 
+##                       PSI_08                 MORT_30_COPD 
+##                            4                            4 
+##                       PSI_12           per_white_non_hisp 
+##                            2                            1 
+##                       PSI_11                       PSI_03 
+##                            1                            1 
+##                       PSI_13                       PSI_06 
+##                            1                            1 
+##                   median_age 
+##                            1 
+## 
+## Node number 1: 435 observations,    complexity param=0.2159091
+##   predicted class=0  expected loss=0.4045977  P(node) =1
+##     class counts:   259   176
+##    probabilities: 0.595 0.405 
+##   left son=2 (357 obs) right son=3 (78 obs)
+##   Primary splits:
+##       med_inc_15plus_12mo          < 42399   to the left,  improve=21.84362, (0 missing)
+##       MORT_30_CABG                 < 2.55    to the right, improve=20.61733, (0 missing)
+##       per_below_poverty            < 9.85    to the right, improve=19.58131, (0 missing)
+##       per_college_grad_deg_25_plus < 53.2    to the left,  improve=18.37457, (0 missing)
+##       MORT_30_PN                   < 15.55   to the right, improve=17.14647, (0 missing)
+##   Surrogate splits:
+##       per_college_grad_deg_25_plus < 55.8    to the left,  agree=0.913, adj=0.513, (0 split)
+##       per_below_poverty            < 6       to the right, agree=0.890, adj=0.385, (0 split)
+##       MORT_30_PN                   < 11.65   to the right, agree=0.834, adj=0.077, (0 split)
+##       MORT_30_STK                  < 9.4     to the right, agree=0.830, adj=0.051, (0 split)
+##       MORT_30_CABG                 < 1.65    to the right, agree=0.825, adj=0.026, (0 split)
+## 
+## Node number 2: 357 observations,    complexity param=0.0530303
+##   predicted class=0  expected loss=0.3305322  P(node) =0.8206897
+##     class counts:   239   118
+##    probabilities: 0.669 0.331 
+##   left son=4 (245 obs) right son=5 (112 obs)
+##   Primary splits:
+##       MORT_30_PN        < 15.55   to the right, improve=13.741340, (0 missing)
+##       MORT_30_AMI       < 10.85   to the right, improve= 9.780142, (0 missing)
+##       PSI_04            < 142.765 to the right, improve= 8.242553, (0 missing)
+##       COMP_HIP_KNEE     < 2.25    to the right, improve= 7.681943, (0 missing)
+##       per_below_poverty < 5.4     to the right, improve= 7.598181, (0 missing)
+##   Surrogate splits:
+##       MORT_30_HF   < 9.35    to the right, agree=0.776, adj=0.286, (0 split)
+##       PSI_08       < 0.035   to the right, agree=0.711, adj=0.080, (0 split)
+##       MORT_30_COPD < 7.45    to the right, agree=0.709, adj=0.071, (0 split)
+##       PSI_12       < 4.71    to the left,  agree=0.709, adj=0.071, (0 split)
+##       MORT_30_AMI  < 10.65   to the right, agree=0.706, adj=0.063, (0 split)
+## 
+## Node number 3: 78 observations,    complexity param=0.02556818
+##   predicted class=1  expected loss=0.2564103  P(node) =0.1793103
+##     class counts:    20    58
+##    probabilities: 0.256 0.744 
+##   left son=6 (34 obs) right son=7 (44 obs)
+##   Primary splits:
+##       MORT_30_CABG       < 2.55    to the right, improve=5.529686, (0 missing)
+##       PSI_14             < 0.635   to the right, improve=2.858344, (0 missing)
+##       COMP_HIP_KNEE      < 2.15    to the right, improve=2.822955, (0 missing)
+##       per_white_non_hisp < 59.7    to the left,  improve=2.776923, (0 missing)
+##       PSI_04             < 140.215 to the right, improve=2.436525, (0 missing)
+##   Surrogate splits:
+##       per_white_non_hisp  < 70.55   to the left,  agree=0.641, adj=0.176, (0 split)
+##       med_inc_15plus_12mo < 47842   to the left,  agree=0.641, adj=0.176, (0 split)
+##       PSI_11              < 10.11   to the right, agree=0.641, adj=0.176, (0 split)
+##       median_age          < 44.2    to the left,  agree=0.628, adj=0.147, (0 split)
+##       MORT_30_PN          < 17.05   to the right, agree=0.615, adj=0.118, (0 split)
+## 
+## Node number 4: 245 observations,    complexity param=0.02272727
+##   predicted class=0  expected loss=0.2367347  P(node) =0.5632184
+##     class counts:   187    58
+##    probabilities: 0.763 0.237 
+##   left son=8 (233 obs) right son=9 (12 obs)
+##   Primary splits:
+##       MORT_30_AMI   < 10.85   to the right, improve=4.664670, (0 missing)
+##       PSI_12        < 3.115   to the right, improve=4.544796, (0 missing)
+##       PSI_04        < 142.805 to the right, improve=4.328584, (0 missing)
+##       PSI_90        < 0.795   to the right, improve=4.082195, (0 missing)
+##       census_region splits as  RLLL,        improve=3.753300, (0 missing)
+## 
+## Node number 5: 112 observations,    complexity param=0.0530303
+##   predicted class=1  expected loss=0.4642857  P(node) =0.2574713
+##     class counts:    52    60
+##    probabilities: 0.464 0.536 
+##   left son=10 (87 obs) right son=11 (25 obs)
+##   Primary splits:
+##       MORT_30_STK   < 11.75   to the right, improve=5.959803, (0 missing)
+##       PSI_04        < 129.91  to the right, improve=5.959803, (0 missing)
+##       COMP_HIP_KNEE < 2.05    to the right, improve=5.184996, (0 missing)
+##       PSI_90        < 0.935   to the right, improve=5.119070, (0 missing)
+##       PSI_12        < 3.945   to the right, improve=4.464286, (0 missing)
+##   Surrogate splits:
+##       PSI_03       < 0.025   to the right, agree=0.812, adj=0.16, (0 split)
+##       PSI_13       < 2.68    to the right, agree=0.812, adj=0.16, (0 split)
+##       MORT_30_COPD < 6.85    to the right, agree=0.795, adj=0.08, (0 split)
+##       PSI_04       < 105.16  to the right, agree=0.795, adj=0.08, (0 split)
+##       PSI_12       < 2.275   to the right, agree=0.795, adj=0.08, (0 split)
+## 
+## Node number 6: 34 observations,    complexity param=0.02556818
+##   predicted class=1  expected loss=0.4705882  P(node) =0.07816092
+##     class counts:    16    18
+##    probabilities: 0.471 0.529 
+##   left son=12 (21 obs) right son=13 (13 obs)
+##   Primary splits:
+##       MORT_30_PN         < 15.45   to the right, improve=6.523594, (0 missing)
+##       COMP_HIP_KNEE      < 1.95    to the right, improve=3.891176, (0 missing)
+##       PSI_14             < 0.72    to the right, improve=3.764706, (0 missing)
+##       PSI_04             < 149.885 to the right, improve=3.421946, (0 missing)
+##       per_white_non_hisp < 76.9    to the left,  improve=1.804813, (0 missing)
+##   Surrogate splits:
+##       PSI_08        < 0.045   to the right, agree=0.794, adj=0.462, (0 split)
+##       MORT_30_COPD  < 6.85    to the right, agree=0.765, adj=0.385, (0 split)
+##       COMP_HIP_KNEE < 1.85    to the right, agree=0.706, adj=0.231, (0 split)
+##       MORT_30_HF    < 10.55   to the right, agree=0.706, adj=0.231, (0 split)
+##       MORT_30_STK   < 11.05   to the right, agree=0.706, adj=0.231, (0 split)
+## 
+## Node number 7: 44 observations
+##   predicted class=1  expected loss=0.09090909  P(node) =0.1011494
+##     class counts:     4    40
+##    probabilities: 0.091 0.909 
+## 
+## Node number 8: 233 observations
+##   predicted class=0  expected loss=0.2145923  P(node) =0.5356322
+##     class counts:   183    50
+##    probabilities: 0.785 0.215 
+## 
+## Node number 9: 12 observations
+##   predicted class=1  expected loss=0.3333333  P(node) =0.02758621
+##     class counts:     4     8
+##    probabilities: 0.333 0.667 
+## 
+## Node number 10: 87 observations,    complexity param=0.0530303
+##   predicted class=0  expected loss=0.4482759  P(node) =0.2
+##     class counts:    48    39
+##    probabilities: 0.552 0.448 
+##   left son=20 (70 obs) right son=21 (17 obs)
+##   Primary splits:
+##       PSI_04             < 129.765 to the right, improve=5.950449, (0 missing)
+##       COMP_HIP_KNEE      < 2.05    to the right, improve=5.445738, (0 missing)
+##       census_region      splits as  RLRR,        improve=4.215356, (0 missing)
+##       PSI_12             < 3.84    to the right, improve=4.001149, (0 missing)
+##       per_white_non_hisp < 61.75   to the left,  improve=3.947944, (0 missing)
+##   Surrogate splits:
+##       MORT_30_PN   < 11.6    to the right, agree=0.828, adj=0.118, (0 split)
+##       MORT_30_AMI  < 10.25   to the right, agree=0.816, adj=0.059, (0 split)
+##       MORT_30_COPD < 11.75   to the left,  agree=0.816, adj=0.059, (0 split)
+##       PSI_08       < 0.145   to the left,  agree=0.816, adj=0.059, (0 split)
+##       PSI_90       < 0.75    to the right, agree=0.816, adj=0.059, (0 split)
+## 
+## Node number 11: 25 observations
+##   predicted class=1  expected loss=0.16  P(node) =0.05747126
+##     class counts:     4    21
+##    probabilities: 0.160 0.840 
+## 
+## Node number 12: 21 observations
+##   predicted class=0  expected loss=0.2857143  P(node) =0.04827586
+##     class counts:    15     6
+##    probabilities: 0.714 0.286 
+## 
+## Node number 13: 13 observations
+##   predicted class=1  expected loss=0.07692308  P(node) =0.02988506
+##     class counts:     1    12
+##    probabilities: 0.077 0.923 
+## 
+## Node number 20: 70 observations,    complexity param=0.03409091
+##   predicted class=0  expected loss=0.3571429  P(node) =0.1609195
+##     class counts:    45    25
+##    probabilities: 0.643 0.357 
+##   left son=40 (60 obs) right son=41 (10 obs)
+##   Primary splits:
+##       COMP_HIP_KNEE < 1.95    to the right, improve=4.576190, (0 missing)
+##       PSI_12        < 3.945   to the right, improve=3.127706, (0 missing)
+##       PSI_09        < 2.42    to the left,  improve=2.812832, (0 missing)
+##       MORT_30_HF    < 12.45   to the left,  improve=2.742857, (0 missing)
+##       MORT_30_STK   < 13.95   to the right, improve=2.650104, (0 missing)
+##   Surrogate splits:
+##       MORT_30_HF < 12.45   to the left,  agree=0.886, adj=0.2, (0 split)
+##       PSI_06     < 0.285   to the left,  agree=0.886, adj=0.2, (0 split)
+##       PSI_12     < 2.325   to the right, agree=0.871, adj=0.1, (0 split)
+## 
+## Node number 21: 17 observations
+##   predicted class=1  expected loss=0.1764706  P(node) =0.03908046
+##     class counts:     3    14
+##    probabilities: 0.176 0.824 
+## 
+## Node number 40: 60 observations
+##   predicted class=0  expected loss=0.2833333  P(node) =0.137931
+##     class counts:    43    17
+##    probabilities: 0.717 0.283 
+## 
+## Node number 41: 10 observations
+##   predicted class=1  expected loss=0.2  P(node) =0.02298851
+##     class counts:     2     8
+##    probabilities: 0.200 0.800
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plotcp}\NormalTok{(tree)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-35-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Confusion matrix {-}train}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(tree, train\_tree, }\AttributeTok{type =} \StringTok{\textquotesingle{}class\textquotesingle{}}\NormalTok{)}
+\FunctionTok{confusionMatrix}\NormalTok{(p, train\_tree}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating, }\AttributeTok{positive =} \StringTok{\textquotesingle{}1\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 241  73
+##          1  18 103
+##                                           
+##                Accuracy : 0.7908          
+##                  95% CI : (0.7495, 0.8281)
+##     No Information Rate : 0.5954          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.5429          
+##                                           
+##  Mcnemar's Test P-Value : 1.507e-08       
+##                                           
+##             Sensitivity : 0.5852          
+##             Specificity : 0.9305          
+##          Pos Pred Value : 0.8512          
+##          Neg Pred Value : 0.7675          
+##              Prevalence : 0.4046          
+##          Detection Rate : 0.2368          
+##    Detection Prevalence : 0.2782          
+##       Balanced Accuracy : 0.7579          
+##                                           
+##        'Positive' Class : 1               
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Confusion matrix {-}train}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(tree, test\_tree, }\AttributeTok{type =} \StringTok{\textquotesingle{}class\textquotesingle{}}\NormalTok{)}
+\FunctionTok{confusionMatrix}\NormalTok{(p, test\_tree}\SpecialCharTok{$}\NormalTok{hosp\_overall\_rating, }\AttributeTok{positive =} \StringTok{\textquotesingle{}1\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 146  66
+##          1  30  60
+##                                           
+##                Accuracy : 0.6821          
+##                  95% CI : (0.6263, 0.7343)
+##     No Information Rate : 0.5828          
+##     P-Value [Acc > NIR] : 0.0002417       
+##                                           
+##                   Kappa : 0.3187          
+##                                           
+##  Mcnemar's Test P-Value : 0.0003540       
+##                                           
+##             Sensitivity : 0.4762          
+##             Specificity : 0.8295          
+##          Pos Pred Value : 0.6667          
+##          Neg Pred Value : 0.6887          
+##              Prevalence : 0.4172          
+##          Detection Rate : 0.1987          
+##    Detection Prevalence : 0.2980          
+##       Balanced Accuracy : 0.6529          
+##                                           
+##        'Positive' Class : 1               
+## 
+\end{verbatim}
+
+\hypertarget{bagging}{%
+\subsection{Bagging}\label{bagging}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{require}\NormalTok{(caret)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{cvcontrol }\OtherTok{\textless{}{-}} \FunctionTok{trainControl}\NormalTok{(}\AttributeTok{method=}\StringTok{"repeatedcv"}\NormalTok{, }
+                          \AttributeTok{number =} \DecValTok{5}\NormalTok{, }\CommentTok{\#split 5 times}
+                          \AttributeTok{repeats =} \DecValTok{2}\NormalTok{, }\CommentTok{\#repeat 2 times}
+                          \AttributeTok{allowParallel=}\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{bag }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+             \AttributeTok{data=}\NormalTok{train\_tree,}
+             \AttributeTok{method=}\StringTok{"treebag"}\NormalTok{,}
+             \AttributeTok{trControl=}\NormalTok{cvcontrol,}\CommentTok{\#implement yourtrain control method from above}
+             \AttributeTok{importance=}\ConstantTok{TRUE}\NormalTok{)}\CommentTok{\# if you want the importance plot}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{varImp}\NormalTok{(bag))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bag\_import }\OtherTok{\textless{}{-}} \FunctionTok{varImp}\NormalTok{(bag)}
+
+\NormalTok{bag\_import}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## treebag variable importance
+## 
+##   only 20 most important variables shown (out of 27)
+## 
+##                              Overall
+## per_below_poverty             100.00
+## per_college_grad_deg_25_plus   88.04
+## med_inc_15plus_12mo            85.18
+## MORT_30_PN                     75.76
+## MORT_30_CABG                   74.67
+## PSI_04                         61.68
+## per_white_non_hisp             55.68
+## COMP_HIP_KNEE                  50.60
+## MORT_30_AMI                    47.41
+## PSI_90                         46.43
+## MORT_30_STK                    42.56
+## median_age                     42.35
+## PSI_03                         37.28
+## PSI_15                         35.97
+## MORT_30_HF                     35.27
+## PSI_12                         34.84
+## PSI_11                         31.54
+## MORT_30_COPD                   30.49
+## PSI_14                         25.95
+## PSI_09                         23.74
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bag}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Bagged CART 
+## 
+## 435 samples
+##  25 predictor
+##   2 classes: '0', '1' 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold, repeated 2 times) 
+## Summary of sample sizes: 347, 349, 348, 348, 348, 348, ... 
+## Resampling results:
+## 
+##   Accuracy   Kappa    
+##   0.7080846  0.3822817
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Confusion matrix {-}train {-} BAGGING}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(bag, train\_tree, }\AttributeTok{type =} \StringTok{\textquotesingle{}prob\textquotesingle{}}\NormalTok{)}
+\CommentTok{\#p \textless{}{-} p[,2]}
+\CommentTok{\#p \textless{}{-} ifelse(p\textgreater{}0.5,1,0)}
+
+\CommentTok{\#confusionMatrix(p, train\_tree$hosp\_overall\_rating, positive = \textquotesingle{}1\textquotesingle{})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Random Forest}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{) }
+\CommentTok{\#train is from caret data set and it makes it easy}
+\NormalTok{forest }\OtherTok{\textless{}{-}} \FunctionTok{train}\NormalTok{(hosp\_overall\_rating }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }
+             \AttributeTok{data=}\NormalTok{train\_tree,}
+             \AttributeTok{method=}\StringTok{"rf"}\NormalTok{,}
+             \AttributeTok{trControl=}\NormalTok{cvcontrol,}
+             \AttributeTok{importance=}\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{varImp}\NormalTok{(forest))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_Code_files/figure-latex/unnamed-chunk-42-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rf\_import }\OtherTok{\textless{}{-}} \FunctionTok{varImp}\NormalTok{(forest)}
+
+\NormalTok{rf\_import}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## rf variable importance
+## 
+##   only 20 most important variables shown (out of 27)
+## 
+##                              Importance
+## MORT_30_PN                       100.00
+## per_below_poverty                 92.91
+## PSI_04                            85.26
+## MORT_30_CABG                      83.10
+## med_inc_15plus_12mo               81.26
+## per_college_grad_deg_25_plus      78.78
+## PSI_90                            69.01
+## per_white_non_hisp                64.26
+## COMP_HIP_KNEE                     63.12
+## MORT_30_AMI                       59.61
+## MORT_30_HF                        50.82
+## MORT_30_STK                       46.20
+## PSI_15                            45.87
+## PSI_03                            43.17
+## PSI_11                            40.21
+## median_age                        39.27
+## PSI_12                            33.55
+## census_regionSouth                29.25
+## PSI_10                            27.52
+## PSI_09                            24.75
+\end{verbatim}
+
+\end{document}
