@@ -19,7 +19,8 @@ library(dplyr)
 library(ggplot2)
 library(psych)
 library(gridExtra)
-
+library(MASS)
+library(car)
 
 ```
 
@@ -80,70 +81,198 @@ data$census_division <- as.factor(data$census_division)
 #str(data)
 #View(data)
 ```
+```{r,warning=FALSE}
+for.ggplot <- data %>%  filter(!is.na(hosp_overall_rating) &  census_region != "#N/A")  %>% group_by(census_region, hosp_overall_rating) %>% summarize(count.hist = n())   
 
+for.ggplot %>% ggplot(aes(x = hosp_overall_rating, y=count.hist,  fill = census_region)) +
+  geom_col(position = "dodge")
+
+```
+
+```{r, warning=FALSE}
+# best and worst hospital in the  sensu_region 
+
+d.best.hp <-  data %>%  dplyr::select(4:5,8:17) %>%
+          filter(!is.na(census_region)) %>%
+          filter(census_region != "#N/A") %>%
+          filter(!is.na(hosp_overall_rating)) %>%
+          filter(hosp_overall_rating >= 3)
+d.wort.hp <-  data %>%  dplyr::select(4:5,8:17) %>%
+          filter(!is.na(census_region)) %>%
+          filter(census_region != "#N/A") %>%
+          filter(!is.na(hosp_overall_rating)) %>%
+          filter(hosp_overall_rating < 3)
+
+
+par(mfrow=c(2, 3))
+d.best.hp  %>% filter(census_region == 'Midwest') %>%
+  ggplot(aes(x=state,y=hosp_overall_rating), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: MidWest') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+d.best.hp  %>% filter(census_region == 'South') %>%
+  ggplot(aes(x=state,y=hosp_overall_rating), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: South') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+d.best.hp  %>% filter(census_region == 'West') %>%
+  ggplot(aes(x=state,y=hosp_overall_rating), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: West') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+
+d.wort.hp  %>% filter(census_region == 'Midwest') %>%
+  ggplot(aes(x=state,y=hosp_overall_rating), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: MidWest') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+d.wort.hp  %>% filter(census_region == 'South') %>%
+  ggplot(aes(x=state,y=hosp_overall_rating), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: South') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+d.wort.hp  %>% filter(census_region == 'West') %>%
+  ggplot(aes(x=state,y=hosp_overall_rating), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: West') + 
+  ylab('Hospital Overall Rating') + xlab("Census Region")
+
+par(mfrow=c(2, 3))
+d.best.hp  %>% filter(census_region == 'Midwest') %>%
+  ggplot(aes(x=state,y=per_below_poverty), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: MidWest') + 
+  ylab('Below Poverty') + xlab("Census Region")
+
+d.best.hp  %>% filter(census_region == 'South') %>%
+  ggplot(aes(x=state,y=per_below_poverty), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: South') + 
+  ylab('Below Poverty') + xlab("Census Region")
+
+d.best.hp  %>% filter(census_region == 'West') %>%
+  ggplot(aes(x=state,y=per_below_poverty), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: West') + 
+  ylab('Below Poverty') + xlab("Census Region")
+
+
+d.wort.hp  %>% filter(census_region == 'Midwest') %>%
+  ggplot(aes(x=state,y=per_below_poverty), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: MidWest') + 
+  ylab('Below Poverty') + xlab("Census Region")
+
+d.wort.hp  %>% filter(census_region == 'South') %>%
+  ggplot(aes(x=state,y=per_below_poverty), fill= census_region) +
+  geom_boxplot(show.legend = T)  + 
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: South') + 
+  ylab('Below Poverty') + xlab("Census Region")
+
+d.wort.hp  %>% filter(census_region == 'West' & !is.na(per_below_poverty)) %>%
+  ggplot(aes(x=state,y=per_below_poverty), fill= census_region) +
+  geom_boxplot(show.legend = T) +
+  ggtitle('Hospital Overall Rating >= 3 by Census Region: West') + 
+  ylab('Below Poverty') + xlab("Census Region")
+
+
+```
+
+```{r,warning=FALSE}
+
+#histograms Mort_30_PN  by overall star rating
+
+data  %>% filter(!is.na(hosp_overall_rating)) %>%
+  ggplot(aes(x=MORT_30_PN, fill = hosp_overall_rating))+
+  geom_histogram(show.legend = F, binwidth = 1) +
+  facet_wrap(~hosp_overall_rating)
+
+```
+```{r, warning=FALSE}
+
+#Overall Mean:
+PH <- mean(data[,23],na.rm=TRUE)
+
+#Generate Plot
+data %>% ggplot(aes(data[,23], fill=as.factor(hosp_overall_rating)))+
+  geom_histogram(position = "identity",show.legend = T, alpha = 0.4, bins = 50) +
+  ggtitle(colnames(data)[23]) + 
+  xlab(colnames(data)[23]) + ylab("Count")+
+  geom_vline(xintercept=PH)
+```
 ```{r}
+# regression analysis  for  Mort_30_PN
 
+pn_data <- data %>%  
+   dplyr::select(4:5,8:17,23) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter( !is.na(MORT_30_PN))  %>%  #Remove NAs from measure
+  filter(census_region != '#N/A') %>%
+  filter(!is.na(per_college_grad_deg_25_plus))  %>%
+  filter (!is.na(per_below_poverty))  %>%
+  filter(!is.na(med_inc_15plus_12mo))  %>%
+  filter (!is.na(per_white_non_hisp)) 
 
-##Overall Star Ratings by Census Region/Division- Note regional disparities in healthcare, especially within the south. Overall Star Ratings by State  
+# treat overall rating as a factor  
+pn_data$hosp_overall_rating <- as.factor(pn_data$hosp_overall_rating)
 
+set.seed(1234)
 
-data %>% filter(!is.na(hosp_overall_rating)) %>%  group_by(census_region) %>%  
-summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
+Mod <- lm (MORT_30_PN ~ census_region +per_college_grad_deg_25_plus + per_below_poverty + med_inc_15plus_12mo + per_white_non_hisp, pn_data)
 
+summary(Mod)
 
-data %>%  filter(!is.na(hosp_overall_rating)) %>%  group_by(census_region) %>%   
-  ggplot(aes(x = census_region, y = hosp_overall_rating ,fill = census_region )) +
-  geom_col(show.legend = F) 
-
-## south 
-
-data %>% filter(!is.na(hosp_overall_rating) & census_region == 'South') %>%  group_by(state) %>%  
-summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
-
-
-data %>%  filter(!is.na(hosp_overall_rating) & census_region == 'South') %>%  group_by(state) %>%   
-  ggplot(aes(x = state, y = hosp_overall_rating, fill = census_region)) +
-  geom_col(show.legend = F) 
-  
-## west
-
-data %>% filter(!is.na(hosp_overall_rating) & census_region == 'West') %>%  group_by(state) %>%  
-summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
-
-
-data %>%  filter(!is.na(hosp_overall_rating) & census_region == 'West') %>%  group_by(state) %>%   
-  ggplot(aes(x = state, y = hosp_overall_rating, fill = census_region)) +
-  geom_col(show.legend = F) 
+#lm(formula = MORT_30_PN ~ per_white_non_hisp + census_region +  per_college_grad_deg_25_plus, data = pn_data)
 
 
 
-##concentrating on south region.  as most data is available
+```
 
-data %>% filter(!is.na(per_below_poverty) & census_region == 'South') %>%  group_by(state) %>%  
-summarise(AVG  = mean(per_below_poverty), SD = sd(per_below_poverty), Median = median(per_below_poverty), COUNT= n()) %>% arrange(desc(AVG)) 
-
-data %>%  filter(!is.na(per_below_poverty) & census_region == 'South') %>%  group_by(state) %>%   
-  ggplot(aes(x = state, y = per_below_poverty, fill = census_region)) +
-  geom_col(show.legend = F) 
+```{r, warning=FALSE}
+modaic <- stepAIC(Mod)
 
 
-## comparison of below poverty line  region  and hospital overall ratings.  Tx 
+```
+```{r, warning=TRUE}
+# based on  Lowest step AIC model 
 
-data %>%  filter(!is.na(hosp_overall_rating < 4) & state == 'TX' & hospital_type =='Acute Care Hospitals' & county == 'HARRIS') %>%  group_by(city) %>% 
-summarise(AVG  = mean(hosp_overall_rating), SD = sd(hosp_overall_rating), Median = median(hosp_overall_rating), COUNT= n()) %>% arrange(desc(AVG)) 
-
-data %>%  filter(!is.na(hosp_overall_rating < 4) & state == 'TX' & hospital_type =='Acute Care Hospitals' & county == 'HARRIS') %>%  group_by(city) %>%   
-  ggplot(aes(x = hosp_overall_rating , y = per_below_poverty, fill=hosp_overall_rating)) +
-  geom_col(show.legend = F) +
-  ggtitle('Acute Care Hospitals Below Poverty Line in Tx Harris County') 
+modf <- lm(MORT_30_PN ~ census_region + per_college_grad_deg_25_plus + per_below_poverty + 
+    per_white_non_hisp, pn_data)
+summary(modf)
 
 
-## Notes; need to show differential between to top most states in south  TX, LA in combination with per below poverty line,  show death rate, in acute hospitals accross two regions.
+```
 
+```{r, warning=FALSE}
+#After doing the summary of  suggestive setpAic model  per_below_poverty is not significant Remove it. 
 
+modf.1 <- lm(MORT_30_PN ~ census_region + per_college_grad_deg_25_plus  + per_white_non_hisp, pn_data)
+summary(modf.1)
 
+```
+```{r, warning=FALSE}
+ vif(modf.1)
 
+```
 
+```{r,warning=FALSE}
+# Analysis plots
+par(mfrow=c(2,2))
+plot(modf.1)
 
+```
+```{r, warning=False}
+pairs.panels(pn_data)
 
+```
+
+```{r, warning=FALSE}
+set.sel <- pn_data[,c(8:13)]
+
+cor.plot(set.sel)
 ```
