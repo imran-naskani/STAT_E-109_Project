@@ -23,6 +23,15 @@ library(PerformanceAnalytics)
 library(olsrr)
 library(caret)
 library(nnet)
+library(tree)
+library(DAAG)
+library(party)
+library(rpart)
+library(rpart.plot)
+library(mlbench)
+library(pROC)
+library(e1071)
+library(lime)
 ```
 
 ```{r, load}
@@ -639,5 +648,214 @@ multi.model.copd <- lm(MORT_30_COPD ~ census_region + per_white_non_hisp +
     med_inc_15plus_12mo, data = copd_data)
 summary(multi.model.copd)
 vif(multi.model.copd)
+
+```
+
+
+```{r,warning=FALSE}
+##---------Actual Code begins to create decision tree model -------------
+
+hf_data <- data %>%  
+  dplyr::select(10:11,13:36) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')   %>%  #Remove NAs from measure
+  filter(census_region != '#N/A')   
+
+hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
+
+
+hf_data_log <- hf_data
+
+#hf_data_log$hosp_overall_rating <- as.numeric(hf_data_log$hosp_overall_rating)
+hf_data_log[hf_data_log$hosp_overall_rating < 4,]$hosp_overall_rating <- 0
+hf_data_log[hf_data_log$hosp_overall_rating >= 4,]$hosp_overall_rating <- 1
+hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
+
+#table(hf_data_log$hosp_overall_rating)
+
+  # Separate into test/train  
+  set.seed(1234)
+  #data partitioning test/train
+  ind <- sample(2, nrow(hf_data_log), replace = T, prob=c(0.6,0.4))
+  train_tree <- hf_data_log[ind == 1,]
+  test_tree <- hf_data_log[ind ==2, ]
+```  
+  
+```{r,warning=FALSE}
+
+### Single Tree  
+tree <- rpart(hosp_overall_rating ~., data = train_tree)#, cp=0.001)
+rpart.plot(tree)
+summary(tree)
+plotcp(tree)
+
+# Confusion matrix -train
+p <- predict(tree, train_tree, type = 'class')
+confusionMatrix(p, train_tree$hosp_overall_rating, positive = '1')
+
+# Confusion matrix -test
+p <- predict(tree, test_tree, type = 'class')
+confusionMatrix(p, test_tree$hosp_overall_rating, positive = '1')
+
+p1 <- predict(tree, test_tree, type = 'prob')
+p1 <- p1[,2]
+r <- multiclass.roc(test_tree$hosp_overall_rating, p1, percent = TRUE)
+roc <- r[['rocs']]
+r1 <- roc[[1]]
+plot.roc(r1,
+         print.auc=TRUE, 
+         auc.polygon=TRUE, 
+         grid=c(0.1, 0.2),
+         grid.col=c("green", "red"), 
+         max.auc.polygon=TRUE,
+         auc.polygon.col="lightblue", 
+         print.thres=TRUE, 
+         main= 'ROC Curve')
+
+
+### Bagging 
+#require(caret)
+
+set.seed(1234)
+cvcontrol <- trainControl(method="repeatedcv", 
+                          number = 5, #split 5 times
+                          repeats = 2, #repeat 2 times
+                          allowParallel=TRUE)
+set.seed(1234)
+#preProc <- preProcess(train_tree,"corr")
+bag <- train(hosp_overall_rating ~ ., 
+             data=train_tree,
+             method="treebag",
+             #preProcOptions = preProc,
+             trControl=cvcontrol,#implement your train control method from above
+             importance=TRUE)# if you want the importance plot
+
+
+
+plot(varImp(bag))
+
+p1.bag <- predict(bag, train_tree, type = 'raw') 
+confusionMatrix(p1.bag, train_tree$hosp_overall_rating, positive = '1')
+
+
+p2.bag <- predict(bag, test_tree, type = 'raw') 
+confusionMatrix(p2.bag, test_tree$hosp_overall_rating, positive = '1')
+
+
+
+
+### Random Forest
+
+# Random Forest
+set.seed(1234)
+cvcontrol <- trainControl(method="repeatedcv", 
+                          number = 5, #split 5 times
+                          repeats = 2, #repeat 2 times
+                          allowParallel=TRUE)
+
+set.seed(1234) 
+forest <- train(hosp_overall_rating ~ ., 
+             data=train_tree,
+             method="rf",
+             trControl=cvcontrol,
+             importance=TRUE)
+plot(varImp(forest))
+
+p1.rf <- predict(forest, train_tree, type = 'raw', positive = '1')
+confusionMatrix(p1.rf, train_tree$hosp_overall_rating)
+
+p2.rf <- predict(forest, test_tree, type = 'raw')
+confusionMatrix(p2.rf, test_tree$hosp_overall_rating, positive = '1')
+
+
+```
+
+```{r,warning=FALSE}
+### Random Forest with Multinomial
+
+
+hf_data <- data %>%  
+  dplyr::select(10:11,13:36) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')   %>%  #Remove NAs from measure
+  filter(census_region != '#N/A')   
+
+hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
+hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
+
+  # Separate into test/train  
+#set.seed(1234)
+  #data partitioning test/train
+  ind <- sample(2, nrow(hf_data), replace = T, prob=c(0.5,0.5))
+  train_tree <- hf_data[ind == 1,]
+  test_tree <- hf_data[ind ==2, ]
+  
+#set.seed(1234)
+cvcontrol <- trainControl(method="repeatedcv", 
+                          number = 5, #split 5 times
+                          repeats = 1, #repeat 2 times
+                          allowParallel=TRUE)
+
+#set.seed(1234)
+forest <- train(hosp_overall_rating ~ ., 
+                data=train_tree,
+                method="rf",
+                trControl=cvcontrol,
+                importance=TRUE)
+plot(varImp(forest))
+
+
+p1.rf <- predict(forest, train_tree, type = 'raw')
+confusionMatrix(p1.rf, train_tree$hosp_overall_rating)
+
+p2.rf <- predict(forest, test_tree, type = 'raw')
+confusionMatrix(p2.rf, test_tree$hosp_overall_rating)
+
+```
+
+
+
+
+```{r,warning=FALSE}
+### Boosting with Multinomial
+
+
+hf_data <- data %>%  
+  dplyr::select(10:11,13:36) %>% #Narrow to features to use in the model (plus one quality measure)
+  filter(hosp_overall_rating != 'NA') %>% #remove NAs
+  filter(MORT_30_HF != 'NA')   %>%  #Remove NAs from measure
+  filter(census_region != '#N/A')   
+
+hf_data <- hf_data[complete.cases(hf_data),] #Only complete cases
+hf_data$hosp_overall_rating <- as.factor(hf_data$hosp_overall_rating)
+
+  # Separate into test/train  
+#set.seed(1234)
+  #data partitioning test/train
+  ind <- sample(2, nrow(hf_data), replace = T, prob=c(0.8,0.2))
+  train_tree <- hf_data[ind == 1,]
+  test_tree <- hf_data[ind ==2, ]
+  
+
+#set.seed(1234)
+
+boo <- train(hosp_overall_rating ~ ., 
+             data=train_tree,
+             method="xgbTree",   
+             trControl=cvcontrol,
+             tuneGrid = expand.grid(nrounds = 500,
+                                    max_depth = 4,
+                                    eta = 0.28,
+                                    gamma = 1.8,
+                                    colsample_bytree = 1,
+                                    min_child_weight = 1,
+                                    subsample = 1))
+plot(varImp(boo))
+
+p1.boo <- predict(boo, train_tree, type = 'raw')
+confusionMatrix(p1.boo, train_tree$hosp_overall_rating)
+
+p2.boo <- predict(boo, test_tree, type = 'raw')
+confusionMatrix(p2.boo, test_tree$hosp_overall_rating)
 
 ```
