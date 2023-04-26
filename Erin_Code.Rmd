@@ -910,7 +910,7 @@ coef(summary(mod_modf))[, "Pr(>|t|)"]
 
 ```
 
-## Regression for Heart Failure
+C
 
 ```{r}
 
