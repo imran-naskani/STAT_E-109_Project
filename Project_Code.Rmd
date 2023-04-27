@@ -521,8 +521,18 @@ summary(mod_modf)
 ```
 
 ```{r}
+#Median age not significant so remove it
+mod_modff <- lm(PSI_90~per_white_non_hisp+per_college_grad_deg_25_plus+census_region,mod_data)
+
+summary(mod_modff)
+
+```
+
+
+
+```{r}
 #VIF for PSI_90 
-vif(mod_modf)
+vif(mod_modff)
 
 ```
 
@@ -564,16 +574,59 @@ vif(multi.model.hf)
 ## Regression for Pneumonia
 
 ```{r}
-
-#Data cleaning -> MORT_30_PN - > 30 Day pneumonia death rate
+# regression analysis  for  Mort_30_PN
 
 pn_data <- data %>%  
-  dplyr::select(4:5,8:17,23) %>% #Narrow to features to use in the model (plus one quality measure)
+   dplyr::select(4:5,8:17,23) %>% #Narrow to features to use in the model (plus one quality measure)
   filter(hosp_overall_rating != 'NA') %>% #remove NAs
-  filter(MORT_30_PN != 'NA')  #Remove NAs from measure
+  filter( !is.na(MORT_30_PN))  %>%  #Remove NAs from measure
+  filter(census_region != '#N/A') %>%
+  filter(!is.na(per_college_grad_deg_25_plus))  %>%
+  filter (!is.na(per_below_poverty))  %>%
+  filter(!is.na(med_inc_15plus_12mo))  %>%
+  filter (!is.na(per_white_non_hisp)) 
 
 # treat overall rating as a factor  
 pn_data$hosp_overall_rating <- as.factor(pn_data$hosp_overall_rating)
+
+set.seed(1234)
+
+Mod <- lm (MORT_30_PN ~ census_region +per_college_grad_deg_25_plus + per_below_poverty + med_inc_15plus_12mo + per_white_non_hisp, pn_data)
+
+summary(Mod)
+
+#lm(formula = MORT_30_PN ~ per_white_non_hisp + census_region +  per_college_grad_deg_25_plus, data = pn_data)
+```
+```{r}
+
+#Step AIC for model
+modaic <- stepAIC(Mod)
+
+```
+
+```{r, warning=TRUE}
+# based on  Lowest step AIC model 
+
+modf <- lm(MORT_30_PN ~ census_region + per_college_grad_deg_25_plus + per_below_poverty + 
+    per_white_non_hisp, pn_data)
+summary(modf)
+
+
+```
+```{r, warning=FALSE}
+#After doing the summary of  suggestive setpAic model  per_below_poverty is not significant
+# at 95+ CI, Remove it. 
+
+modf.1 <- lm(MORT_30_PN ~ census_region + per_college_grad_deg_25_plus  + per_white_non_hisp, pn_data)
+summary(modf.1)
+vif(modf.1)
+
+
+```
+```{r,warning=FALSE}
+# Analysis plots
+par(mfrow=c(2,2))
+plot(modf.1)
 
 ```
 
@@ -605,7 +658,14 @@ vif(multi.model.copd)
 
 
 ```
+
+
+
+
+
 ```{r}
+
+#Calculate sample counts for each model
 nrow(mod_data)
 nrow(copd_data)
 nrow(pn_data)
@@ -750,6 +810,7 @@ summary(tree)
 ```
 
 ```{r}
+#Initial Plot of CP values for larger tree size
 plotcp(tree)
 ```
 ```{r}
@@ -795,14 +856,12 @@ bag_import
 bag
 ```
 ```{r}
-# Confusion matrix -train - BAGGING
-p <- predict(bag, train_tree, type = 'prob')
+# Confusion matrix -TRAIN - BAGGING
+p <- predict(bag, train_tree, type = 'raw')
 #p <- p[,2]
 #p <- ifelse(p>0.5,1,0)
 
-#confusionMatrix(p, train_tree$hosp_overall_rating, positive = '1')
-
-
+confusionMatrix(p, train_tree$hosp_overall_rating, positive = '1')
 
 ```
 
