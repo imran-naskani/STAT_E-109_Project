@@ -653,7 +653,9 @@ vif(multi.model.copd)
 
 
 ```{r,warning=FALSE}
-##---------Actual Code begins to create decision tree model -------------
+##---------Actual Code begins to create decision tree model (For Max to use 1/2) -------------
+##---------------- Run the first three code section add the top to add the libraries, load data and set up the data type for columns ------- 
+## ---------------------- This section is to split the data into train and test --------------
 
 hf_data <- data %>%  
   dplyr::select(10:11,13:36) %>% #Narrow to features to use in the model (plus one quality measure)
@@ -682,6 +684,9 @@ hf_data_log$hosp_overall_rating <- as.factor(hf_data_log$hosp_overall_rating)
 ```  
   
 ```{r,warning=FALSE}
+##---------Actual Code begins to create decision tree model (For Max to use 2/2) -------------
+##--------- This section is actual model creation and confusion matrix for single tree, bagging, random forest and boosting methods-------------
+##------------For Boosting method, parameter values are taken from the lecture, no effort was made to optimize to values ----------
 
 ### Single Tree  
 tree <- rpart(hosp_overall_rating ~., data = train_tree)#, cp=0.001)
@@ -714,7 +719,7 @@ plot.roc(r1,
 
 
 ### Bagging 
-#require(caret)
+#require(caret) 
 
 set.seed(1234)
 cvcontrol <- trainControl(method="repeatedcv", 
@@ -766,6 +771,34 @@ confusionMatrix(p1.rf, train_tree$hosp_overall_rating)
 
 p2.rf <- predict(forest, test_tree, type = 'raw')
 confusionMatrix(p2.rf, test_tree$hosp_overall_rating, positive = '1')
+
+
+### Boosting 
+set.seed(1234)
+cvcontrol <- trainControl(method="repeatedcv", 
+                          number = 5, #split 5 times
+                          repeats = 2, #repeat 2 times
+                          allowParallel=TRUE)
+set.seed(1234)
+boo <- train(hosp_overall_rating ~ ., 
+             data=train_tree,
+             method="xgbTree",   
+             trControl=cvcontrol,
+             tuneGrid = expand.grid(nrounds = 500,
+                                    max_depth = 4,
+                                    eta = 0.28,
+                                    gamma = 1.8,
+                                    colsample_bytree = 1,
+                                    min_child_weight = 1,
+                                    subsample = 1))
+plot(varImp(boo))
+
+p1.boo <- predict(boo, train_tree, type = 'raw')
+confusionMatrix(p1.boo, train_tree$hosp_overall_rating)
+
+p2.boo <- predict(boo, test_tree, type = 'raw')
+confusionMatrix(p2.boo, test_tree$hosp_overall_rating)
+
 
 
 ```
